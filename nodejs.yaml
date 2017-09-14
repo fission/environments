@@ -1,0 +1,16 @@
+apiVersion: fission.io/v1
+kind: Environment
+metadata:
+  name: nodejs
+  namespace: default
+spec:
+  version: 1
+  runtime:
+    functionendpointport: 0
+    image: fission/node-env:v0.2.1
+    loadendpointpath: ""
+    loadendpointport: 0
+  builder:
+    command: ""
+    image: ""
+  documentationurl: ""

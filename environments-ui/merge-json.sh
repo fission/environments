@@ -3,7 +3,7 @@
 
 echo "[" > temp.json
 
-for FILE in ../*; 
+for FILE in *; 
 do 
     if [ -f "$FILE/envconfig.json" ]; then
      ( cd "$FILE" &&  cat envconfig.json) >> temp.json

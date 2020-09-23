@@ -6,16 +6,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Grid from '@material-ui/core/Grid';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -76,13 +70,13 @@ export default function Environments() {
     };
     return (
         <div style={{
-            display : 'flex'
+            display: 'flex'
         }}>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <Typography variant="h6" noWrap>
-                        Clipped drawer
+                        Fission environments
           </Typography>
                 </Toolbar>
             </AppBar>
@@ -133,7 +127,7 @@ export default function Environments() {
                     environments.map(function (envs, index) {
                         const env = envs[0]
                         const value = env.name.split(' ')[0]
-                        if ( checked.indexOf('all') > -1 || checked.indexOf(value) > -1) {
+                        if (checked.indexOf('all') > -1 || checked.indexOf(value) > -1) {
                             return (
                                 <Grid item key={index}>
                                     <Card className={classes.root}>
@@ -144,7 +138,7 @@ export default function Environments() {
                                                     height: '100px',
                                                     paddingLeft: '5px',
                                                     paddingRight: '5px',
-                                                    paddingTop:'5px'
+                                                    paddingTop: '5px'
                                                 }}
                                                 component="img"
                                                 alt="Contemplative Reptile"
@@ -171,7 +165,8 @@ export default function Environments() {
                   </CardActions> */}
                                     </Card>
                                 </Grid>
-                            )}
+                            )
+                        }
                     })
                 }
                 </Grid>

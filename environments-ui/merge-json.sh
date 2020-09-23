@@ -13,4 +13,4 @@ done
 sed '$s/,$//' temp.json > ./src/resources/environments.json
 echo "]" >> ./src/resources/environments.json
 rm -rf temp.json
-#npm i && npm run build
+npm i && npm run build

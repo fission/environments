@@ -1,0 +1,51 @@
+{
+  "name": "fission-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/girishg4t/fission-ui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/girishg4t/fission-ui/issues"
+  },
+  "homepage": "https://github.com/girishg4t/fission-ui#readme",
+  "dependencies": {
+    "@material-ui/core": "^5.0.0-alpha.10",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^3.0.0-alpha.9",
+    "react": "^16.8.0-alpha.1",
+    "react-dom": "^16.8.0-alpha.1",
+    "react-scripts": "^2.1.3"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^8.1.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "bable-loader": "0.0.1-security",
+    "body-parser": "^1.19.0",
+    "css-loader": "^0.28.9",
+    "express": "^4.17.1",
+    "react-hot-loader": "^4.13.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

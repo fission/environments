@@ -1,0 +1,122 @@
+[
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.0.0", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Dotnet Environment",
+    "shortDescription": "It's a Docker image containing the dotnet 2.0.0 runtime. The image uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
+    "readme" : "https://github.com/fission/fission/tree/master/environments/dotnet20",
+    "examples" : "https://github.com/fission/fission/tree/master/environments/dotnet20",
+    "keywords": [
+        "logging"
+    ],
+    "icon":  "https://upload.wikimedia.org/wikipedia/commons/e/ee/.NET_Core_Logo.svg",
+    "maintainers": [
+        {
+            "name": "nestorsalceda",
+            "link": "https://github.com/nestorsalceda"
+        },
+        {
+            "name": "fedebarcelona",
+            "link": "https://github.com/tembleking"
+        }
+    ]
+}],
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.11.4", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Go Environment",
+    "shortDescription": "It's a Docker image containing a Go runtime, along with a dynamic loader.",
+    "readme" : "https://github.com/fission/fission/tree/master/environments/go",
+    "examples" : "https://github.com/fission/fission/tree/master/environments/go",
+    "keywords": [
+        "logging"
+    ],
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "nestorsalceda",
+            "link": "https://github.com/nestorsalceda"
+        },
+        {
+            "name": "fedebarcelona",
+            "link": "https://github.com/tembleking"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.13", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Go Environment",
+    "shortDescription": "It's a Docker image containing a Go runtime, along with a dynamic loader.",
+    "readme" : "https://github.com/fission/fission/tree/master/environments/go",
+    "examples" : "https://github.com/fission/fission/tree/master/environments/go",
+    "keywords": [
+        "logging"
+    ],
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "nestorsalceda",
+            "link": "https://github.com/nestorsalceda"
+        },
+        {
+            "name": "fedebarcelona",
+            "link": "https://github.com/tembleking"
+        }
+    ]
+}],
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.0.0", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Nodejs Environment",
+    "shortDescription": "It's a Docker image containing a NodeJS runtime, along with a dynamic loader.  A few common dependencies are included in the package.json file.",  
+    "readme" : "https://github.com/fission/fission/blob/master/environments/nodejs",
+    "examples" : "https://github.com/fission/fission/blob/master/environments/nodejs",
+    "keywords": [
+        "logging"
+    ],
+    "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "nestorsalceda",
+            "link": "https://github.com/nestorsalceda"
+        },
+        {
+            "name": "fedebarcelona",
+            "link": "https://github.com/tembleking"
+        }
+    ]
+}],
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.0.0", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Python Environment",
+    "shortDescription": "It's a Docker image containing a Python 3.5 runtime, along with a dynamic loader. A few common dependencies are included in the requirements.txt file.",
+    "readme" : "https://github.com/fission/fission/tree/master/environments/python",
+    "examples" : "https://github.com/fission/fission/tree/master/environments/python",
+    "keywords": [
+        "logging"
+    ],
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+    "maintainers": [
+        {
+            "name": "nestorsalceda",
+            "link": "https://github.com/nestorsalceda"
+        },
+        {
+            "name": "fedebarcelona",
+            "link": "https://github.com/tembleking"
+        }
+    ]
+}]
+]

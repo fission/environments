@@ -1,0 +1,24 @@
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.0.0", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Nodejs Environment",
+    "shortDescription": "It's a Docker image containing a NodeJS runtime, along with a dynamic loader.  A few common dependencies are included in the package.json file.",  
+    "readme" : "https://github.com/fission/fission/blob/master/environments/nodejs",
+    "examples" : "https://github.com/fission/fission/blob/master/environments/nodejs",
+    "keywords": [
+        "logging"
+    ],
+    "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "nestorsalceda",
+            "link": "https://github.com/nestorsalceda"
+        },
+        {
+            "name": "fedebarcelona",
+            "link": "https://github.com/tembleking"
+        }
+    ]
+}]

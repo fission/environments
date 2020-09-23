@@ -1,0 +1,24 @@
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.0.0", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Dotnet Environment",
+    "shortDescription": "It's a Docker image containing the dotnet 2.0.0 runtime. The image uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
+    "readme" : "https://github.com/fission/fission/tree/master/environments/dotnet20",
+    "examples" : "https://github.com/fission/fission/tree/master/environments/dotnet20",
+    "keywords": [
+        "logging"
+    ],
+    "icon":  "https://upload.wikimedia.org/wikipedia/commons/e/ee/.NET_Core_Logo.svg",
+    "maintainers": [
+        {
+            "name": "nestorsalceda",
+            "link": "https://github.com/nestorsalceda"
+        },
+        {
+            "name": "fedebarcelona",
+            "link": "https://github.com/tembleking"
+        }
+    ]
+}]

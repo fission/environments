@@ -1,0 +1,117 @@
+apiVersion: skaffold/v2beta4
+kind: Config
+# build:
+#   artifacts:
+#     - image: fission
+#       context: .
+#       docker:
+#         dockerfile: cmd/fission-bundle/Dockerfile.fission-bundle
+#     - image: fetcher
+#       docker:
+#         dockerfile: cmd/fetcher/Dockerfile.fission-fetcher
+#     - image: preupgradechecks
+#       docker:
+#         dockerfile: cmd/preupgradechecks/Dockerfile.fission-preupgradechecks
+
+deploy:
+  helm:
+    releases:
+      - name: fission
+        chartPath: "https://github.com/fission/fission/releases/download/1.11.0/fission-all-1.11.0.tgz"
+        namespace: fission
+        remote: true
+    flags:
+          install: ["--create-namespace"]
+profiles:
+  - name: dotnet
+    build:
+      artifacts:
+        - image: dotnet-env
+          context: dotnet/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: dotnet20
+    build:
+      artifacts:
+        - image: dotnet20-env
+          context: dotnet20/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: go
+    build:
+      artifacts:
+        - image: go-env
+          context: go/
+          docker:
+            dockerfile: Dockerfile-1.14
+
+  - name: jvm
+    build:
+      artifacts:
+        - image: jvm-env
+          context: jvm/
+          docker:
+            dockerfile: Dockerfile
+        - image: jvm-builder
+          context: jvm/builder/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: jvm-jersey
+    build:
+      artifacts:
+        - image: jvm-jersey-env
+          context: jvm-jersey/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: nodejs
+    build:
+      artifacts:
+        - image: nodejs-env
+          context: nodejs/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: perl
+    build:
+      artifacts:
+        - image: perl-env
+          context: perl/
+          docker:
+            dockerfile: Dockerfile
+
+
+  - name: php7
+    build:
+      artifacts:
+        - image: php7-env
+          context: php7/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: python
+    build:
+      artifacts:
+        - image: python-env
+          context: python/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: ruby
+    build:
+      artifacts:
+        - image: ruby-env
+          context: ruby/
+          docker:
+            dockerfile: Dockerfile
+
+  - name: 
+    build:
+      artifacts:
+        - image: tensorflow-serving-env
+          context: tensorflow-serving/
+          docker:
+            dockerfile: Dockerfile

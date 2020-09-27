@@ -1,0 +1,39 @@
+kind: ArchiveUploadSpec
+name: hello-rust
+include:
+- .
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: hello-rust-pkg
+  namespace: default
+spec:
+  environment:
+    name: rust
+    namespace: default
+  source:
+    type: url
+    url: archive://hello-rust
+status:
+  buildstatus: pending
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: hello-rust
+  namespace: default
+spec:
+  environment:
+    name: rust
+    namespace: default
+  functionTimeout: 60
+  package:
+    functionName: hello-world
+    packageref:
+      name: hello-rust-pkg
+      namespace: default

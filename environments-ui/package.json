@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/girishg4t/fission-ui.git"
+    "url": "git+https://github.com/fission/environments.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache License 2.0",
   "bugs": {
-    "url": "https://github.com/girishg4t/fission-ui/issues"
+    "url": "https://github.com/fission/environments/issues"
   },
-  "homepage": "https://github.com/girishg4t/fission-ui#readme",
+  "homepage": "https://github.com/fission/environments#readme",
   "dependencies": {
     "@material-ui/core": "^5.0.0-alpha.10",
     "@material-ui/icons": "^4.9.1",

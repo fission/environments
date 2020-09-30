@@ -91,7 +91,7 @@ export default function Environments() {
                 <div className={classes.drawerContainer}>
                     <List dense className={classes.checkBox}>
                         <ListItem key='all' button>
-                            <ListItemText id='all' primary={`Select all environment`} />
+                            <ListItemText id='all' primary={`All environments`} />
                             <ListItemSecondaryAction>
                                 <Checkbox
                                     edge="end"
@@ -106,7 +106,7 @@ export default function Environments() {
                             const labelId = `checkbox-list-secondary-label-${value}`;
                             return (
                                 <ListItem key={value} button>
-                                    <ListItemText id={labelId} primary={`Select ${value} environment`} />
+                                    <ListItemText id={labelId} primary={`${value} environment`} />
                                     <ListItemSecondaryAction>
                                         <Checkbox
                                             edge="end"
@@ -155,14 +155,6 @@ export default function Environments() {
                                                 </Typography>
                                             </CardContent>
                                         </CardActionArea>
-                                        {/* <CardActions>
-                    <Button size="small" color="primary">
-                      Share
-        </Button>
-                    <Button size="small" color="primary">
-                      Learn More
-        </Button>
-                  </CardActions> */}
                                     </Card>
                                 </Grid>
                             )

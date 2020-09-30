@@ -1,0 +1,235 @@
+[
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.1.0-runtime", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Dotnet Environment",
+    "shortDescription": "Fission Dotnet 2.0.0 runtime which uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
+    "readme" : "https://github.com/fission/environments/tree/master/dotnet",
+    "examples" : "https://github.com/fission/environments/tree/master/dotnet/examples",
+    "keywords": [],
+    "icon":  "https://raw.githubusercontent.com/dotnet/brand/master/logo/dotnet-logo.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}],
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.14", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Go Environment",
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.13", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Go Environment",
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "keywords": [],
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.12", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Go Environment",
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "keywords": [],
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.11.4", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Go Environment",
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "keywords": [],
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}],
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "8.0.0", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Nodejs Environment",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",  
+    "readme" : "https://github.com/fission/environments/tree/master/nodejs",
+    "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "keywords": [],
+    "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "12.16", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Nodejs Environment",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",  
+    "readme" : "https://github.com/fission/environments/tree/master/nodejs",
+    "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "keywords": [],
+    "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}],
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "3.0", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Python Environment",
+    "shortDescription": "Fission Python environment based on Flask framework.",
+    "readme" : "https://github.com/fission/environments/tree/master/python",
+    "examples" : "https://github.com/fission/environments/tree/master/python/examples",
+    "keywords": [],
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "2.7", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Python Environment",
+    "shortDescription": "Fission Python environment based on Flask framework.",
+    "readme" : "https://github.com/fission/environments/tree/master/python",
+    "examples" : "https://github.com/fission/environments/tree/master/python/examples",
+    "keywords": [],
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}]
+]

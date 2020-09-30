@@ -1,24 +1,26 @@
 [{
     "version": "1.0.0", 
-    "runtimeVersion" : "1.0.0", 
+    "runtimeVersion" : "1.1.0-runtime", 
     "kind": "environment", 
-    "status": "alpha", 
+    "status": "Stable", 
     "name": "Dotnet Environment",
-    "shortDescription": "It's a Docker image containing the dotnet 2.0.0 runtime. The image uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
-    "readme" : "https://github.com/fission/fission/tree/master/environments/dotnet20",
-    "examples" : "https://github.com/fission/fission/tree/master/environments/dotnet20",
-    "keywords": [
-        "logging"
-    ],
-    "icon":  "https://upload.wikimedia.org/wikipedia/commons/e/ee/.NET_Core_Logo.svg",
+    "shortDescription": "Fission Dotnet 1.1.0 runtime which uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
+    "readme" : "https://github.com/fission/environments/tree/master/dotnet",
+    "examples" : "https://github.com/fission/environments/tree/master/dotnet/examples",
+    "keywords": [],
+    "icon":  "https://raw.githubusercontent.com/dotnet/brand/master/logo/dotnet-logo.svg",
     "maintainers": [
         {
-            "name": "nestorsalceda",
-            "link": "https://github.com/nestorsalceda"
+            "name": "life1347",
+            "link": "https://github.com/life1347"
         },
         {
-            "name": "fedebarcelona",
-            "link": "https://github.com/tembleking"
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
         }
     ]
 }]

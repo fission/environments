@@ -1,24 +1,25 @@
 [{
     "version": "1.0.0", 
-    "runtimeVersion" : "1.11.4", 
+    "runtimeVersion" : "1.14", 
     "kind": "environment", 
-    "status": "alpha", 
+    "status": "Stable", 
     "name": "Go Environment",
-    "shortDescription": "It's a Docker image containing a Go runtime, along with a dynamic loader.",
-    "readme" : "https://github.com/fission/fission/tree/master/environments/go",
-    "examples" : "https://github.com/fission/fission/tree/master/environments/go",
-    "keywords": [
-        "logging"
-    ],
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
     "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
     "maintainers": [
         {
-            "name": "nestorsalceda",
-            "link": "https://github.com/nestorsalceda"
+            "name": "life1347",
+            "link": "https://github.com/life1347"
         },
         {
-            "name": "fedebarcelona",
-            "link": "https://github.com/tembleking"
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
         }
     ]
 },
@@ -26,23 +27,77 @@
     "version": "1.0.0", 
     "runtimeVersion" : "1.13", 
     "kind": "environment", 
-    "status": "alpha", 
+    "status": "Stable", 
     "name": "Go Environment",
-    "shortDescription": "It's a Docker image containing a Go runtime, along with a dynamic loader.",
-    "readme" : "https://github.com/fission/fission/tree/master/environments/go",
-    "examples" : "https://github.com/fission/fission/tree/master/environments/go",
-    "keywords": [
-        "logging"
-    ],
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "keywords": [],
     "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
     "maintainers": [
         {
-            "name": "nestorsalceda",
-            "link": "https://github.com/nestorsalceda"
+            "name": "life1347",
+            "link": "https://github.com/life1347"
         },
         {
-            "name": "fedebarcelona",
-            "link": "https://github.com/tembleking"
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.12", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Go Environment",
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "keywords": [],
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.11.4", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Go Environment",
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "keywords": [],
+    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
         }
     ]
 }]

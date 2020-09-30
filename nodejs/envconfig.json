@@ -1,24 +1,52 @@
 [{
     "version": "1.0.0", 
-    "runtimeVersion" : "1.0.0", 
+    "runtimeVersion" : "8.0.0", 
     "kind": "environment", 
-    "status": "alpha", 
+    "status": "Stable", 
     "name": "Nodejs Environment",
-    "shortDescription": "It's a Docker image containing a NodeJS runtime, along with a dynamic loader.  A few common dependencies are included in the package.json file.",  
-    "readme" : "https://github.com/fission/fission/blob/master/environments/nodejs",
-    "examples" : "https://github.com/fission/fission/blob/master/environments/nodejs",
-    "keywords": [
-        "logging"
-    ],
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",  
+    "readme" : "https://github.com/fission/environments/tree/master/nodejs",
+    "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "keywords": [],
     "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
     "maintainers": [
         {
-            "name": "nestorsalceda",
-            "link": "https://github.com/nestorsalceda"
+            "name": "life1347",
+            "link": "https://github.com/life1347"
         },
         {
-            "name": "fedebarcelona",
-            "link": "https://github.com/tembleking"
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "12.16", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Nodejs Environment",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",  
+    "readme" : "https://github.com/fission/environments/tree/master/nodejs",
+    "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "keywords": [],
+    "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
         }
     ]
 }]

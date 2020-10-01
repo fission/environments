@@ -4,7 +4,7 @@
     "kind": "environment", 
     "status": "Stable", 
     "name": "Dotnet Environment",
-    "shortDescription": "Fission Dotnet 1.1.0 runtime which uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
+    "shortDescription": "Fission Dotnet 1.1.0 runtime uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
     "readme" : "https://github.com/fission/environments/tree/master/dotnet",
     "examples" : "https://github.com/fission/environments/tree/master/dotnet/examples",
     "keywords": [],

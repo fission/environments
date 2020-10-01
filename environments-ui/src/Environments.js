@@ -54,20 +54,29 @@ export default function Environments() {
     const classes = useStyles();
     const [checked, setChecked] = React.useState(['all']);
 
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
+    const handleChange = (event) => {
+        let value = event.target.name;
         let newChecked = [...checked];
-        if (value == 'all') {
-            newChecked = ['all']
-        } else {
-            const index = newChecked.indexOf('all');
-            if (index > -1) {
-                delete newChecked[index]
+        if (event.target.checked) {
+            if (value == 'all') {
+                newChecked = ['all']
+            } else {
+                const allindex = newChecked.indexOf("all");
+                if(allindex > -1){
+                    newChecked.splice(allindex, 1);
+                }
+                newChecked.push(value);
             }
-            newChecked.push(value);
+        } else {
+            const currentindex = newChecked.indexOf(value);
+            newChecked.splice(currentindex, 1);
+            if (newChecked.length == 0) {
+                newChecked = ['all']
+            }
         }
         setChecked(newChecked);
     };
+
     return (
         <div style={{
             display: 'flex'
@@ -94,8 +103,9 @@ export default function Environments() {
                             <ListItemText id='all' primary={`All environments`} />
                             <ListItemSecondaryAction>
                                 <Checkbox
+                                 name="all"
                                     edge="end"
-                                    onChange={handleToggle('all')}
+                                    onChange={handleChange}
                                     checked={checked.indexOf('all') !== -1}
                                     inputProps={{ 'aria-labelledby': `checkbox-list-secondary-label-all` }}
                                 />
@@ -109,8 +119,9 @@ export default function Environments() {
                                     <ListItemText id={labelId} primary={`${value} environment`} />
                                     <ListItemSecondaryAction>
                                         <Checkbox
+                                            name={value}
                                             edge="end"
-                                            onChange={handleToggle(value)}
+                                            onChange={handleChange}
                                             checked={checked.indexOf(value) !== -1}
                                             inputProps={{ 'aria-labelledby': labelId }}
                                         />

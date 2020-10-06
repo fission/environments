@@ -8,7 +8,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
     "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "keywords": [],
-    "icon": "",
+    "icon": "https://upload.wikimedia.org/wikipedia/de/e/e1/Java-Logo.svg",
     "maintainers": [
         {
             "name": "life1347",

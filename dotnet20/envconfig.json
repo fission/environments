@@ -8,7 +8,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/dotnet20",
     "examples" : "https://github.com/fission/environments/tree/master/dotnet20/examples",
     "keywords": [],
-    "icon":  "https://raw.githubusercontent.com/dotnet/brand/master/logo/dotnet-logo.svg",
+    "icon":  "./logo/logo_NETcore.svg",
     "maintainers": [
         {
             "name": "life1347",

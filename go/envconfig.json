@@ -7,7 +7,7 @@
     "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
     "readme" : "https://github.com/fission/environments/tree/master/go",
     "examples" : "https://github.com/fission/environments/tree/master/go/examples",
-    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "icon": "./logo/go-logo-blue.svg",
     "maintainers": [
         {
             "name": "life1347",
@@ -33,7 +33,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/go",
     "examples" : "https://github.com/fission/environments/tree/master/go/examples",
     "keywords": [],
-    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "icon": "./logo/go-logo-blue.svg",
     "maintainers": [
         {
             "name": "life1347",
@@ -59,7 +59,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/go",
     "examples" : "https://github.com/fission/environments/tree/master/go/examples",
     "keywords": [],
-    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "icon": "./logo/go-logo-blue.svg",
     "maintainers": [
         {
             "name": "life1347",
@@ -85,7 +85,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/go",
     "examples" : "https://github.com/fission/environments/tree/master/go/examples",
     "keywords": [],
-    "icon": "https://golang.org/lib/godoc/images/go-logo-blue.svg",
+    "icon": "./logo/go-logo-blue.svg",
     "maintainers": [
         {
             "name": "life1347",

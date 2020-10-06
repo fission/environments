@@ -8,7 +8,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
     "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "keywords": [],
-    "icon": "https://upload.wikimedia.org/wikipedia/de/e/e1/Java-Logo.svg",
+    "icon": "./logo/Java-Logo.svg",
     "maintainers": [
         {
             "name": "sahil-lakhwani",

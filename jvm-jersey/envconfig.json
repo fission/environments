@@ -26,7 +26,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
     "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "keywords": [],
-    "icon": "",
+    "icon": "./logo/Java-Logo.svg",
     "maintainers": [
         {
             "name": "life1347",

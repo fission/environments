@@ -8,7 +8,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/nodejs",
     "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
     "keywords": [],
-    "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
     "maintainers": [
         {
             "name": "life1347",

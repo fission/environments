@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Environments() {
     const classes = useStyles();
     const [checked, setChecked] = React.useState(['all']);
-
+    const distinctFilter = [];
     const handleChange = (event) => {
         let value = event.target.name;
         let newChecked = [...checked];
@@ -62,7 +62,7 @@ export default function Environments() {
                 newChecked = ['all']
             } else {
                 const allindex = newChecked.indexOf("all");
-                if(allindex > -1){
+                if (allindex > -1) {
                     newChecked.splice(allindex, 1);
                 }
                 newChecked.push(value);
@@ -103,7 +103,7 @@ export default function Environments() {
                             <ListItemText id='all' primary={`All environments`} />
                             <ListItemSecondaryAction>
                                 <Checkbox
-                                 name="all"
+                                    name="all"
                                     edge="end"
                                     onChange={handleChange}
                                     checked={checked.indexOf('all') !== -1}
@@ -114,6 +114,8 @@ export default function Environments() {
                         {environments.map((env) => {
                             const value = env[0].name.split(' ')[0]
                             const labelId = `checkbox-list-secondary-label-${value}`;
+                            if (distinctFilter.indexOf(value) > -1) return;
+                            distinctFilter.push(value);
                             return (
                                 <ListItem key={value} button>
                                     <ListItemText id={labelId} primary={`${value} environment`} />
@@ -135,41 +137,43 @@ export default function Environments() {
             <main className={classes.content}>
                 <Toolbar />
                 <Grid container spacing={4}>{
-                    environments.map(function (envs, index) {
-                        const env = envs[0]
-                        const value = env.name.split(' ')[0]
-                        if (checked.indexOf('all') > -1 || checked.indexOf(value) > -1) {
-                            return (
-                                <Grid item key={index}>
-                                    <Card className={classes.root}>
-                                        <CardActionArea href={env.readme}>
-                                            <CardMedia
-                                                style={{
-                                                    objectFit: 'fill',
-                                                    height: '100px',
-                                                    paddingLeft: '5px',
-                                                    paddingRight: '5px',
-                                                    paddingTop: '5px'
-                                                }}
-                                                component="img"
-                                                alt="Contemplative Reptile"
-                                                height="140"
-                                                image={env.icon}
-                                                title="Contemplative Reptile"
-                                            />
-                                            <CardContent>
-                                                <Typography variant="body1" component="h2" >
-                                                    {env.name}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    {env.shortDescription}
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
-                            )
-                        }
+                    environments.map(function (envs) {
+                        return envs.map((env, index) => {
+                            const value = env.name.split(' ')[0];
+                           //Show only checked cards
+                            if (checked.indexOf('all') > -1 || checked.indexOf(value) > -1) {
+                                return (
+                                    <Grid item key={index}>
+                                        <Card className={classes.root}>
+                                            <CardActionArea href={env.readme}>
+                                                <CardMedia
+                                                    style={{
+                                                        objectFit: 'fill',
+                                                        height: '100px',
+                                                        paddingLeft: '5px',
+                                                        paddingRight: '5px',
+                                                        paddingTop: '5px'
+                                                    }}
+                                                    component="img"
+                                                    alt="Contemplative Reptile"
+                                                    height="140"
+                                                    image={env.icon}
+                                                    title="Contemplative Reptile"
+                                                />
+                                                <CardContent>
+                                                    <Typography variant="body1" component="h2" >
+                                                        {env.name}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        {env.shortDescription}
+                                                    </Typography>
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
+                                )
+                            }
+                        })
                     })
                 }
                 </Grid>
@@ -177,3 +181,4 @@ export default function Environments() {
         </div>
     );
 }
+

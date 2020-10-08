@@ -1,6 +1,6 @@
 [{
     "version": "1.0.0", 
-    "runtimeVersion" : "1.1.0-runtime", 
+    "runtimeVersion" : "1.1.0", 
     "kind": "environment", 
     "status": "Stable", 
     "name": "Dotnet Environment",

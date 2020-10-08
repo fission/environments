@@ -15,16 +15,22 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import CardActions from '@material-ui/core/CardActions';
 import environments from "./resources/environments.json";
-
-const drawerWidth = 240;
+import Link from '@material-ui/core/Link';
+import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
+import Chip from '@material-ui/core/Chip';
+const drawerWidth = 170;
 
 const useStyles = makeStyles((theme) => ({
+    margin: {
+        margin: theme.spacing(2),
+    },
     root: {
         display: 'flex',
-        height: '300px',
-        width: '200px'
+        height: '280px',
+        width: '220px',
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -84,23 +90,28 @@ export default function Environments() {
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
-                    <Typography variant="h6" noWrap>
-                        Fission environments
+                <Avatar alt="fission environments"  src="./logo/fission-env.png" />
+                    <Typography variant="h5" noWrap style={{paddingLeft : '5px'}}>
+                        fission environments
           </Typography>
                 </Toolbar>
             </AppBar>
-            <Drawer
+            <Drawer   
                 className={classes.drawer}
                 variant="permanent"
                 classes={{
                     paper: classes.drawerPaper,
-                }}
+                }}                
             >
                 <Toolbar />
+                <Typography variant="subtitle1" noWrap style={{padding : '10px', alignItems: 'center'}}>
+                        Select environments
+                </Typography>
+                <Divider/>
                 <div className={classes.drawerContainer}>
                     <List dense className={classes.checkBox}>
                         <ListItem key='all' button>
-                            <ListItemText id='all' primary={`All environments`} />
+                            <ListItemText id='all' primary={`All`} />
                             <ListItemSecondaryAction>
                                 <Checkbox
                                     name="all"
@@ -118,7 +129,7 @@ export default function Environments() {
                             distinctFilter.push(value);
                             return (
                                 <ListItem key={value} button>
-                                    <ListItemText id={labelId} primary={`${value} environment`} />
+                                    <ListItemText id={labelId} primary={`${value}`} />
                                     <ListItemSecondaryAction>
                                         <Checkbox
                                             name={value}
@@ -140,11 +151,11 @@ export default function Environments() {
                     environments.map(function (envs) {
                         return envs.map((env, index) => {
                             const value = env.name.split(' ')[0];
-                           //Show only checked cards
+                            //Show only checked cards
                             if (checked.indexOf('all') > -1 || checked.indexOf(value) > -1) {
                                 return (
                                     <Grid item key={index}>
-                                        <Card className={classes.root}>
+                                        <Card className={classes.root} variant="outlined">
                                             <CardActionArea href={env.readme}>
                                                 <CardMedia
                                                     style={{
@@ -160,14 +171,39 @@ export default function Environments() {
                                                     image={env.icon}
                                                     title="Contemplative Reptile"
                                                 />
-                                                <CardContent>
+                                                <CardContent style={{
+                                                    paddingLeft: '15px',
+                                                    paddingRight: '10px',
+                                                    paddingTop: '3px',
+                                                    paddingBottom: '0px'
+                                                }}>
                                                     <Typography variant="body1" component="h2" >
-                                                        {env.name}
+                                                        {env.name.length > 23 ? env.name.substring(0, 23) + "..." : env.name}
                                                     </Typography>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
-                                                        {env.shortDescription}
+                                                    <Typography border='1' variant="body2" color="textSecondary" component="p">
+                                                        {env.shortDescription.length > 84 ? env.shortDescription.substring(0, 84) + "..." : env.shortDescription}
                                                     </Typography>
                                                 </CardContent>
+                                                <CardActions >
+                                                    <div>
+                                                        <div style={{padding: '2px'}}> 
+                                                        <Chip size="small" label="Status" style={{marginRight:'5px'}}/>
+                                                        <Chip size="small" label={env.status} />
+                                                        </div>
+                                                        <div>
+                                                        <Chip size="small" label="Runtime Version" style={{marginRight:'5px'}}/>
+                                                        <Chip size="small" label={env.runtimeVersion} />
+                                                        </div>
+                                                        <div style={{padding: '5px'}}>
+                                                        <Link href={env.readme} color="primary">
+                                                            Learn more
+                                                        </Link>
+                                                        <Link href={env.examples} className={classes.margin}>
+                                                            Examples
+                                                        </Link>
+                                                        </div>
+                                                    </div>
+                                                </CardActions>
                                             </CardActionArea>
                                         </Card>
                                     </Grid>

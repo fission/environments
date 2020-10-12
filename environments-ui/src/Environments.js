@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         display: 'flex',
-        height: '265px',
+        height: '270px',
         width: '220px',
     },
     appBar: {

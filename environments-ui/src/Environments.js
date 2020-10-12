@@ -29,7 +29,7 @@ const BootstrapButton = withStyles({
       boxShadow: 'none',
       textTransform: 'none',
       fontSize: 14,
-      marginRight: '8px',  
+      marginRight: '3px',  
       marginTop: '5px',
       border: '1px solid',
       lineHeight: 1.5,

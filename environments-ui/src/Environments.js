@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,19 +17,58 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import CardActions from '@material-ui/core/CardActions';
 import environments from "./resources/environments.json";
-import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
+
 const drawerWidth = 170;
 
+const BootstrapButton = withStyles({
+    root: {
+      boxShadow: 'none',
+      textTransform: 'none',
+      fontSize: 14,
+      marginRight: '8px',  
+      marginTop: '5px',
+      border: '1px solid',
+      lineHeight: 1.5,
+      backgroundColor: '#0069d9',
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+      '&:hover': {
+        backgroundColor: '#0069d9',
+        borderColor: '#0062cc',
+        boxShadow: 'none',
+      },
+      '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#0062cc',
+        borderColor: '#005cbf',
+      },
+      '&:focus': {
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+      },
+    },
+  })(Button);
+  
 const useStyles = makeStyles((theme) => ({
     margin: {
-        margin: theme.spacing(2),
+        margin: theme.spacing(1),
     },
     root: {
         display: 'flex',
-        height: '280px',
+        height: '265px',
         width: '220px',
     },
     appBar: {
@@ -41,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        background: '#f5f5f5',
     },
     drawerContainer: {
         overflow: 'auto',
@@ -52,7 +92,6 @@ const useStyles = makeStyles((theme) => ({
     checkBox: {
         width: '100%',
         maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
     },
 }));
 
@@ -91,7 +130,7 @@ export default function Environments() {
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                 <Avatar alt="fission environments"  src="./logo/fission-env.png" />
-                    <Typography variant="h5" noWrap style={{paddingLeft : '5px'}}>
+                    <Typography variant="h5" noWrap style={{paddingLeft : '5px', fontWeight : 'bold'}}>
                         fission environments
           </Typography>
                 </Toolbar>
@@ -187,20 +226,14 @@ export default function Environments() {
                                                 <CardActions >
                                                     <div>
                                                         <div style={{padding: '2px'}}> 
-                                                        <Chip size="small" label="Status" style={{marginRight:'5px'}}/>
-                                                        <Chip size="small" label={env.status} />
+                                                        <Chip size="small" label={env.status} style={{marginRight:'5px',  background: '#2196f3' , color: 'white'}} />
+                                                        <Chip size="small" label={env.runtimeVersion} style={{marginRight:'5px',background: "cadetblue" , color: 'white'}}/>
                                                         </div>
                                                         <div>
-                                                        <Chip size="small" label="Runtime Version" style={{marginRight:'5px'}}/>
-                                                        <Chip size="small" label={env.runtimeVersion} />
                                                         </div>
-                                                        <div style={{padding: '5px'}}>
-                                                        <Link href={env.readme} color="primary">
-                                                            Learn more
-                                                        </Link>
-                                                        <Link href={env.examples} className={classes.margin}>
-                                                            Examples
-                                                        </Link>
+                                                        <div>
+                                                        <BootstrapButton href={env.readme} variant="contained" size="small" color="primary">Learn more</BootstrapButton>    
+                                                        <BootstrapButton href={env.examples} variant="contained" size="small" color="primary">Examples</BootstrapButton>
                                                         </div>
                                                     </div>
                                                 </CardActions>

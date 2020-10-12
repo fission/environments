@@ -8,7 +8,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
     "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "keywords": [],
-    "icon": "./logo/Java-Logo.svg",
+    "icon": "./logo/Java-Logo.png",
     "maintainers": [
         {
             "name": "sahil-lakhwani",
@@ -26,7 +26,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
     "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "keywords": [],
-    "icon": "./logo/Java-Logo.svg",
+    "icon": "./logo/Java-Logo.png",
     "maintainers": [
         {
             "name": "life1347",

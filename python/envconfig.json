@@ -8,7 +8,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/python",
     "examples" : "https://github.com/fission/environments/tree/master/python/examples",
     "keywords": [],
-    "icon": "./logo/Python-logo-notext.svg",
+    "icon": "./logo/Python-logo-notext.png",
     "maintainers": [
         {
             "name": "life1347",
@@ -34,7 +34,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/python",
     "examples" : "https://github.com/fission/environments/tree/master/python/examples",
     "keywords": [],
-    "icon": "./logo/Python-logo-notext.svg",
+    "icon": "./logo/Python-logo-notext.png",
     "maintainers": [
         {
             "name": "life1347",

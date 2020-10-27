@@ -1,0 +1,26 @@
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "7", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "PHP Environment",
+    "shortDescription": "PHP environment with built-in server",  
+    "readme" : "https://github.com/fission/environments/tree/master/perl",
+    "examples" : "https://github.com/fission/environments/tree/master/perl/examples",
+    "keywords": [],
+    "icon": "./logo/new-php-logo.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}]

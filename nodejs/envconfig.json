@@ -1,0 +1,52 @@
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "8.0.0", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Nodejs Environment",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",  
+    "readme" : "https://github.com/fission/environments/tree/master/nodejs",
+    "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "keywords": [],
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "12.16", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Nodejs Environment",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",  
+    "readme" : "https://github.com/fission/environments/tree/master/nodejs",
+    "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "keywords": [],
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}]

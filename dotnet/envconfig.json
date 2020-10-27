@@ -1,0 +1,26 @@
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "1.1.0", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Dotnet Environment",
+    "shortDescription": "Fission Dotnet 1.1.0 runtime uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
+    "readme" : "https://github.com/fission/environments/tree/master/dotnet",
+    "examples" : "https://github.com/fission/environments/tree/master/dotnet/examples",
+    "keywords": [],
+    "icon":  "./logo/dotnet-logo.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}]

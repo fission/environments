@@ -1,0 +1,52 @@
+[{
+    "version": "1.0.0", 
+    "runtimeVersion" : "3.0", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Python Environment",
+    "shortDescription": "Fission Python environment based on Flask framework.",
+    "readme" : "https://github.com/fission/environments/tree/master/python",
+    "examples" : "https://github.com/fission/environments/tree/master/python/examples",
+    "keywords": [],
+    "icon": "./logo/Python-logo-notext.png",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "2.7", 
+    "kind": "environment", 
+    "status": "alpha", 
+    "name": "Python Environment",
+    "shortDescription": "Fission Python environment based on Flask framework.",
+    "readme" : "https://github.com/fission/environments/tree/master/python",
+    "examples" : "https://github.com/fission/environments/tree/master/python/examples",
+    "keywords": [],
+    "icon": "./logo/Python-logo-notext.png",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}]

@@ -1,0 +1,44 @@
+[{
+    "version": "1.0.0",
+    "runtimeVersion" : "8", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "JVM Environment",
+    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",  
+    "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
+    "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
+    "keywords": [],
+    "icon": "./logo/Java-Logo.png",
+    "maintainers": [
+        {
+            "name": "sahil-lakhwani",
+            "link": "https://github.com/sahil-lakhwani"
+        }
+    ]
+},
+{
+    "version": "1.0.0", 
+    "runtimeVersion" : "11", 
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "JVM Environment",
+    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",  
+    "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
+    "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
+    "keywords": [],
+    "icon": "./logo/Java-Logo.png",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+}]

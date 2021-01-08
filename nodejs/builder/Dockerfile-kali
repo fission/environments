@@ -1,0 +1,12 @@
+ARG BUILDER_IMAGE=fission/builder
+FROM ${BUILDER_IMAGE}
+FROM kalilinux/kali-rolling
+RUN apt update && apt install -y curl nodejs
+RUN curl -L https://www.npmjs.com/install.sh | sh
+
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
+
+COPY --from=0 /builder /builder
+ADD build.sh /usr/local/bin/build
+RUN chmod +x /usr/local/bin/build

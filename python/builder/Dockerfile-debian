@@ -1,0 +1,12 @@
+ARG BUILDER_IMAGE=fission/builder:latest
+FROM ${BUILDER_IMAGE}
+FROM python:3.8-buster
+
+RUN apt update
+RUN apt-get update -y && apt-get install -y python3-pip python3-dev libev-dev 
+RUN pip3 install --upgrade pip
+
+COPY --from=0 /builder /builder
+ADD defaultBuildCmd /usr/local/bin/build
+
+EXPOSE 8001

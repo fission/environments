@@ -1,6 +1,6 @@
 ARG BUILDER_IMAGE=fission/builder:latest
 FROM ${BUILDER_IMAGE}
-FROM kalilinux/kali-rolling
+FROM kalilinux/kali-rolling:latest
 
 RUN apt update
 RUN apt-get update -y && apt-get install -y python3-pip python3-dev libev-dev 

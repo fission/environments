@@ -1,4 +1,4 @@
-FROM kalilinux/kali-rolling
+FROM kalilinux/kali-rolling:latest
 
 RUN apt-get update -y && apt-get install -y python3-pip python3-dev libev-dev 
 RUN pip3 install --upgrade pip 

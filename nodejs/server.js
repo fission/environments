@@ -83,8 +83,10 @@ function specialize(req, res) {
     // function deps in the right place in argv.codepath; b ut for now we
     // just symlink the function's node_modules to the server's
     // node_modules.
-    fs.symlinkSync('/usr/src/app/node_modules', `${path.dirname(modulepath)}/node_modules`);
-
+    // Check for symlink, because the link exists if the container restarts
+    if (!fs.existsSync(`${path.dirname(modulepath)}/node_modules`)) {
+        fs.symlinkSync('/usr/src/app/node_modules', `${path.dirname(modulepath)}/node_modules`);
+    }
     const result = loadFunction(modulepath);
 
     if(isFunction(result)){

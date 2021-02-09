@@ -1,6 +1,6 @@
 ARG BUILDER_IMAGE=fission/builder
 FROM ${BUILDER_IMAGE}
-FROM node:8
+FROM node:lts
 
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV

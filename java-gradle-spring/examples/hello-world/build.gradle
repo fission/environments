@@ -1,0 +1,17 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'io.fission'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.0.1.RELEASE'
+    implementation 'io.fission:fission-java-core:0.0.2-SNAPSHOT'
+}

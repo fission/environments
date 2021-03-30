@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const WSServer = require('ws').Server;
 const argv = require('minimist')(process.argv.slice(1));// Command line opts
 
 if (!argv.port) {
@@ -167,4 +168,74 @@ app.all('/', function (req, res) {
 
 });
 
-app.listen(argv.port);
+let server = require('http').createServer({
+    perMessageDeflate: {
+        zlibDeflateOptions: {
+            // See zlib defaults.
+            chunkSize: 1024,
+            memLevel: 7,
+            level: 3
+        },
+        zlibInflateOptions: {
+            chunkSize: 10 * 1024
+        },
+        // Other options settable:
+        clientNoContextTakeover: true, // Defaults to negotiated value.
+        serverNoContextTakeover: true, // Defaults to negotiated value.
+        serverMaxWindowBits: 10, // Defaults to negotiated value.
+        // Below options specified as default values.
+        concurrencyLimit: 10, // Limits zlib concurrency for perf.
+        threshold: 1024 // Size (in bytes) below which messages
+        // should not be compressed.
+    }
+});
+
+// Also mount the app here
+server.on('request', app);
+
+// Create web socket server on top of a regular http server
+let wss = new WSServer({
+    server: server
+});
+
+wss.on('connection', function connection(ws) {
+    let result 
+    try {
+        result = userFunction(ws, wss.clients);
+
+        // ws.on('close'),function close(code, reason){
+        //     ws.send(`Closing with code: ${code} , reason : ${reason}`)
+        // };
+
+        ws.on('error', error=>{
+            ws.send(`Error .. ${error}`)
+        });
+
+        ws.on('message', message=>{
+            ws.send(`Message recieved to environment ${message}`)       
+        });
+
+        ws.on('open', function open(){
+            ws.send("Connection established")
+        });
+        
+        ws.on('ping', (code, reason)=>{
+            ws.send(`Ping recieved with code: ${code} , reason : ${reason}`)
+        });
+        
+        ws.on('pong',(code, reason)=>{
+            ws.send(`Pong recieved with code: ${code} , reason : ${reason}`)
+        });
+
+        ws.on('unexpected-response',(code, reason)=>{
+            ws.send(`Unexpected response with code: ${code} , reason : ${reason}`)
+        });
+        
+    } catch (err) {
+        console.log(`Function error: ${err}`);
+        ws.close();
+    }
+});
+
+server.listen(argv.port, () => {
+});

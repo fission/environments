@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const process = require('process');
 const express = require('express');
+const request =   require('request')
 const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -193,42 +194,84 @@ let server = require('http').createServer({
 // Also mount the app here
 server.on('request', app);
 
+const websocketEvent = {
+    url: 'http://localhost:8000/websocket'
+  } 
+
+const inactiveEvent = {
+    url: 'http://localhost:8000/inactive'
+  } 
+
+
 // Create web socket server on top of a regular http server
 let wss = new WSServer({
     server: server
 });
 
+
+function noop() {}
+
+function heartbeat() {
+  this.isAlive = true;
+}
+
+
 wss.on('connection', function connection(ws) {
+    // On successful request, there's no body returned 
+    request(websocketEvent, (err, res)=>{
+        if (err || res.statusCode!=200){
+            if (err){
+            console.log(err)
+            } else{
+            console.log("Unexpected response")
+            }
+            ws.send("Error")
+            return 
+        }
+    })
+    ws.isAlive = true;
+    ws.on('pong',heartbeat);
+
+    const interval = setInterval(function ping() {
+        // We check if all connections are alive
+        wss.clients.forEach(function each(ws) {
+        // We check if all connections are alive
+          if (ws.isAlive === false) return ws.terminate();
+      
+          ws.isAlive = false;
+          // If client replies, we execute the hearbeat function and set the connection as active
+          ws.ping(noop);  
+        });
+        // After we have pinged all clients and verified number of active connections is 0, we generate event for inactivity on the websocket
+        if (wss.clients.size == 0){
+            // On successful request, there's no body returned 
+            request(inactiveEvent, (err, res)=>{
+                if (err || res.statusCode!=200){
+                    if (err){
+                        console.log(err)
+                    } else{
+                        console.log("Unexpected response")
+                    }
+                    ws.send("Error")
+                    return 
+                }
+            })
+        };
+      }, 60000); // TODO: Interval needs to be customized 
+
+    
+
+
+    wss.on('close', function close() {
+        clearInterval(interval);
+      });
+
     let result 
     try {
         result = userFunction(ws, wss.clients);
 
-        // ws.on('close'),function close(code, reason){
-        //     ws.send(`Closing with code: ${code} , reason : ${reason}`)
-        // };
-
-        ws.on('error', error=>{
-            ws.send(`Error .. ${error}`)
-        });
-
         ws.on('message', message=>{
             ws.send(`Message recieved to environment ${message}`)       
-        });
-
-        ws.on('open', function open(){
-            ws.send("Connection established")
-        });
-        
-        ws.on('ping', (code, reason)=>{
-            ws.send(`Ping recieved with code: ${code} , reason : ${reason}`)
-        });
-        
-        ws.on('pong',(code, reason)=>{
-            ws.send(`Pong recieved with code: ${code} , reason : ${reason}`)
-        });
-
-        ws.on('unexpected-response',(code, reason)=>{
-            ws.send(`Unexpected response with code: ${code} , reason : ${reason}`)
         });
         
     } catch (err) {

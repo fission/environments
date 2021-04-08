@@ -15,6 +15,22 @@ if (!argv.port) {
     argv.port = 8888;
 }
 
+// Interval at which we poll for connections to be active 
+var timeout
+if (process.env.TIMEOUT) {
+    timeout = process.env.TIMEOUT
+} else{
+    timeout = 60000
+}
+// To decide whether environment should send inactive events or not
+var sendInactiveEvents
+if (process.env.SEND_INACTIVE_EVENTS.toLowerCase() == "false"){
+    sendInactiveEvents = false 
+} else{
+    sendInactiveEvents = true
+}
+
+
 // To catch unhandled exceptions thrown by user code async callbacks,
 // these exceptions cannot be catched by try-catch in user function invocation code below
 process.on('uncaughtException', (err) => {
@@ -214,9 +230,51 @@ function noop() {}
 function heartbeat() {
   this.isAlive = true;
 }
+// Warm indicates whether this pod has ever been active
+var Warm = false; 
+
+
+let interval;
+if (sendInactiveEvents){
+    interval = setInterval(function ping() {
+        if (Warm){
+            if (wss.clients.size>0){
+
+                wss.clients.forEach(function each(ws) {
+                // We check if all connections are alive
+                if (ws.isAlive === false) return ws.terminate();
+            
+                ws.isAlive = false;
+                // If client replies, we execute the hearbeat function(pong) and set the connection as active
+                ws.ping(noop);  
+                }); 
+
+            } else{
+                // After we have pinged all clients and verified number of active connections is 0, we generate event for inactivity on the websocket
+                request(inactiveEvent, (err, res)=>{
+                    if (err || res.statusCode!=200){
+                         if (err){
+                              console.log(err)
+                            }  else{
+                                console.log("Unexpected response")
+                            }
+                            ws.send("Error")
+                            return 
+                        }
+                    })
+                return 
+            }
+     
+   
+        };
+    }, timeout);
+}
 
 
 wss.on('connection', function connection(ws) {
+
+   if (Warm == false){
+    Warm = true; 
     // On successful request, there's no body returned 
     request(websocketEvent, (err, res)=>{
         if (err || res.statusCode!=200){
@@ -229,51 +287,17 @@ wss.on('connection', function connection(ws) {
             return 
         }
     })
-    ws.isAlive = true;
-    ws.on('pong',heartbeat);
-
-    const interval = setInterval(function ping() {
-        // We check if all connections are alive
-        wss.clients.forEach(function each(ws) {
-        // We check if all connections are alive
-          if (ws.isAlive === false) return ws.terminate();
-      
-          ws.isAlive = false;
-          // If client replies, we execute the hearbeat function and set the connection as active
-          ws.ping(noop);  
-        });
-        // After we have pinged all clients and verified number of active connections is 0, we generate event for inactivity on the websocket
-        if (wss.clients.size == 0){
-            // On successful request, there's no body returned 
-            request(inactiveEvent, (err, res)=>{
-                if (err || res.statusCode!=200){
-                    if (err){
-                        console.log(err)
-                    } else{
-                        console.log("Unexpected response")
-                    }
-                    ws.send("Error")
-                    return 
-                }
-            })
-        };
-      }, 60000); // TODO: Interval needs to be customized 
-
+  }
     
+  ws.isAlive = true;  
+  ws.on('pong',heartbeat);
 
+ wss.on('close', function close() {
+    clearInterval(interval);
+    });
 
-    wss.on('close', function close() {
-        clearInterval(interval);
-      });
-
-    let result 
     try {
-        result = userFunction(ws, wss.clients);
-
-        ws.on('message', message=>{
-            ws.send(`Message recieved to environment ${message}`)       
-        });
-        
+        userFunction(ws, wss.clients);
     } catch (err) {
         console.log(`Function error: ${err}`);
         ws.close();

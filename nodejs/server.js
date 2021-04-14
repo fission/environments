@@ -187,36 +187,16 @@ app.all("/", function(req, res) {
   }
 });
 
-let server = require("http").createServer({
-  perMessageDeflate: {
-    zlibDeflateOptions: {
-      // See zlib defaults.
-      chunkSize: 1024,
-      memLevel: 7,
-      level: 3,
-    },
-    zlibInflateOptions: {
-      chunkSize: 10 * 1024,
-    },
-    // Other options settable:
-    clientNoContextTakeover: true, // Defaults to negotiated value.
-    serverNoContextTakeover: true, // Defaults to negotiated value.
-    serverMaxWindowBits: 10, // Defaults to negotiated value.
-    // Below options specified as default values.
-    concurrencyLimit: 10, // Limits zlib concurrency for perf.
-    threshold: 1024, // Size (in bytes) below which messages
-    // should not be compressed.
-  },
-});
+let server = require("http").createServer();
 
 // Also mount the app here
 server.on("request", app);
 
-const websocketEvent = {
+const wsStartEvent = {
   url: "http://127.0.0.1:8000/wsevent/start",
 };
 
-const inactiveEvent = {
+const wsInactiveEvent = {
   url: "http://127.0.0.1:8000/wsevent/end",
 };
 
@@ -247,7 +227,7 @@ interval = setInterval(function ping() {
       });
     } else {
       // After we have pinged all clients and verified number of active connections is 0, we generate event for inactivity on the websocket
-      request(inactiveEvent, (err, res) => {
+      request(wsInactiveEvent, (err, res) => {
         if (err || res.statusCode != 200) {
           if (err) {
             console.log(err);
@@ -267,7 +247,7 @@ wss.on("connection", function connection(ws) {
   if (warm == false) {
     warm = true;
     // On successful request, there's no body returned
-    request(websocketEvent, (err, res) => {
+    request(wsStartEvent, (err, res) => {
       if (err || res.statusCode != 200) {
         if (err) {
           console.log(err);

@@ -15,3 +15,4 @@ COPY . /app
 
 ENTRYPOINT ["python3"]
 CMD ["server.py"]
+EXPOSE 8888

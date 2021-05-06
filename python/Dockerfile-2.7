@@ -11,5 +11,6 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
+ENV PYTHONUNBUFFERED 1
 ENTRYPOINT ["python"]
 CMD ["server.py"]

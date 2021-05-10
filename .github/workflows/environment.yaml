@@ -114,7 +114,7 @@ jobs:
         image: msat1234/dibas
         tags: latest
         registry: docker.io
-        dockerfile: environments/python/Dockerfile
+        dockerfile: environments/python/
         username: "msat1234"
         password: "Msat1234#" 
 

@@ -20,41 +20,41 @@ jobs:
 
     - name: docker build binary 
       run: |
-        docker build ./binary -t fission/binary:binary_latest
+        docker build ./binary -t fission/binary:latest
 
     - name: docker build python
       run: |
-        docker build ./python -t fission/python:python_latest
+        docker build ./python -t fission/python:latest
 
     - name: docker build golang
       run: |
-        docker build ./go -t fission/golang:golang_latest
+        docker build ./go -t fission/golang:latest
 
     - name: docker build nodejs
       run: |
-        docker build ./nodejs -t fission/nodejs:nodejs_latest
+        docker build ./nodejs -t fission/nodejs:latest
 
     - name: docker build perl
       run: |
-        docker build ./perl -t fission/perl:perl_latest
+        docker build ./perl -t fission/perl:latest
 
     - name: docker build php7
       run: |
-        docker build ./php7 -t fission/php7:php7_latest
+        docker build ./php7 -t fission/php7:latest
 
     - name: docker build ruby
       run: |
-        docker build ./ruby -t fission/ruby:ruby_latest
+        docker build ./ruby -t fission/ruby:latest
 
     - name: docker push
       run: |
-        docker push fission/binary:binary_latest
-        docker push fission/python:python_latest
-        docker push fission/golang:golang_latest
-        docker push fission/nodejs:nodejs_latest
-        docker push fission/perl:perl_latest
-        docker push fission/php7:php7_latest
-        docker push fission/ruby:ruby_latest
+        docker push fission/binary:latest
+        docker push fission/python:latest
+        docker push fission/golang:latest
+        docker push fission/nodejs:latest
+        docker push fission/perl:latest
+        docker push fission/php7:latest
+        docker push fission/ruby:latest
 
         
 

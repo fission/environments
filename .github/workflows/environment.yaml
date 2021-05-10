@@ -10,36 +10,30 @@ on:
       - 'dev_fission'
 
 jobs:
-  # Job to run change detection
-  buildenv:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout sources
-      uses: actions/checkout@v2
-    
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: .github/filters.yaml
-
-
-    - name:  python
-      if: steps.filter.outputs.python == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
-      with:
-        command: run
-        profile: python
-
-    
-
-    - name: Build and Push Docker
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: msat1234/dibas
-        tags: v1,latest
-        registry: docker.io
-        dockerfile: ./python
-        username: "msat1234"
-        password: "Msat1234#" 
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: "msat1234"   
+        DOCKER_PASSWORD: "Msat1234#"  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    # - name: docker build csharp
+    #   run: |
+    #     docker build ./c# -t aimvector/csharp:1.0.0
+    # - name: docker build nodejs
+    #   run: |
+    #     docker build ./nodejs -t aimvector/nodejs:1.0.0
+    - name: docker build python
+      run: |
+        docker build ./python -t fission/python:1.0.0
+    # - name: docker build golang
+    #   run: |
+    #     docker build ./golang -t aimvector/golang:1.0.0
+    - name: docker push
+      run: |
+        docker push fission/python:1.0.0
 
 

@@ -34,6 +34,6 @@ jobs:
     #     docker build ./golang -t aimvector/golang:1.0.0
     - name: docker push
       run: |
-        docker push fission/python:1.0.0
+        docker push msat1234/dibas:python_latest
 
 

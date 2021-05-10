@@ -28,7 +28,7 @@ jobs:
     #     docker build ./nodejs -t aimvector/nodejs:1.0.0
     - name: docker build python
       run: |
-        docker build ./python -t fission/python:1.0.0
+        docker build ./python -t msat1234/dibas:python_latest
     # - name: docker build golang
     #   run: |
     #     docker build ./golang -t aimvector/golang:1.0.0

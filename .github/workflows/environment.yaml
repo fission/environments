@@ -2,8 +2,12 @@
 name: Environments build and test 
 
 on: 
+  push:
+    branches:
+      - 'development'
   pull_request:
-    branches: [ master ]
+    branches:
+      - 'development'
 
 jobs:
   # Job to run change detection
@@ -103,4 +107,14 @@ jobs:
       with:
         command: run
         profile: tensorflow-serving
+        
+    - name: Build and Push Docker
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: msat1234/fission_environment
+        tags: latest
+        registry: docker.io
+        username: "msat1234"
+        password: "Msat1234#" 
+
 

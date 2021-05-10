@@ -25,9 +25,9 @@ jobs:
       run: |
         docker build ./binary -t msat1234/dibas:binary_latest
 
-    - name: docker build dotnet
-      run: |
-        docker build ./dotnet -t msat1234/dibas:dotnet_latest
+    # - name: docker build dotnet
+    #   run: |
+    #     docker build ./dotnet -t msat1234/dibas:dotnet_latest
 
     - name: docker build python
       run: |
@@ -75,7 +75,7 @@ jobs:
     - name: docker push
       run: |
         docker push msat1234/dibas:binary_latest
-        docker push msat1234/dibas:dotnet_latest
+        #docker push msat1234/dibas:dotnet_latest
         docker push msat1234/dibas:python_latest
         docker push msat1234/dibas:golang_latest
         docker push msat1234/dibas:jvm_latest

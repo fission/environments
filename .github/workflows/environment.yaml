@@ -4,10 +4,10 @@ name: Environments build and test
 on: 
   push:
     branches:
-      - 'development'
+      - 'dev_fission'
   pull_request:
     branches:
-      - 'development'
+      - 'dev_fission'
 
 jobs:
   # Job to run change detection
@@ -107,7 +107,7 @@ jobs:
       with:
         command: run
         profile: tensorflow-serving
-        
+
     - name: Build and Push Docker
       uses: mr-smithers-excellent/docker-build-push@v5
       with:

@@ -37,13 +37,13 @@ jobs:
       run: |
         docker build ./go -t msat1234/dibas:golang_latest
 
-    - name: docker build jvm
-      run: |
-        docker build ./jvm -t msat1234/dibas:jvm_latest
+    # - name: docker build jvm
+    #   run: |
+    #     docker build ./jvm -t msat1234/dibas:jvm_latest
 
-    - name: docker build jvm-jersey
-      run: |
-        docker build ./jvm-jersey -t msat1234/dibas:jvm-jersey_latest
+    # - name: docker build jvm-jersey
+    #   run: |
+    #     docker build ./jvm-jersey -t msat1234/dibas:jvm-jersey_latest
 
     - name: docker build nodejs
       run: |
@@ -61,13 +61,13 @@ jobs:
       run: |
         docker build ./ruby -t msat1234/dibas:ruby_latest
 
-    - name: docker build tensorflow-serving
-      run: |
-        docker build ./tensorflow-serving -t msat1234/dibas:tensorflow-serving_latest
+    # - name: docker build tensorflow-serving
+    #   run: |
+    #     docker build ./tensorflow-serving -t msat1234/dibas:tensorflow-serving_latest
 
-    - name: docker build dotnet20
-      run: |
-        docker build ./dotnet20 -t msat1234/dibas:dotnet20_latest
+    # - name: docker build dotnet20
+    #   run: |
+    #     docker build ./dotnet20 -t msat1234/dibas:dotnet20_latest
 
     
     
@@ -75,16 +75,12 @@ jobs:
     - name: docker push
       run: |
         docker push msat1234/dibas:binary_latest
-        #docker push msat1234/dibas:dotnet_latest
         docker push msat1234/dibas:python_latest
         docker push msat1234/dibas:golang_latest
-        docker push msat1234/dibas:jvm_latest
-        docker push msat1234/dibas:jvm-jersey_latest
         docker push msat1234/dibas:nodejs_latest
         docker push msat1234/dibas:perl_latest
         docker push msat1234/dibas:php7_latest
         docker push msat1234/dibas:ruby_latest
-        docker push msat1234/dibas:tensorflow-serving_latest
-        docker push msat1234/dibas:dotnet20
+
         
 

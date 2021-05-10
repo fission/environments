@@ -111,7 +111,7 @@ jobs:
     - name: Build and Push Docker
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: msat1234/fission_environment
+        image: msat1234/dibas
         tags: latest
         registry: docker.io
         username: "msat1234"

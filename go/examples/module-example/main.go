@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/golang/example/stringutil"
+	"golang.org/x/example/stringutil"
 )
 
 // Handler is the entry point for this fission function

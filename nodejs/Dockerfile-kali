@@ -4,7 +4,7 @@
 FROM kalilinux/kali-rolling:latest
 
 RUN apt update && apt install -y curl
-# LTS is version 14 right now
+
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 
 RUN apt install -y nodejs

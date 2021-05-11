@@ -1,0 +1,106 @@
+
+name: Environments build and test 
+
+on: 
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  # Job to run change detection
+  buildenv:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v2
+    
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: .github/filters.yaml
+
+    - name: Helm
+      if: steps.filter.outputs.any == 'true'
+      uses: Azure/setup-helm@v1
+      
+    - name: Kind Clutser
+      if: steps.filter.outputs.any == 'true'
+      uses: engineerd/setup-kind@v0.4.0
+      
+    - name: Configuring and testing the Installation
+      if: steps.filter.outputs.any == 'true'
+      run: |
+        kubectl cluster-info --context kind-kind
+        kind get kubeconfig --internal >$HOME/.kube/config
+        kubectl get nodes
+
+    - name: Install Fission CLI
+      if: steps.filter.outputs.any == 'true'
+      run: |
+        curl -Lo fission https://github.com/fission/fission/releases/download/1.11.0/fission-cli-linux \
+        && chmod +x fission && sudo mv fission /usr/local/bin/
+
+    - name: go
+      if: steps.filter.outputs.go == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: go
+        tag: latest
+    - name: go-tests
+      if: steps.filter.outputs.go == 'true'
+      run: kind load docker-image go-env && ./test_utils/run_test.sh ./go/tests/test_go_env.sh
+
+    - name: jvm
+      if: steps.filter.outputs.jvm == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: jvm
+        tag: latest
+    - name: jvm-tests
+      if: steps.filter.outputs.jvm == 'true'
+      run: |
+        kind load docker-image jvm-env && ./test_utils/run_test.sh jvm/tests/test_java_env.sh
+
+    - name: nodejs
+      if: steps.filter.outputs.nodejs == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: nodejs
+
+    - name:  perl
+      if: steps.filter.outputs.perl == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: perl
+
+    - name:  php7
+      if: steps.filter.outputs.php7 == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: php7
+
+    - name:  python
+      if: steps.filter.outputs.python == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: python
+
+    - name:  ruby
+      if: steps.filter.outputs.ruby == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: ruby
+
+    - name:  tensorflow-serving
+      if: steps.filter.outputs.tensorflow-serving == 'true'
+      uses: hiberbee/github-action-skaffold@1.4.0
+      with:
+        command: run
+        profile: tensorflow-serving
+

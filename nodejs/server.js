@@ -130,7 +130,7 @@ app.post("/specialize", withEnsureGeneric(specialize));
 app.post("/v2/specialize", withEnsureGeneric(specializeV2));
 
 // Generic route -- all http requests go to the user function.
-app.all("/", function(req, res) {
+app.all("*", function(req, res) {
   if (!userFunction) {
     res.status(500).send("Generic container: no requests supported");
     return;

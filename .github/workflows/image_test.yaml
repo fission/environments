@@ -28,9 +28,8 @@ jobs:
 
     - name: docker build python
       run: |
-        docker buildx build -- push \
-          --tag msat1234/dibas:python_latest \
-          --platform linux/amd64,linux/arm/v7,linux/arm64 ./python
+        docker buildx build -f ./python -t msat1234/dibas:python_latest \
+          -o linux/amd64,linux/arm/v7,linux/arm64 --push
 
 
     

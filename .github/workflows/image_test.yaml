@@ -42,7 +42,12 @@ jobs:
 
     - name: docker build python
       run: |
-        docker buildx build --platform=$(BUILDX_PLATFORMS) -t “${DOCKER_USER}/dibas:python_latest” --push -f ./python/Dockerfile .
+        docker buildx build ./python --platform=$(BUILDX_PLATFORMS) -t msat1234/dibas:python_latest
+
+    - name: docker push
+      run: |
+        docker push fission/python:latest
+
     # - name: docker build golang
     #   run: |
     #     docker build ./go -t msat1234/dibas:golang_latest

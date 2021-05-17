@@ -17,7 +17,7 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}   
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} 
-        #DOCKER_BUILDKIT: 1
+        DOCKER_BUILDKIT: 1
         BUILDX_PLATFORMS: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6 
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
@@ -42,6 +42,7 @@ jobs:
 
     - name: docker build python
       run: |
+        docker buildx create --use --name mybuild node-amd64
         docker buildx build \
             --tag msat1234/dibas:python_latest_multiarch \
             --platform linux/amd64,linux/arm64 ./python

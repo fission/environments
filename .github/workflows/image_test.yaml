@@ -42,12 +42,12 @@ jobs:
 
     - name: docker build python
       run: |
-        docker buildx build --push \
+        docker buildx build \
             --tag msat1234/dibas:python_latest_multiarch \
             --platform linux/amd64,linux/arm64 ./python
-    # - name: docker push
-    #   run: |
-    #     docker push msat1234/dibas:python_latest
+    - name: docker push
+      run: |
+        docker push msat1234/dibas:python_latest_multiarch
 
     # - name: docker build golang
     #   run: |

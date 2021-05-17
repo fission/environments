@@ -44,8 +44,9 @@ jobs:
       run: |
         docker buildx create --use --name mybuild node-amd64
         docker buildx build \
-            --tag msat1234/dibas:python_latest_multiarch \
-            --platform linux/amd64,linux/arm64 --push -f ./python 
+        -- push \
+          --tag msat1234/dibas:python_latest \
+          --platform linux/amd64,linux/arm/v7,linux/arm64 ./python
     # - name: docker push
     #   run: |
     #     docker push msat1234/dibas:python_latest_multiarch

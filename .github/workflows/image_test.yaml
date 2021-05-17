@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - 'dev_fission'
- 
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,8 +26,8 @@ jobs:
 
     - name: docker build python
       run: |
-        docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_latest ./python
-        
+        docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_Arch ./python
+        docker buildx build --push  msat1234/dibas:python_Arch 
 
 
     

@@ -26,54 +26,12 @@ jobs:
       with:
         version: latest
 
-    # - name: docker build binary 
-    #   run: |
-    #     docker build ./binary -t msat1234/dibas:binary_latest
-    # - name: docker build dotnet
-    #   run: |
-    #     docker build ./dotnet -t msat1234/dibas:dotnet_latest
-
     - name: docker build python
       run: |
-        docker buildx create --use --name mybuild node-amd64
-        docker buildx build \
-        -- push \
+        docker buildx build -- push \
           --tag msat1234/dibas:python_latest \
           --platform linux/amd64,linux/arm/v7,linux/arm64 ./python
-    # - name: docker push
-    #   run: |
-    #     docker push msat1234/dibas:python_latest_multiarch
 
-    # - name: docker build golang
-    #   run: |
-    #     docker build ./go -t msat1234/dibas:golang_latest
-    # # - name: docker build jvm
-    # #   run: |
-    # #     docker build ./jvm -t msat1234/dibas:jvm_latest
-
-    # # - name: docker build jvm-jersey
-    # #   run: |
-    # #     docker build ./jvm-jersey -t msat1234/dibas:jvm-jersey_latest
-
-    # - name: docker build nodejs
-    #   run: |
-    #     docker build ./nodejs -t msat1234/dibas:nodejs_latest
-    # - name: docker build perl
-    #   run: |
-    #     docker build ./perl -t msat1234/dibas:perl_latest
-    # - name: docker build php7
-    #   run: |
-    #     docker build ./php7 -t msat1234/dibas:php7_latest
-    # - name: docker build ruby
-    #   run: |
-    #     docker build ./ruby -t msat1234/dibas:ruby_latest
-    # # - name: docker build tensorflow-serving
-    # #   run: |
-    # #     docker build ./tensorflow-serving -t msat1234/dibas:tensorflow-serving_latest
-
-    # # - name: docker build dotnet20
-    # #   run: |
-    # #     docker build ./dotnet20 -t msat1234/dibas:dotnet20_latest
 
     
     

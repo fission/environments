@@ -42,7 +42,7 @@ jobs:
 
     - name: docker build python
       run: |
-        docker buildx build ./python --platform=$(BUILDX_PLATFORMS) -t msat1234/dibas:python_latest
+        docker buildx build ./python --platform $(BUILDX_PLATFORMS) -t msat1234/dibas:python_latest
 
     - name: docker push
       run: |

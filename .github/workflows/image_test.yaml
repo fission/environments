@@ -18,28 +18,27 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
-    - name: install buildx
-      command: |
-        BUILDX_BINARY_URL="https://github.com/docker/buildx/releases/download/v0.4.2/buildx-v0.4.2.linux-amd64"
-        BUILDX_PLATFORMS ="linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6"
-
-        curl --output docker-buildx \
-              --silent --show-error --location --fail --retry 3 \
-              "$BUILDX_BINARY_URL"
-
-        mkdir -p ~/.docker/cli-plugins
-
-        mv docker-buildx ~/.docker/cli-plugins/
-        chmod a+x ~/.docker/cli-plugins/docker-buildx
-
-        docker buildx install
-        # Run binfmt
-        docker run --rm --privileged tonistiigi/binfmt:latest --install "$BUILDX_PLATFORMS"
 
     - name: docker build python
       run: |
-        docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_Arch ./python
-        docker buildx build --push  msat1234/dibas:python_Arch
+        # AMD64
+        docker build -t msat1234/dibas:python_latest-amd64 --build-arg ARCH=amd64/ .
+        docker push msat1234/dibas:python_latest-amd64
+
+        # ARM32V7
+        docker build -t msat1234/dibas:python_latest-arm32v7 --build-arg ARCH=arm32v7/ .
+        docker push msat1234/dibas:python_latest-arm32v7
+
+        # ARM64V8
+        docker build -t msat1234/dibas:python_latest-arm64v8 --build-arg ARCH=arm64v8/ .
+        docker push msat1234/dibas:python_latest-arm64v8
+    - name: docker push
+      run: |
+        docker manifest create \
+        msat1234/dibas:python-latest \
+        --amend msat1234/dibas:python_latest-amd64 \
+        --amend msat1234/dibas:python_latest-arm32v7 \
+        --amend msat1234/dibas:python_latest-arm64v8
 
 
     

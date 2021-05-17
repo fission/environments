@@ -19,15 +19,24 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
     - name: install buildx
-      id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v1
-      with:
-        version: latest
+      run: |
+        BUILDX_BINARY_URL="https://github.com/docker/buildx/releases/download/v0.4.2/buildx-v0.4.2.linux-amd64"
+        curl --output docker-buildx \
+          --silent --show-error --location --fail --retry 3 \
+          "$BUILDX_BINARY_URL"
+        mkdir -p ~/.docker/cli-plugins
+        mv docker-buildx ~/.docker/cli-plugins/
+        chmod a+x ~/.docker/cli-plugins/docker-buildx
+        docker buildx install
+      # id: buildx
+      # uses: crazy-max/ghaction-docker-buildx@v1
+      # with:
+      #   version: latest
 
     - name: docker build python
       run: |
         docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_Arch ./python
-        docker buildx build --push  msat1234/dibas:python_Arch 
+        docker buildx build --push  msat1234/dibas:python_Arch
 
 
     

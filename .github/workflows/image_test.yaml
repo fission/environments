@@ -27,11 +27,15 @@ jobs:
 
     - name: docker build php
       run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php7_Arch ./php7
-
-    - name: docker build binary
-      run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binary_Arch ./binary
+        if docker_tag_exists msat1234/dibas:php7_Arch; then
+            echo exist
+        else 
+            docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php7_Arch ./php7
+        fi
+        
+    # - name: docker build binary
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binary_Arch ./binary
 
     - name: docker build python
       run: |

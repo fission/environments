@@ -28,4 +28,27 @@ jobs:
     - name: docker build php
       run: |
         docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php_Arch ./php7
-      # docker buildx build --push  msat1234/dibas:python_Arch
+
+    - name: docker build binary
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binary_Arch ./binary
+
+    - name: docker build python
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_Arch ./python
+
+    - name: docker build golang
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:golang_Arch ./go
+
+    - name: docker build nodejs
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:nodejs_Arch ./nodejs
+
+    - name: docker build perl
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:perl_Arch ./perl
+
+    - name: docker build ruby
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:ruby_Arch ./ruby

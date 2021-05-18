@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'dev_fission'
+ 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,27 +20,17 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
+    - name: install buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
 
     - name: docker build python
       run: |
-        # AMD64
-        docker build -t msat1234/dibas:python_latest-amd64 --build-arg ARCH=amd64/ .
-        docker push msat1234/dibas:python_latest-amd64
-
-        # ARM32V7
-        docker build -t msat1234/dibas:python_latest-arm32v7 --build-arg ARCH=arm32v7/ .
-        docker push msat1234/dibas:python_latest-arm32v7
-
-        # ARM64V8
-        docker build -t msat1234/dibas:python_latest-arm64v8 --build-arg ARCH=arm64v8/ .
-        docker push msat1234/dibas:python_latest-arm64v8
-    - name: docker push
-      run: |
-        docker manifest create \
-        msat1234/dibas:python-latest \
-        --amend msat1234/dibas:python_latest-amd64 \
-        --amend msat1234/dibas:python_latest-arm32v7 \
-        --amend msat1234/dibas:python_latest-arm64v8
+        docker buildx build -- push \
+          --tag msat1234/dibas:python_latest \
+          --platform linux/amd64,linux/arm/v7,linux/arm64 ./python
 
 
     

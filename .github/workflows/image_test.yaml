@@ -36,7 +36,7 @@ jobs:
         
     - name: docker build binary
       run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binary_Arch ./binary
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binaary_Arch ./binary
     
 
     # - name: docker build python (done)

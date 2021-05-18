@@ -1,10 +1,11 @@
+
+
 name: Images build series for Environment  
 
 on: 
   push:
     branches:
       - 'dev_fission'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,21 +19,13 @@ jobs:
         BUILDX_PLATFORMS: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6 
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: install buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
 
-    # - name: docker build binary 
-    #   run: |
-    #     docker build ./binary -t msat1234/dibas:binary_latest
-    # - name: docker build dotnet
-    #   run: |
-    #     docker build ./dotnet -t msat1234/dibas:dotnet_latest
-
-    - name: docker build python
+    - name: docker build php
       run: |
-        docker buildx create --name mybuilder
-        docker buildx use mybuilder
-        docker buildx inspect --bootstrap
-        docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_Arch ./python
-        docker buildx build --push  msat1234/dibas:python_Arch
-    # - name: docker push
-    #   run: |
-    #     docker push msat1234/dibas:python_latest_multiarch
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php_Arch ./php7
+      # docker buildx build --push  msat1234/dibas:python_Arch

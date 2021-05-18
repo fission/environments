@@ -23,19 +23,21 @@ jobs:
       with:
         version: latest
 
-    # - name: docker build php (done)
-    #   run: |
-    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php7_Arch ./php7
-        
-        
-    # - name: docker build binary (not working)
-    #   run: |
-    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binary_Arch ./binary
     - name: script
       run: |
         docker run --rm --privileged linuxkit/binfmt:v0.8
         docker buildx create --use --name=qemu
         docker buildx inspect --bootstrap
+
+    # - name: docker build php (done)
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php7_Arch ./php7
+        
+        
+    - name: docker build binary
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binary_Arch ./binary
+    
 
     # - name: docker build python (done)
     #   run: |
@@ -45,14 +47,14 @@ jobs:
     #   run: |
     #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:golang_Arch ./go
 
-    - name: docker build nodejs
-      run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:nodejs_Arch ./nodejs
+    # - name: docker build nodejs (done)
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:nodejs_Arch ./nodejs
 
-    - name: docker build perl
-      run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:perl_Arch ./perl
+    # - name: docker build perl (done)
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:perl_Arch ./perl
 
-    - name: docker build ruby
-      run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:ruby_Arch ./ruby
+    # - name: docker build ruby (done)
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:ruby_Arch ./ruby

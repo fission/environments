@@ -23,7 +23,7 @@ jobs:
       with:
         version: latest
 
-    # - name: docker build php
+    # - name: docker build php (done)
     #   run: |
     #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php7_Arch ./php7
         
@@ -31,14 +31,19 @@ jobs:
     # - name: docker build binary (not working)
     #   run: |
     #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:binary_Arch ./binary
-
-    - name: docker build python
+    - name: script
       run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_Arch ./python
+        docker run --rm --privileged linuxkit/binfmt:v0.8
+        docker buildx create --use --name=qemu
+        docker buildx inspect --bootstrap
 
-    - name: docker build golang
-      run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:golang_Arch ./go
+    # - name: docker build python (done)
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:python_Arch ./python
+
+    # - name: docker build golang (done)
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:golang_Arch ./go
 
     - name: docker build nodejs
       run: |

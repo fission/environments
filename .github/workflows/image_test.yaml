@@ -27,7 +27,7 @@ jobs:
 
     - name: docker build php
       run: |
-        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php_Arch ./php7
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t msat1234/dibas:php7_Arch ./php7
 
     - name: docker build binary
       run: |

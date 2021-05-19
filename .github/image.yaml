@@ -1,0 +1,55 @@
+name: Images build series for Environment  
+
+on: 
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+    - name: docker build binary 
+      run: |
+        docker build ./binary -t fission/binary:2.0
+
+    - name: docker build python
+      run: |
+        docker build ./python -t fission/python:2.0
+    - name: docker build golang
+      run: |
+        docker build ./go -t fission/go:2.0
+
+    - name: docker build nodejs
+      run: |
+        docker build ./nodejs -t fission/nodejs:2.0
+    - name: docker build perl
+      run: |
+        docker build ./perl -t fission/perl:2.0
+    - name: docker build php7
+      run: |
+        docker build ./php7 -t fission/php7:2.0
+    - name: docker build ruby
+      run: |
+        docker build ./ruby -t fission/ruby:2.0
+
+    
+
+    - name: push image to docker
+      run: |
+        docker push fission/binary:2.0
+        docker push fission/python:2.0
+        docker push fission/go:2.0
+        docker push fission/nodejs:2.0
+        docker push fission/perl:2.0
+        docker push fission/php7:2.0
+        docker push fission/ruby:2.0
+

@@ -1,5 +1,5 @@
-ARG BUILDER_IMAGE=fission/builder
-ARG GO_VERSION=1.9.2
+ARG BUILDER_IMAGE=fission/builder:latest
+ARG GO_VERSION=1.12
 
 FROM ${BUILDER_IMAGE}
 

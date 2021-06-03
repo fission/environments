@@ -1,11 +1,11 @@
-FROM golang:onbuild
+FROM golang:1.15-alpine
 
 WORKDIR /go
 COPY *.go /go/
 
-RUN GOOS=linux GOARCH=386 go build -o server .
+RUN go build -o server .
 
-FROM alpine:3.5
+FROM alpine:3.12
 
 WORKDIR /app
 

@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=fission/builder
+ARG BUILDER_IMAGE=fission/builder:latest
 FROM ${BUILDER_IMAGE}
 
 FROM php:7.3-alpine

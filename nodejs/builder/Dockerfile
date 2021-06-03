@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=fission/builder
+ARG BUILDER_IMAGE=fission/builder:latest
 FROM ${BUILDER_IMAGE}
 # default variant is the official alpine node image (much smaller than the standard image)
 FROM node:8-alpine

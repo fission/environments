@@ -18,7 +18,7 @@ check_platform() {
 create_docker_builder
 PLATFORMS=(
     linux/amd64
-    linux/arm6455
+    linux/arm64
     linux/arm/v7
 )
 for platform in "${PLATFORMS[@]}"; do

@@ -60,10 +60,10 @@ multiarch-python-builder:
 	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/python-builder:$(TAG) $(PUSH) -f python/builder/Dockerfile python/builder
 
 multiarch-nodejs-env:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/nodejs-env:$(TAG) $(PUSH) -f nodejs/Dockerfile nodejs/
+	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/node-env:$(TAG) $(PUSH) -f nodejs/Dockerfile nodejs/
 
 multiarch-nodejs-builder:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/nodejs-builder:$(TAG) $(PUSH) -f nodejs/builder/Dockerfile nodejs/builder/
+	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/node-builder:$(TAG) $(PUSH) -f nodejs/builder/Dockerfile nodejs/builder/
 
 multiarch-perl-env:
 	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/perl-env:$(TAG) $(PUSH) -f perl/Dockerfile perl/

@@ -27,7 +27,7 @@
 }],
 [{
     "version": "1.0.0", 
-    "runtimeVersion" : "1.1.0-runtime", 
+    "runtimeVersion" : "1.1.0", 
     "kind": "environment", 
     "status": "Stable", 
     "name": "Dotnet Environment",
@@ -190,7 +190,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm",
     "examples" : "https://github.com/fission/environments/tree/master/jvm/examples",
     "keywords": [],
-    "icon": "./logo/Java-Logo.svg",
+    "icon": "./logo/Java-Logo.png",
     "maintainers": [
         {
             "name": "life1347",
@@ -216,7 +216,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
     "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "keywords": [],
-    "icon": "./logo/Java-Logo.svg",
+    "icon": "./logo/Java-Logo.png",
     "maintainers": [
         {
             "name": "sahil-lakhwani",
@@ -234,7 +234,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
     "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "keywords": [],
-    "icon": "",
+    "icon": "./logo/Java-Logo.png",
     "maintainers": [
         {
             "name": "life1347",
@@ -260,7 +260,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/nodejs",
     "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
     "keywords": [],
-    "icon": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
     "maintainers": [
         {
             "name": "life1347",
@@ -364,7 +364,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/python",
     "examples" : "https://github.com/fission/environments/tree/master/python/examples",
     "keywords": [],
-    "icon": "./logo/Python-logo-notext.svg",
+    "icon": "./logo/Python-logo-notext.png",
     "maintainers": [
         {
             "name": "life1347",
@@ -390,7 +390,7 @@
     "readme" : "https://github.com/fission/environments/tree/master/python",
     "examples" : "https://github.com/fission/environments/tree/master/python/examples",
     "keywords": [],
-    "icon": "./logo/Python-logo-notext.svg",
+    "icon": "./logo/Python-logo-notext.png",
     "maintainers": [
         {
             "name": "life1347",

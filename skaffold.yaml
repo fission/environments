@@ -1,23 +1,11 @@
 apiVersion: skaffold/v2beta4
 kind: Config
-# build:
-#   artifacts:
-#     - image: fission
-#       context: .
-#       docker:
-#         dockerfile: cmd/fission-bundle/Dockerfile.fission-bundle
-#     - image: fetcher
-#       docker:
-#         dockerfile: cmd/fetcher/Dockerfile.fission-fetcher
-#     - image: preupgradechecks
-#       docker:
-#         dockerfile: cmd/preupgradechecks/Dockerfile.fission-preupgradechecks
 
 deploy:
   helm:
     releases:
       - name: fission
-        chartPath: "https://github.com/fission/fission/releases/download/1.11.0/fission-all-1.11.0.tgz"
+        chartPath: "https://github.com/fission/fission/releases/download/1.12.0/fission-all-1.12.0.tgz"
         namespace: fission
         remote: true
     flags:

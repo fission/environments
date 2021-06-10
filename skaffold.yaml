@@ -62,7 +62,7 @@ profiles:
   - name: nodejs
     build:
       artifacts:
-        - image: nodejs-env
+        - image: node-env
           context: nodejs/
           docker:
             dockerfile: Dockerfile

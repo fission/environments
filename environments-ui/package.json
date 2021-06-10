@@ -41,7 +41,7 @@
     "babel-preset-react": "^6.24.1",
     "bable-loader": "0.0.1-security",
     "body-parser": "^1.19.0",
-    "css-loader": "^0.28.9",
+    "css-loader": "^5.2.6",
     "express": "^4.17.1",
     "react-hot-loader": "^4.13.0",
     "webpack": "^4.44.2",

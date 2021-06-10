@@ -43,7 +43,7 @@ jobs:
 
     - name: go
       if: steps.filter.outputs.go == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: go
@@ -55,11 +55,12 @@ jobs:
 
     - name: jvm
       if: steps.filter.outputs.jvm == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: jvm
         tag: latest
+
     - name: jvm-tests
       if: steps.filter.outputs.jvm == 'true'
       run: |
@@ -67,42 +68,42 @@ jobs:
 
     - name: nodejs
       if: steps.filter.outputs.nodejs == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: nodejs
 
     - name:  perl
       if: steps.filter.outputs.perl == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: perl
 
     - name:  php7
       if: steps.filter.outputs.php7 == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: php7
 
     - name:  python
       if: steps.filter.outputs.python == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: python
 
     - name:  ruby
       if: steps.filter.outputs.ruby == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: ruby
 
     - name:  tensorflow-serving
       if: steps.filter.outputs.tensorflow-serving == 'true'
-      uses: hiberbee/github-action-skaffold@1.4.0
+      uses: hiberbee/github-action-skaffold@1.5.0
       with:
         command: run
         profile: tensorflow-serving

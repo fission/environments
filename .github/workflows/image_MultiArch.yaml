@@ -1,0 +1,60 @@
+name: Images build series for Environment  
+
+on: 
+  push:
+    branches:
+      - 'master'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} 
+        DOCKER_BUILDKIT: 1
+        BUILDX_PLATFORMS: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6 
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: install buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
+
+    - name: building minimal Linux distributions with Linuxkit
+      run: |
+        docker run --rm --privileged linuxkit/binfmt:v0.8
+        docker buildx create --use --name=qemu
+        docker buildx inspect --bootstrap
+
+    - name: docker build php
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t fission/php7_multiarch:2.0 ./php7
+        
+        
+    # - name: docker build binary
+    #   run: |
+    #     docker buildx build --push --platform linux/amd64,linux/arm64 -t fission/binary_multiarch:2.0 ./binary
+    
+
+    - name: docker build python 
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t fission/python_multiarch:2.0 ./python
+
+    - name: docker build golang
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t fission/go_multiarch:2.0 ./go
+
+    - name: docker build nodejs
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t fission/nodejs_multiarch:2.0 ./nodejs
+
+    - name: docker build perl
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t fission/perl_multiarch:2.0 ./perl
+
+    - name: docker build ruby
+      run: |
+        docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64 -t fission/ruby_multiarch:2.0 ./ruby

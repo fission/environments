@@ -12,70 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-.DEFAULT_GOAL := multiarch-all
+-include rules.mk
 
-# Platforms to build in multi-architecture images.
-PLATFORMS ?= linux/amd64,linux/arm64,linux/arm/v7
+FISSION_ENVS := nodejs-envs \
+	go-envs \
+	python-envs \
+	perl-envs \
+	jvm-envs \
+	php7-envs \
+	dotnet-envs \
+	jvm-jersey-envs \
+	binary-envs \
+	tensorflow-serving-envs \
+	dotnet20-envs \
+	ruby-envs
 
-# Repository prefix and tag to push multi-architecture images to.
-REPO ?= fission
-TAG ?= dev
-PUSH ?= --push 
+all: $(FISSION_ENVS)
 
-verify-builder: 
-	@./hack/buildx.sh 
+verify-builder:
+	@./hack/buildx.sh $(PLATFORMS)
 
-multiarch-all: multiarch-binary multiarch-go multiarch-python multiarch-nodejs multiarch-perl multiarch-php multiarch-ruby
-
-multiarch-binary: verify-builder multiarch-binary-env multiarch-binary-builder
-
-multiarch-go: verify-builder multiarch-go-env multiarch-go-builder
-
-multiarch-python: verify-builder multiarch-python-env multiarch-python-builder
-
-multiarch-nodejs: verify-builder multiarch-nodejs-env multiarch-nodejs-builder
-
-multiarch-perl: verify-builder multiarch-perl-env 
-
-multiarch-php: verify-builder multiarch-php-env  multiarch-php-builder
-
-multiarch-ruby: verify-builder multiarch-ruby-env multiarch-ruby-builder
-
-multiarch-binary-env: 
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/binary-env:$(TAG) $(PUSH) -f binary/Dockerfile binary/
-
-multiarch-binary-builder:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/binary-builder:$(TAG) $(PUSH) -f  binary/builder/Dockerfile binary/builder/
-
-multiarch-go-env:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/go-env:$(TAG) $(PUSH) -f go/Dockerfile go/
-
-multiarch-go-builder:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/go-builder:$(TAG) $(PUSH) -f  go/builder/Dockerfile go/builder/
-
-multiarch-python-env:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/python-env:$(TAG) $(PUSH) -f python/Dockerfile python/
-
-multiarch-python-builder:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/python-builder:$(TAG) $(PUSH) -f python/builder/Dockerfile python/builder
-
-multiarch-nodejs-env:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/node-env:$(TAG) $(PUSH) -f nodejs/Dockerfile nodejs/
-
-multiarch-nodejs-builder:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/node-builder:$(TAG) $(PUSH) -f nodejs/builder/Dockerfile nodejs/builder/
-
-multiarch-perl-env:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/perl-env:$(TAG) $(PUSH) -f perl/Dockerfile perl/
-
-multiarch-php-env:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/php-env:$(TAG) $(PUSH) -f php7/Dockerfile php7/
-
-multiarch-php-builder:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/php-builder:$(TAG) $(PUSH) -f php7/builder/Dockerfile php7/builder/
-
-multiarch-ruby-env:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/ruby-env:$(TAG) $(PUSH) -f ruby/Dockerfile ruby/
-
-multiarch-ruby-builder:
-	docker buildx build --platform=$(PLATFORMS) -t $(REPO)/ruby-builder:$(TAG) $(PUSH) -f ruby/builder/Dockerfile ruby/builder/ 
+$(FISSION_ENVS): verify-builder
+	cd $(subst -envs,,$@)/ && $(MAKE)

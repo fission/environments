@@ -16,3 +16,4 @@ COPY . /app
 ENV PYTHONUNBUFFERED 1
 ENTRYPOINT ["python3"]
 CMD ["server.py"]
+EXPOSE 8888

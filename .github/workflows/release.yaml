@@ -1,0 +1,49 @@
+name: Release
+on:
+  push:
+    branches:
+      - feature/Release
+    paths:
+      - '**/version**'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+      - name: Checkout the current repo
+        uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: .github/workflows/filters/version_filters.yaml        
+  docker-buildx-push:
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix:
+       run: ${{ fromJSON(needs.check.outputs.packages) }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v2
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+      with:
+        version: latest
+        use: 'true'
+        buildkitd-flags: --debug
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}            
+    - name: get version
+      if: var=$(cat "steps.filter.outputs.${{ matrix.run }}")   
+      run:  |                      
+            echo "$var"
+            filter="${{matrix.run}}"
+            path=$(echo "${{matrix.run}}" | cut -d '/' -f1)
+            hack/release.sh $path $filter            

@@ -1,7 +1,7 @@
 name: Environments build and test
 on: 
-  #pull_request:
-   # branches: [ master ]
+  pull_request:
+    branches: [ master ]
   push:
     branches:
       - feature/beautify-environments    

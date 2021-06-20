@@ -1,10 +1,7 @@
 name: Environments build and test
 on: 
   pull_request:
-    branches: [ master ]
-  push:
-    branches:
-      - feature/beautify-environments    
+    branches: [ master ]  
 jobs:
   # Job to run change detection
   check: 

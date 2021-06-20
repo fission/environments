@@ -46,4 +46,5 @@ jobs:
             echo "$var"
             filter="${{matrix.run}}"
             path=$(echo "${{matrix.run}}" | cut -d '/' -f1)
+            chmod +x hack/release.sh
             hack/release.sh $path $filter            

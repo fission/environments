@@ -1,0 +1,24 @@
+binary:
+    - 'binary/**'
+jvm-jersey:
+    - 'jvm-jersey/**'
+php7: 
+    - 'php7/**'  
+dotnet:
+    - 'dotnet/**'     
+dotnet20:
+    - 'dotnet20/**'     
+go:   
+    - 'go/**'     
+jvm:  
+    - 'jvm/**'     
+nodejs:
+    - 'nodejs/**'
+perl: 
+    - 'perl/**'
+python:
+    - 'python/**'
+ruby: 
+    - 'ruby/**'
+tensorflow-serving:
+    - 'tensorflow-serving/**'

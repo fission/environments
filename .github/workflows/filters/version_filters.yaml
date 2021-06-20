@@ -57,3 +57,4 @@ ruby/:
   - 'ruby/version'
 tensorflow-serving/:
   - 'tensorflow-serving/version'
+  

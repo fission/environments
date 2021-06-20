@@ -25,13 +25,13 @@ go/@1.14:
   - 'go/version-1.14'
 go/builder/:
   - 'go/builder/version'
-go/builder@1.11.4:
+go/builder/@1.11.4:
   - 'go/builder/version-1.11.4'  
-go/builder@1.12:
+go/builder/@1.12:
   - 'go/builder/version-1.12'
-go/builder@1.13:
+go/builder/@1.13:
   - 'go/builder/version-1.13'   
-go/builder@1.14:
+go/builder/@1.14:
   - 'go/builder/version-1.14'    
 jvm/:
   - 'jvm/version'
@@ -39,15 +39,15 @@ jvm/builder/:
   - 'jvm/builder/version'
 jvm-jersey/:
   - 'jvm-jersey/version'
-jvm-jersey@11:
+jvm-jersey/@11:
   - 'jvm-jersey/version-11'
 jvm-jersey/builder:
   - 'jvm-jersey/version'
-jvm-jersey/builder@11:
+jvm-jersey/builder/@11:
   - 'jvm-jersey/version-11'  
 nodejs/:
   - 'nodejs/version'
-nodejs@12.16:
+nodejs/@12.16:
   - 'nodejs/version-12.16'
 perl/:
   - 'perl/version'

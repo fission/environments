@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - feature/Release
+      - feature-release
     paths:
       - '**/version**'
 jobs:

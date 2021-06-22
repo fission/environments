@@ -36,3 +36,4 @@ fission env update --name go --image USER/go-runtime --builder USER/go-builder
 
 After this, fission functions that have the env parameter set to the
 same environment name as this command will use this environment.
+

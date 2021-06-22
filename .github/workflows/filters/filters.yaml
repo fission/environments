@@ -1,17 +1,3 @@
-any:
-    - 'binary/**'
-    - 'jvm-jersey/**'
-    - 'php7/**'  
-    - 'dotnet/**'
-    - 'dotnet20/**'     
-    - 'go/**'     
-    - 'jvm/**'     
-    - 'nodejs/**'
-    - 'perl/**'
-    - 'python/**'
-    - 'ruby/**'
-    - 'tensorflow-serving/**'
-
 binary:
     - 'binary/**'
 jvm-jersey:

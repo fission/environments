@@ -1,6 +1,7 @@
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "5", 
+    "image": "perl-env",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Perl Environment",

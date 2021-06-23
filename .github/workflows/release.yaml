@@ -1,0 +1,57 @@
+name: Release
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**/envconfig.json**'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      versions_to_be_released: ${{ steps.release_env.outputs.versions_to_be_released }}
+      release_needed: ${{ steps.release_env.outputs.release_needed }}
+    steps:
+      - name: Checkout the current repo
+        uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: .github/workflows/filters/version_filter.yaml
+      - name: Filter Environments to be released
+        id: release_env
+        run: |
+          python3 hack/release_check.py ${{ steps.filter.outputs.changes }}
+  docker-buildx-push:
+    if: ${{ needs.check.outputs.release_needed == 'True' }}
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.check.outputs.versions_to_be_released) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+          use: 'true'
+          buildkitd-flags: --debug
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Trigger Release
+        run: |
+          make verify-builder
+          cd ${{ matrix.env }}
+          TAG=${{ matrix.tag }} make ${{ matrix.image }}-img
+          if [ "${{ matrix.builder}}" != "" ]
+          then
+            cd builder
+            TAG=${{ matrix.tag }} make ${{ matrix.builder }}-img
+          fi

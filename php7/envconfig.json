@@ -1,6 +1,8 @@
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "7", 
+    "image": "php-env",
+    "builder": "php-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "PHP Environment",

@@ -1,6 +1,8 @@
 [{
-    "version": "1.0.0",
+    "version": "1.11.0",
     "runtimeVersion" : "8", 
+    "image": "jvm-env",
+    "builder": "jvm-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "JVM Environment",

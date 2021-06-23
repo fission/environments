@@ -77,7 +77,6 @@ jobs:
         command: run
         profile: jvm
         tag: latest
-
     - name: jvm-tests
       run: |
         kind load docker-image jvm-env && ./test_utils/run_test.sh jvm/tests/test_java_env.sh

@@ -1,0 +1,24 @@
+binary:
+    - 'binary/envconfig.json'
+jvm-jersey:
+    - 'jvm-jersey/envconfig.json'
+php7: 
+    - 'php7/envconfig.json'  
+dotnet:
+    - 'dotnet/envconfig.json'     
+dotnet20:
+    - 'dotnet20/envconfig.json'     
+go:   
+    - 'go/envconfig.json'     
+jvm:  
+    - 'jvm/envconfig.json'     
+nodejs:
+    - 'nodejs/envconfig.json'
+perl: 
+    - 'perl/envconfig.json'
+python:
+    - 'python/envconfig.json'
+ruby: 
+    - 'ruby/envconfig.json'
+tensorflow-serving:
+    - 'tensorflow-serving/envconfig.json'

@@ -1,6 +1,8 @@
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "3.5-alpine", 
+    "image": "binary-env",
+    "builder": "binary-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Fission Binary Environment",

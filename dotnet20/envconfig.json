@@ -1,6 +1,8 @@
 [{
-    "version": "1.0.0", 
-    "runtimeVersion" : "2.0.0", 
+    "version": "1.11.0", 
+    "runtimeVersion" : "2.0.0",
+    "image": "dotnet20-env",    
+    "builder": "dotnet20-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Dotnet 2 Environment",

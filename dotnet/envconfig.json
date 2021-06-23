@@ -1,6 +1,7 @@
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "1.1.0", 
+    "image": "dotnet-env",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Dotnet Environment",

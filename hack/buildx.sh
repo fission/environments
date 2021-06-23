@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 ## This script needs to be run to start the emulator for multiarch builds
 create_docker_builder() {

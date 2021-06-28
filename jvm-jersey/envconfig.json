@@ -1,6 +1,8 @@
 [{
-    "version": "1.0.0",
+    "version": "1.11.0",
     "runtimeVersion" : "8", 
+    "image": "jvm-jersey-env",
+    "builder": "jvm-jersey-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "JVM Environment",
@@ -17,8 +19,10 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "11", 
+    "image": "jvm-jersey-env-11",
+    "builder": "jvm-jersey-builder-11",
     "kind": "environment", 
     "status": "Stable", 
     "name": "JVM Environment",

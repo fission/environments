@@ -34,3 +34,4 @@ verify-builder:
 
 $(FISSION_ENVS): verify-builder
 	cd $(subst -envs,,$@)/ && $(MAKE)
+

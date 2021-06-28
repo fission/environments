@@ -1,6 +1,8 @@
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "3.0", 
+    "image": "python-env",
+    "builder": "python-builder",
     "kind": "environment", 
     "status": "alpha", 
     "name": "Python Environment",
@@ -25,8 +27,9 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "2.7", 
+    "image": "python-env-2.7",
     "kind": "environment", 
     "status": "alpha", 
     "name": "Python Environment",

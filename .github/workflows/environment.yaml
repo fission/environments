@@ -55,7 +55,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: .github/filters.yaml
+        filters: .github/workflows/filters/filters.yaml
     - name: Helm
       uses: Azure/setup-helm@v1    
     - name: Kind Clutser
@@ -77,7 +77,6 @@ jobs:
         command: run
         profile: jvm
         tag: latest
-
     - name: jvm-tests
       run: |
         kind load docker-image jvm-env && ./test_utils/run_test.sh jvm/tests/test_java_env.sh
@@ -91,7 +90,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: .github/filters.yaml
+        filters: .github/workflows/filters/filters.yaml
     - name: Helm
       uses: Azure/setup-helm@v1    
     - name: Kind Clutser
@@ -122,7 +121,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: .github/filters.yaml
+        filters: .github/workflows/filters/filters.yaml
     - name: Helm
       uses: Azure/setup-helm@v1    
     - name: Kind Clutser
@@ -156,7 +155,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: .github/filters.yaml
+        filters: .github/workflows/filters/filters.yaml
     - name: Helm
 
       uses: Azure/setup-helm@v1    
@@ -191,7 +190,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: .github/filters.yaml
+        filters: .github/workflows/filters/filters.yaml
     - name: Helm
       uses: Azure/setup-helm@v1    
     - name: Kind Clutser
@@ -224,7 +223,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: .github/filters.yaml
+        filters: .github/workflows/filters/filters.yaml
     - name: Helm
       uses: Azure/setup-helm@v1    
     - name: Kind Clutser
@@ -255,7 +254,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: .github/filters.yaml
+        filters: .github/workflows/filters/filters.yaml
     - name: Helm
       uses: Azure/setup-helm@v1    
     - name: Kind Clutser

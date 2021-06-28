@@ -1,6 +1,7 @@
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "latest", 
+    "image": "tensorflow-serving-env",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Tensorflow Serving Environment",

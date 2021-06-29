@@ -218,15 +218,16 @@ export default function Environments() {
                                                     <Typography variant="body1" component="h2" >
                                                         {env.name.length > 23 ? env.name.substring(0, 23) + "..." : env.name}
                                                     </Typography>
-                                                    <Typography border='1' variant="body2" color="textSecondary" component="p">
+                                                    <Typography border='1' variant="body2" color="textSecondary" component="p" style={{height: '58px'}}>
                                                         {env.shortDescription.length > 84 ? env.shortDescription.substring(0, 84) + "..." : env.shortDescription}
                                                     </Typography>
                                                 </CardContent>
                                                 <CardActions >
                                                     <div>
                                                         <div style={{padding: '2px'}}> 
-                                                        <Chip size="small" label={env.status} style={{marginRight:'5px',  background: '#2196f3' , color: 'white'}} />
-                                                        <Chip size="small" label={env.runtimeVersion} style={{marginRight:'5px',background: "cadetblue" , color: 'white'}}/>
+                                                        {/* <Chip size="small" label={env.status} style={{marginRight:'5px',  background: '#2196f3' , color: 'white'}} /> */}
+                                                        {/* <Chip size="small" label={env.runtimeVersion} style={{marginRight:'5px',background: "cadetblue" , color: 'white'}}/> */}
+                                                        <Chip size="small" label={env.image +":"+ env.version} style={{marginRight:'5px',background: "cadetblue" , color: 'white'}}/>
                                                         </div>
                                                         <div>
                                                         </div>

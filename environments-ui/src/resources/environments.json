@@ -1,7 +1,9 @@
 [
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "3.5-alpine", 
+    "image": "binary-env",
+    "builder": "binary-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Fission Binary Environment",
@@ -26,8 +28,9 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "1.1.0", 
+    "image": "dotnet-env",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Dotnet Environment",
@@ -52,8 +55,10 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
-    "runtimeVersion" : "2.0.0", 
+    "version": "1.11.0", 
+    "runtimeVersion" : "2.0.0",
+    "image": "dotnet20-env",    
+    "builder": "dotnet20-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Dotnet 2 Environment",
@@ -78,8 +83,10 @@
     ]
 }] ,
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "1.14", 
+    "image": "go-env-1.14",
+    "builder": "go-builder-1.14",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Go Environment",
@@ -103,8 +110,10 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "1.13", 
+    "image": "go-env-1.13",
+    "builder": "go-builder-1.13",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Go Environment",
@@ -129,8 +138,10 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "1.12", 
+    "image": "go-env",
+    "builder": "go-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Go Environment",
@@ -155,8 +166,38 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
+    "runtimeVersion" : "1.12", 
+    "image": "go-env-1.12",
+    "builder": "go-builder-1.12",
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Go Environment",
+    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "readme" : "https://github.com/fission/environments/tree/master/go",
+    "examples" : "https://github.com/fission/environments/tree/master/go/examples",
+    "keywords": [],
+    "icon": "./logo/go-logo-blue.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.11.0", 
     "runtimeVersion" : "1.11.4", 
+    "image": "go-env-1.11.4",
+    "builder": "go-builder-1.11.4",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Go Environment",
@@ -181,8 +222,10 @@
     ]
 }],
 [{
-    "version": "1.0.0",
+    "version": "1.11.0",
     "runtimeVersion" : "8", 
+    "image": "jvm-env",
+    "builder": "jvm-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "JVM Environment",
@@ -207,8 +250,10 @@
     ]
 }],
 [{
-    "version": "1.0.0",
+    "version": "1.11.0",
     "runtimeVersion" : "8", 
+    "image": "jvm-jersey-env",
+    "builder": "jvm-jersey-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "JVM Environment",
@@ -225,8 +270,10 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "11", 
+    "image": "jvm-jersey-env-11",
+    "builder": "jvm-jersey-builder-11",
     "kind": "environment", 
     "status": "Stable", 
     "name": "JVM Environment",
@@ -251,8 +298,10 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "8.0.0", 
+    "image": "node-env",
+    "builder": "node-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Nodejs Environment",
@@ -277,8 +326,37 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
+    "runtimeVersion" : "8.0.0-debian", 
+    "image": "node-env-debian",
+    "kind": "environment", 
+    "status": "Stable", 
+    "name": "Nodejs Environment",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",  
+    "readme" : "https://github.com/fission/environments/tree/master/nodejs",
+    "examples" : "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "keywords": [],
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "maintainers": [
+        {
+            "name": "life1347",
+            "link": "https://github.com/life1347"
+        },
+        {
+            "name": "soamvasani",
+            "link": "https://github.com/soamvasani"
+        },
+        {
+            "name": "vishal-biyani",
+            "link": "https://github.com/vishal-biyani"
+        }
+    ]
+},
+{
+    "version": "1.11.0", 
     "runtimeVersion" : "12.16", 
+    "image": "node-env-12.16",
+    "builder": "node-builder-12.16",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Nodejs Environment",
@@ -303,8 +381,9 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "5", 
+    "image": "perl-env",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Perl Environment",
@@ -329,8 +408,10 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "7", 
+    "image": "php-env",
+    "builder": "php-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "PHP Environment",
@@ -355,8 +436,10 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "3.0", 
+    "image": "python-env",
+    "builder": "python-builder",
     "kind": "environment", 
     "status": "alpha", 
     "name": "Python Environment",
@@ -381,8 +464,9 @@
     ]
 },
 {
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "2.7", 
+    "image": "python-env-2.7",
     "kind": "environment", 
     "status": "alpha", 
     "name": "Python Environment",
@@ -407,8 +491,10 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "2.6.1", 
+    "image": "ruby-env",
+    "builder": "ruby-builder",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Ruby Environment",
@@ -433,8 +519,9 @@
     ]
 }],
 [{
-    "version": "1.0.0", 
+    "version": "1.11.0", 
     "runtimeVersion" : "latest", 
+    "image": "tensorflow-serving-env",
     "kind": "environment", 
     "status": "Stable", 
     "name": "Tensorflow Serving Environment",

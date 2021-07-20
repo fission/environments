@@ -38,7 +38,7 @@ $(FISSION_ENVS): verify-builder
 sort-env-jsons:
 	./hack/sort-json.sh
 
-update-env-json:
+update-env-json: sort-env-jsons
 	./hack/merge-json.sh
 
 build-ui: update-env-json

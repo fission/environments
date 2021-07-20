@@ -1,22 +1,21 @@
 #!/bin/bash
 
+TMP_FILE=temp.json
+JQ=jq
+
 if ! command -v sed >/dev/null 2>&1; then
     echo "You must install 'sed' to use this script."
     exit 1
 fi
-if ! command -v jq >/dev/null; then
+if ! command -v $JQ >/dev/null; then
     echo "jq is not installed. Please install it and try again."
     exit 1
 fi
 
-TMP_FILE=temp.json
-
 echo "[" >"$TMP_FILE"
-
 for file in $(find . -name envconfig.json); do
     echo "Validating $file"
-    jq <"$file" >/dev/null
-    if ! jq <"$file" >/dev/null; then
+    if ! $JQ . <"$file" >/dev/null; then
         echo "Invaild json file $file. Please check $file"
         echo "JSON merge failed. Please try again."
         exit 1
@@ -28,9 +27,7 @@ done
 sed -ie '$s/,$//' "$TMP_FILE"
 echo "]" >>"$TMP_FILE"
 
-jq <"$TMP_FILE" >/dev/null
-
-if ! jq <"$TMP_FILE" >/dev/null; then
+if ! $JQ . <"$TMP_FILE" >/dev/null; then
     echo "JSON merge failed. Please check the merge result $TMP_FILE and try again."
     exit 1
 fi

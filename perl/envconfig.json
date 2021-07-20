@@ -1,27 +1,29 @@
-[{
-    "version": "1.11.0", 
-    "runtimeVersion" : "5", 
-    "image": "perl-env",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "Perl Environment",
-    "shortDescription": "Perl environment based on the Dancer2 framework",  
-    "readme" : "https://github.com/fission/environments/tree/master/perl",
-    "examples" : "https://github.com/fission/environments/tree/master/perl/examples",
-    "keywords": [],
+[
+  {
+    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
     "icon": "./logo/perl-programming-language.svg",
+    "image": "perl-env",
+    "keywords": [],
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "life1347",
-            "link": "https://github.com/life1347"
-        },
-        {
-            "name": "soamvasani",
-            "link": "https://github.com/soamvasani"
-        },
-        {
-            "name": "vishal-biyani",
-            "link": "https://github.com/vishal-biyani"
-        }
-    ]
-}]
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Perl Environment",
+    "readme": "https://github.com/fission/environments/tree/master/perl",
+    "runtimeVersion": "5",
+    "shortDescription": "Perl environment based on the Dancer2 framework",
+    "status": "Stable",
+    "version": "1.11.0"
+  }
+]

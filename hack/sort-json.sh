@@ -1,4 +1,4 @@
 for file in $(find . -name envconfig.json); do
-    jq -s <$file >$file.sorted
+    jq -S <$file >$file.sorted
     mv $file.sorted $file
 done

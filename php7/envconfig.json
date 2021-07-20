@@ -1,28 +1,30 @@
-[{
-    "version": "1.11.0", 
-    "runtimeVersion" : "7", 
-    "image": "php-env",
+[
+  {
     "builder": "php-builder",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "PHP Environment",
-    "shortDescription": "PHP environment with built-in server",  
-    "readme" : "https://github.com/fission/environments/tree/master/perl",
-    "examples" : "https://github.com/fission/environments/tree/master/perl/examples",
-    "keywords": [],
+    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
     "icon": "./logo/new-php-logo.svg",
+    "image": "php-env",
+    "keywords": [],
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "life1347",
-            "link": "https://github.com/life1347"
-        },
-        {
-            "name": "soamvasani",
-            "link": "https://github.com/soamvasani"
-        },
-        {
-            "name": "vishal-biyani",
-            "link": "https://github.com/vishal-biyani"
-        }
-    ]
-}]
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "PHP Environment",
+    "readme": "https://github.com/fission/environments/tree/master/perl",
+    "runtimeVersion": "7",
+    "shortDescription": "PHP environment with built-in server",
+    "status": "Stable",
+    "version": "1.11.0"
+  }
+]

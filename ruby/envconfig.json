@@ -1,28 +1,30 @@
-[{
-    "version": "1.11.0", 
-    "runtimeVersion" : "2.6.1", 
-    "image": "ruby-env",
+[
+  {
     "builder": "ruby-builder",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "Ruby Environment",
-    "shortDescription": "Ruby environment with WEBrick library",  
-    "readme" : "https://github.com/fission/environments/tree/master/ruby",
-    "examples" : "https://github.com/fission/environments/tree/master/ruby/examples",
-    "keywords": [],
+    "examples": "https://github.com/fission/environments/tree/master/ruby/examples",
     "icon": "./logo/Ruby_logo.svg",
+    "image": "ruby-env",
+    "keywords": [],
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "life1347",
-            "link": "https://github.com/life1347"
-        },
-        {
-            "name": "soamvasani",
-            "link": "https://github.com/soamvasani"
-        },
-        {
-            "name": "vishal-biyani",
-            "link": "https://github.com/vishal-biyani"
-        }
-    ]
-}]
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Ruby Environment",
+    "readme": "https://github.com/fission/environments/tree/master/ruby",
+    "runtimeVersion": "2.6.1",
+    "shortDescription": "Ruby environment with WEBrick library",
+    "status": "Stable",
+    "version": "1.11.0"
+  }
+]

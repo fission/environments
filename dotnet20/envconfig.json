@@ -1,28 +1,30 @@
-[{
-    "version": "1.11.0", 
-    "runtimeVersion" : "2.0.0",
-    "image": "dotnet20-env",    
+[
+  {
     "builder": "dotnet20-builder",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "Dotnet 2 Environment",
-    "shortDescription": "Fission Dotnet 2.0.0 runtime uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",   
-    "readme" : "https://github.com/fission/environments/tree/master/dotnet20",
-    "examples" : "https://github.com/fission/environments/tree/master/dotnet20/examples",
+    "examples": "https://github.com/fission/environments/tree/master/dotnet20/examples",
+    "icon": "./logo/logo_NETcore.svg",
+    "image": "dotnet20-env",
     "keywords": [],
-    "icon":  "./logo/logo_NETcore.svg",
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "life1347",
-            "link": "https://github.com/life1347"
-        },
-        {
-            "name": "soamvasani",
-            "link": "https://github.com/soamvasani"
-        },
-        {
-            "name": "vishal-biyani",
-            "link": "https://github.com/vishal-biyani"
-        }
-    ]
-}] 
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Dotnet 2 Environment",
+    "readme": "https://github.com/fission/environments/tree/master/dotnet20",
+    "runtimeVersion": "2.0.0",
+    "shortDescription": "Fission Dotnet 2.0.0 runtime uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",
+    "status": "Stable",
+    "version": "1.11.0"
+  }
+]

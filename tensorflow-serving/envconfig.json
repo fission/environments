@@ -1,27 +1,29 @@
-[{
-    "version": "1.11.0", 
-    "runtimeVersion" : "latest", 
-    "image": "tensorflow-serving-env",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "Tensorflow Serving Environment",
-    "shortDescription": "TensorFlow Serving for machine learning models",  
-    "readme" : "https://github.com/fission/environments/tree/master/tensorflow-serving",
-    "examples" : "https://github.com/fission/environments/tree/master/tensorflow-serving/examples",
-    "keywords": [],
+[
+  {
+    "examples": "https://github.com/fission/environments/tree/master/tensorflow-serving/examples",
     "icon": "./logo/Tensorflow_logo.svg",
+    "image": "tensorflow-serving-env",
+    "keywords": [],
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "life1347",
-            "link": "https://github.com/life1347"
-        },
-        {
-            "name": "soamvasani",
-            "link": "https://github.com/soamvasani"
-        },
-        {
-            "name": "vishal-biyani",
-            "link": "https://github.com/vishal-biyani"
-        }
-    ]
-}]
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Tensorflow Serving Environment",
+    "readme": "https://github.com/fission/environments/tree/master/tensorflow-serving",
+    "runtimeVersion": "latest",
+    "shortDescription": "TensorFlow Serving for machine learning models",
+    "status": "Stable",
+    "version": "1.11.0"
+  }
+]

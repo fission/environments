@@ -1,28 +1,30 @@
-[{
-    "version": "1.11.0", 
-    "runtimeVersion" : "3.5-alpine", 
-    "image": "binary-env",
+[
+  {
     "builder": "binary-builder",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "Fission Binary Environment",
-    "shortDescription": "Fission environment to run any binary",  
-    "readme" : "https://github.com/fission/environments/tree/master/binary",
-    "examples" : "https://github.com/fission/environments/tree/master/binary/examples",
-    "keywords": [],
+    "examples": "https://github.com/fission/environments/tree/master/binary/examples",
     "icon": "./logo/full_colored_dark.svg",
+    "image": "binary-env",
+    "keywords": [],
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "life1347",
-            "link": "https://github.com/life1347"
-        },
-        {
-            "name": "soamvasani",
-            "link": "https://github.com/soamvasani"
-        },
-        {
-            "name": "vishal-biyani",
-            "link": "https://github.com/vishal-biyani"
-        }
-    ]
-}]
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Fission Binary Environment",
+    "readme": "https://github.com/fission/environments/tree/master/binary",
+    "runtimeVersion": "3.5-alpine",
+    "shortDescription": "Fission environment to run any binary",
+    "status": "Stable",
+    "version": "1.11.0"
+  }
+]

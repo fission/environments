@@ -1,48 +1,50 @@
-[{
-    "version": "1.11.0",
-    "runtimeVersion" : "8", 
-    "image": "jvm-jersey-env",
+[
+  {
     "builder": "jvm-jersey-builder",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "JVM Environment",
-    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",  
-    "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
-    "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
-    "keywords": [],
+    "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "icon": "./logo/Java-Logo.png",
+    "image": "jvm-jersey-env",
+    "keywords": [],
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "sahil-lakhwani",
-            "link": "https://github.com/sahil-lakhwani"
-        }
-    ]
-},
-{
-    "version": "1.11.0", 
-    "runtimeVersion" : "11", 
-    "image": "jvm-jersey-env-11",
+      {
+        "link": "https://github.com/sahil-lakhwani",
+        "name": "sahil-lakhwani"
+      }
+    ],
+    "name": "JVM Environment",
+    "readme": "https://github.com/fission/environments/tree/master/jvm-jersey",
+    "runtimeVersion": "8",
+    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
+    "status": "Stable",
+    "version": "1.11.0"
+  },
+  {
     "builder": "jvm-jersey-builder-11",
-    "kind": "environment", 
-    "status": "Stable", 
-    "name": "JVM Environment",
-    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",  
-    "readme" : "https://github.com/fission/environments/tree/master/jvm-jersey",
-    "examples" : "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
-    "keywords": [],
+    "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "icon": "./logo/Java-Logo.png",
+    "image": "jvm-jersey-env-11",
+    "keywords": [],
+    "kind": "environment",
     "maintainers": [
-        {
-            "name": "life1347",
-            "link": "https://github.com/life1347"
-        },
-        {
-            "name": "soamvasani",
-            "link": "https://github.com/soamvasani"
-        },
-        {
-            "name": "vishal-biyani",
-            "link": "https://github.com/vishal-biyani"
-        }
-    ]
-}]
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "JVM Environment",
+    "readme": "https://github.com/fission/environments/tree/master/jvm-jersey",
+    "runtimeVersion": "11",
+    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
+    "status": "Stable",
+    "version": "1.11.0"
+  }
+]

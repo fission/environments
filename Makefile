@@ -35,3 +35,11 @@ verify-builder:
 $(FISSION_ENVS): verify-builder
 	cd $(subst -envs,,$@)/ && $(MAKE)
 
+sort-env-jsons:
+	./hack/sort-json.sh
+
+update-env-json: sort-env-jsons
+	./hack/merge-json.sh
+
+build-ui: update-env-json
+	cd environments-ui && npm i && npm run build

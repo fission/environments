@@ -35,8 +35,10 @@ verify-builder:
 $(FISSION_ENVS): verify-builder
 	cd $(subst -envs,,$@)/ && $(MAKE)
 
-update-env-json:
+sort-env-jsons:
 	./hack/sort-json.sh
+
+update-env-json:
 	./hack/merge-json.sh
 
 build-ui: update-env-json

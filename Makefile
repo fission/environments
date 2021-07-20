@@ -38,3 +38,6 @@ $(FISSION_ENVS): verify-builder
 update-env-json:
 	./hack/sort-json.sh
 	./hack/merge-json.sh
+
+build-ui: update-env-json
+	cd environments-ui && npm i && npm run build

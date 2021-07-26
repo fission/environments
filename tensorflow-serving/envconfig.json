@@ -24,6 +24,6 @@
     "runtimeVersion": "latest",
     "shortDescription": "TensorFlow Serving for machine learning models",
     "status": "Stable",
-    "version": "1.11.0"
+    "version": "1.31.0"
   }
 ]

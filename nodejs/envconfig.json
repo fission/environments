@@ -25,7 +25,7 @@
     "runtimeVersion": "8.0.0",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.11.0"
+    "version": "1.31.0"
   },
   {
     "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
@@ -52,7 +52,7 @@
     "runtimeVersion": "8.0.0-debian",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.11.0"
+    "version": "1.31.0"
   },
   {
     "builder": "node-builder-12.16",
@@ -80,6 +80,6 @@
     "runtimeVersion": "12.16",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.11.0"
+    "version": "1.31.0"
   }
 ]

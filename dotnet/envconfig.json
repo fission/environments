@@ -24,6 +24,6 @@
     "runtimeVersion": "1.1.0",
     "shortDescription": "Fission Dotnet 1.1.0 runtime uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",
     "status": "Stable",
-    "version": "1.11.0"
+    "version": "1.31.0"
   }
 ]

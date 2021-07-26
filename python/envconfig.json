@@ -25,7 +25,7 @@
     "runtimeVersion": "3.0",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "alpha",
-    "version": "1.11.0"
+    "version": "1.31.0"
   },
   {
     "examples": "https://github.com/fission/environments/tree/master/python/examples",
@@ -52,6 +52,6 @@
     "runtimeVersion": "2.7",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "alpha",
-    "version": "1.11.0"
+    "version": "1.31.0"
   }
 ]

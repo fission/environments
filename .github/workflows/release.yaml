@@ -55,3 +55,9 @@ jobs:
             cd builder
             TAG=${{ matrix.tag }} make ${{ matrix.builder }}-img
           fi
+          TAG=latest make ${{ matrix.image }}-img
+          if [ "${{ matrix.builder}}" != "" ]
+          then
+            cd builder
+            TAG=latest make ${{ matrix.builder }}-img
+          fi

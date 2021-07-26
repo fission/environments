@@ -17,7 +17,7 @@
     "runtimeVersion": "8",
     "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
     "status": "Stable",
-    "version": "1.31.0"
+    "version": "1.31.1"
   },
   {
     "builder": "jvm-jersey-builder-11",
@@ -45,6 +45,6 @@
     "runtimeVersion": "11",
     "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
     "status": "Stable",
-    "version": "1.31.0"
+    "version": "1.31.1"
   }
 ]

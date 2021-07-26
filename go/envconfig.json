@@ -24,7 +24,7 @@
     "runtimeVersion": "1.14",
     "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.31.0"
+    "version": "1.31.1"
   },
   {
     "builder": "go-builder-1.13",
@@ -52,7 +52,7 @@
     "runtimeVersion": "1.13",
     "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.31.0"
+    "version": "1.31.1"
   },
   {
     "builder": "go-builder",
@@ -80,7 +80,7 @@
     "runtimeVersion": "1.12",
     "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.31.0"
+    "version": "1.31.1"
   },
   {
     "builder": "go-builder-1.12",
@@ -108,7 +108,7 @@
     "runtimeVersion": "1.12",
     "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.31.0"
+    "version": "1.31.1"
   },
   {
     "builder": "go-builder-1.11.4",
@@ -136,6 +136,6 @@
     "runtimeVersion": "1.11.4",
     "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.31.0"
+    "version": "1.31.1"
   }
 ]

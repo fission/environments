@@ -1,10 +1,13 @@
 name: Release
+
 on:
   push:
     branches:
       - master
     paths:
       - '**/envconfig.json**'
+    workflow_dispatch:
+
 jobs:
   check:
     runs-on: ubuntu-latest

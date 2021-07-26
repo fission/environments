@@ -1,3 +1,5 @@
+PLATFORMS ?= linux/amd64
+
 -include ../../rules.mk
 
 .PHONY: all

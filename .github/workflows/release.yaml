@@ -52,12 +52,14 @@ jobs:
           TAG=${{ matrix.tag }} make ${{ matrix.image }}-img
           if [ "${{ matrix.builder}}" != "" ]
           then
-            cd builder
+            pushd builder
             TAG=${{ matrix.tag }} make ${{ matrix.builder }}-img
+            popd
           fi
           TAG=latest make ${{ matrix.image }}-img
           if [ "${{ matrix.builder}}" != "" ]
           then
-            cd builder
+            pushd builder
             TAG=latest make ${{ matrix.builder }}-img
+            popd
           fi

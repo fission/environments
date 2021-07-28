@@ -2,4 +2,4 @@
 
 A set of language environments for Fission.
 
-Please visit [environments dashboard](https://environments-fission-io.netlify.app/) to get information about different environments.
+Please visit [environments.fission.io](https://environments.fission.io) to get information about different environments.

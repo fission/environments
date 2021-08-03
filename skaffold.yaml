@@ -91,6 +91,14 @@ profiles:
           context: python/
           docker:
             dockerfile: Dockerfile
+  
+  - name: python-fastapi
+    build:
+      artifacts:
+        - image: python-fastapi-env
+          context: python-fastapi/
+          docker:
+            dockerfile: Dockerfile
 
   - name: ruby
     build:

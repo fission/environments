@@ -5,7 +5,7 @@ COPY *.go /go/
 
 RUN go build -o server .
 
-FROM alpine:3.12
+FROM alpine:latest
 
 WORKDIR /app
 

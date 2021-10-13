@@ -1,4 +1,4 @@
-FROM golang:1.13.15-buster
+FROM golang:1.16-buster
 
 RUN apt update && apt install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 ENV GOPATH /usr

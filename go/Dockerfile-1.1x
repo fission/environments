@@ -1,6 +1,7 @@
-ARG GO_VERSION=1.11.4
+ARG GO_VERSION
+ARG UBUNTU_VERSION
 
-FROM ubuntu:18.04 AS base
+FROM ubuntu:${UBUNTU_VERSION} AS base
 WORKDIR /
 RUN apt update && apt install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 
@@ -11,10 +12,10 @@ ENV APP	   ${GOPATH}/src/github.com/fission/fission/environments/go
 
 WORKDIR ${APP}
 
-ADD context	    ${APP}/context
 ADD server.go   ${APP}
 
-RUN go get
+RUN go mod init
+RUN go mod tidy
 RUN go build -a -o /server server.go
 
 FROM base

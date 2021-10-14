@@ -24,12 +24,14 @@ cd ${srcDir}
 
 if [ ! -z ${GOLANG_VERSION} ] && version_ge ${GOLANG_VERSION} "1.12"; then
     if [ -f "go.mod" ]; then
+        go mod edit -module $(basename ${SRC_PKG})
         go mod download
     else
         # Since we're in GOPATH, we need to enable this 
         export GO111MODULE="on" 
         # still need to do this; otherwise, go will complain "cannot find main module".
         go mod init
+        go mod tidy
     fi
 else # go version lower than go 1.12
     if [ -f "go.mod" ]; then

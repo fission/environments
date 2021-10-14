@@ -1,6 +1,19 @@
+/*
+Copyright 2021 The Fission Authors.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -9,15 +22,12 @@ import (
 	"os"
 	"path/filepath"
 	"plugin"
-
 	// DO NOT IMPORT THIRD PARTY PACKAGES
 	// The 3rd party package version used by go server may be
 	// different from the one in user's source code and will
 	// cause plugin version mismatched. Hence, we should never
 	// import any external packages except the Fission or built-in
 	// packages.
-
-	"github.com/fission/fission/environments/go/context"
 )
 
 const (
@@ -83,7 +93,7 @@ func loadPlugin(codePath, entrypoint string) (http.HandlerFunc, error) {
 		return h, nil
 	case func(context.Context, http.ResponseWriter, *http.Request):
 		return func(w http.ResponseWriter, r *http.Request) {
-			c := context.New()
+			c := r.Context()
 			h(c, w, r)
 		}, nil
 	default:
@@ -93,24 +103,34 @@ func loadPlugin(codePath, entrypoint string) (http.HandlerFunc, error) {
 
 func specializeHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		var err error
 		if userFunc != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("Not a generic container"))
+			_, err = w.Write([]byte("Not a generic container"))
+			if err != nil {
+				log.Printf("error writing response: %v", err)
+			}
 			return
 		}
 
-		_, err := os.Stat(CODE_PATH)
+		_, err = os.Stat(CODE_PATH)
 		if err != nil {
 			if os.IsNotExist(err) {
 				log.Printf("code path (%v) does not exist: %v", CODE_PATH, err)
 				w.WriteHeader(http.StatusNotFound)
-				w.Write([]byte(CODE_PATH + ": not found"))
+				_, err = w.Write([]byte(CODE_PATH + ": not found"))
+				if err != nil {
+					log.Printf("error writing response: %v", err)
+				}
 				return
 			} else {
 				log.Printf("unknown error looking for code path(%v): %v", CODE_PATH, err)
 				err = fmt.Errorf("unknown error: %v", err)
 				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte(err.Error()))
+				_, err = w.Write([]byte(err.Error()))
+				if err != nil {
+					log.Printf("error writing response: %v", err)
+				}
 				return
 			}
 		}
@@ -121,7 +141,10 @@ func specializeHandler() func(http.ResponseWriter, *http.Request) {
 			err = fmt.Errorf("error specializing function: %v", err)
 			log.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+			_, err = w.Write([]byte(err.Error()))
+			if err != nil {
+				log.Printf("error writing response: %v", err)
+			}
 			return
 		}
 		log.Println("done")
@@ -130,9 +153,13 @@ func specializeHandler() func(http.ResponseWriter, *http.Request) {
 
 func specializeHandlerV2() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		var err error
 		if userFunc != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("Not a generic container"))
+			_, err = w.Write([]byte("Not a generic container"))
+			if err != nil {
+				log.Printf("error writing response: %v", err)
+			}
 			return
 		}
 
@@ -154,13 +181,19 @@ func specializeHandlerV2() func(http.ResponseWriter, *http.Request) {
 			if os.IsNotExist(err) {
 				log.Printf("code path (%v) does not exist: %v", loadreq.FilePath, err)
 				w.WriteHeader(http.StatusNotFound)
-				w.Write([]byte(loadreq.FilePath + ": not found"))
+				_, err = w.Write([]byte(loadreq.FilePath + ": not found"))
+				if err != nil {
+					log.Printf("error writing response: %v", err)
+				}
 				return
 			} else {
 				log.Printf("unknown error looking for code path(%v): %v", loadreq.FilePath, err)
 				err = fmt.Errorf("unknown error: %v", err)
 				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte(err.Error()))
+				_, err = w.Write([]byte(err.Error()))
+				if err != nil {
+					log.Printf("error writing response: %v", err)
+				}
 				return
 			}
 		}
@@ -171,7 +204,10 @@ func specializeHandlerV2() func(http.ResponseWriter, *http.Request) {
 			err = fmt.Errorf("error specializing function: %v", err)
 			log.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+			_, err = w.Write([]byte(err.Error()))
+			if err != nil {
+				log.Printf("error writing response: %v", err)
+			}
 			return
 		}
 		log.Println("done")
@@ -183,7 +219,6 @@ func readinessProbeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-
 	http.HandleFunc("/healthz", readinessProbeHandler)
 	http.HandleFunc("/specialize", specializeHandler())
 	http.HandleFunc("/v2/specialize", specializeHandlerV2())
@@ -192,12 +227,18 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if userFunc == nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Generic container: no requests supported"))
+			_, err := w.Write([]byte("Generic container: no requests supported"))
+			if err != nil {
+				log.Printf("error writing response: %v", err)
+			}
 			return
 		}
 		userFunc(w, r)
 	})
 
 	log.Println("listening on 8888 ...")
-	http.ListenAndServe(":8888", nil)
+	err := http.ListenAndServe(":8888", nil)
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
 }

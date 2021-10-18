@@ -16,6 +16,7 @@ deploy:
       wait: true
     flags:
       install:
+      - --create-namespace
       - --timeout=3m
       - --debug
       - --dependency-update

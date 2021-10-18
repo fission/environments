@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
-source $(dirname $0)/../../utils.sh
+source $(dirname $0)/../../test_utils/utils.sh
 
 TEST_ID=$(generate_test_id)
 echo "TEST_ID = $TEST_ID"
@@ -28,6 +28,9 @@ fn_nd=hello-go-nd-$TEST_ID
 
 cd $ROOT/examples/go
 
+export GO_BUILDER_IMAGE=go-builder
+export GO_RUNTIME_IMAGE=go-env
+
 log "Creating environment for Golang"
 fission env create --name $env --image $GO_RUNTIME_IMAGE --builder $GO_BUILDER_IMAGE --period 5
 
@@ -44,8 +47,8 @@ fission fn create --name $fn_poolmgr --env $env --pkg $pkgName --entrypoint Hand
 fission fn create --name $fn_nd      --env $env --pkg $pkgName --entrypoint Handler --executortype newdeploy
 
 log "Creating route for new deployment function"
-fission route create --function $fn_poolmgr --url /$fn_poolmgr --method GET
-fission route create --function $fn_nd      --url /$fn_nd      --method GET
+fission route create --name $fn_poolmgr --function $fn_poolmgr --url /$fn_poolmgr --method GET
+fission route create --name $fn_nd --function $fn_nd --url /$fn_nd --method GET
 
 log "Waiting for router & pools to catch up"
 sleep 5
@@ -57,7 +60,7 @@ log "Testing new deployment function"
 timeout 60 bash -c "test_fn $fn_nd 'Hello'"
 
 # Create zip file without top level directory (module-example)
-cd module-example && zip -r $tmp_dir/module.zip *
+cd module-example && zip -0 -r $tmp_dir/module.zip * -x "*README*"
 
 pkgName=$(generate_test_id)
 fission package create --name $pkgName --src $tmp_dir/module.zip --env $env

@@ -32,26 +32,18 @@ jobs:
           image: kindest/node:v1.21.1
           version: v0.11.1
           config: kind.yaml
-      - name: Configuring and testing the Installation
+      - name: Base Setup
         run: |
-          kubectl cluster-info --context kind-kind
-          kubectl get nodes
-      - name: Install Fission CLI
+          make verify-kind-cluster
+          make install-fission-cli
+          make install-skaffold
+          make create-crds
+      - name: Fission and Test images
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.14.1/fission-1.14.1-linux-amd64
-          chmod +x fission
-          sudo mv fission /usr/local/bin/
-      - name: Fission CRDs
-        run: |
-          kubectl create -k "github.com/fission/fission/crds/v1?ref=1.14.1"
-      - name: go
-        uses: hiberbee/github-action-skaffold@1.12.0
-        with:
-          command: run
-          profile: go
-          tag: latest
+          SKAFFOLD_PROFILE=go make skaffold-run
+          make go-test-images
       - name: go-tests
-        run: kind load docker-image go-env && ./test_utils/run_test.sh ./go/tests/test_go_env.sh
+        run: ./test_utils/run_test.sh ./go/tests/test_go_env.sh
   jvm:
     runs-on: ubuntu-latest
     needs: check

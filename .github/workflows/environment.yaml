@@ -24,6 +24,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Helm
         uses: Azure/setup-helm@v1
+        with:
+          version: v3.3.4
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
@@ -33,12 +35,12 @@ jobs:
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
           kubectl get nodes
       - name: Install Fission CLI
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.14.1/fission-1.14.1-linux-amd64  \
-          && chmod +x fission && sudo mv fission /usr/local/bin/
+          curl -Lo fission https://github.com/fission/fission/releases/download/1.14.1/fission-1.14.1-linux-amd64
+          chmod +x fission
+          sudo mv fission /usr/local/bin/
       - name: Fission CRDs
         run: |
           kubectl create -k "github.com/fission/fission/crds/v1?ref=1.14.1"

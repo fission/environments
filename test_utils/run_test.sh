@@ -17,7 +17,7 @@ source $(dirname $BASH_SOURCE)/init_tools.sh
 ROOT=$(readlink -f $(dirname $0)/..)
 LOG_DIR=${LOG_DIR:-$ROOT/test/logs}
 JOBS=${JOBS:-1}
-TIMEOUT=${TIMEOUT:-0}
+TIMEOUT=${TIMEOUT:-600}
 
 export FAILURES=0
 

@@ -26,7 +26,7 @@ env=go-$TEST_ID
 fn_poolmgr=hello-go-poolmgr-$TEST_ID
 fn_nd=hello-go-nd-$TEST_ID
 
-cd $ROOT/go
+cd $ROOT/go/examples
 
 export GO_BUILDER_IMAGE=go-builder
 export GO_RUNTIME_IMAGE=go-env

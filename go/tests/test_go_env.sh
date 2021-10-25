@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xeuo pipefail
+set -euo pipefail
 ROOT=$(dirname $0)/../..
 source $ROOT/test_utils/utils.sh
 

@@ -9,7 +9,7 @@ Looking for ready-to-run examples? See the [Go examples directory](../../example
 ## Build this image
 
 ```sh
-docker build -t USER/go-env --build-arg GO_VERSION=1.16 -f Dockerfile-1.1x . && docker push USER/go-env
+docker build -t USER/go-env --build-arg GO_VERSION=1.16 --build-arg UBUNTU_VERSION=20.04 -f Dockerfile-1.1x . && docker push USER/go-env
 ```
 
 Note that if you build the runtime, you must also build the go-builder

@@ -22,7 +22,7 @@ cd ${srcDir}
 
 if [ ! -z ${GOLANG_VERSION} ] && version_ge ${GOLANG_VERSION} "1.12"; then
     if [ -f "go.mod" ]; then
-        go mod download -x
+        go mod download
     else
         # Since we're in GOPATH, we need to enable this
         export GO111MODULE="on"

@@ -18,7 +18,7 @@
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
     "runtimeVersion": "1.17",
-    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "shortDescription": "Fission Go 1.17 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
     "version": "1.32.1"
   },
@@ -41,7 +41,7 @@
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
     "runtimeVersion": "1.16",
-    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "shortDescription": "Fission Go 1.16 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
     "version": "1.32.1"
   },
@@ -64,7 +64,7 @@
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
     "runtimeVersion": "1.15",
-    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "shortDescription": "Fission Go 1.15 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
     "version": "1.32.1"
   },
@@ -87,7 +87,7 @@
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
     "runtimeVersion": "1.14",
-    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "shortDescription": "Fission Go 1.14 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
     "version": "1.32.1"
   },
@@ -111,7 +111,7 @@
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
     "runtimeVersion": "1.13",
-    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "shortDescription": "Fission Go 1.13 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
     "version": "1.31.1"
   },
@@ -135,7 +135,7 @@
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
     "runtimeVersion": "1.15",
-    "shortDescription": "Fission Go environment, which uses dynamic loader based on Go plugins.",
+    "shortDescription": "Fission Go environment hosts Go 1.15, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
     "version": "1.32.1"
   }

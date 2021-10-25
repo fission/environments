@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+set -xeuo pipefail
 source $(dirname $0)/../../test_utils/utils.sh
 
 TEST_ID=$(generate_test_id)
@@ -12,6 +12,7 @@ mkdir -p $tmp_dir
 ROOT=$(dirname $0)/../../..
 
 cleanup() {
+    echo "cleanup"
     clean_resource_by_id $TEST_ID
     rm -rf $tmp_dir
 }

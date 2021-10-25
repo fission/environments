@@ -11,16 +11,15 @@
 #       TIMEOUT     Timeout for each job. (default: 0 (no timeout))
 #
 
-
-
 set -euo pipefail
 source $(dirname $BASH_SOURCE)/init_tools.sh
 
 ROOT=$(readlink -f $(dirname $0)/..)
 LOG_DIR=${LOG_DIR:-$ROOT/test/logs}
 JOBS=${JOBS:-1}
-TIMEOUT=${TIMEOUT:-0}
+TIMEOUT=${TIMEOUT:-300}
 
+export FAILURES=0
 
 main() {
     if [ $# -eq 0 ]; then
@@ -28,7 +27,6 @@ main() {
     else
         args="$@"
     fi
-
 
     num_skip=0
     mkdir -p $LOG_DIR
@@ -46,7 +44,7 @@ main() {
 
         if grep -q "^#test:disabled" $arg; then
             echo "INFO: the test is marked disabled: $relative_path"
-            num_skip=$((num_skip+1))
+            num_skip=$((num_skip + 1))
             continue
         fi
 
@@ -64,20 +62,38 @@ main() {
         --jobs $JOBS \
         --timeout $TIMEOUT \
         bash -c '{1} > {2} 2>&1' \
-        ::: $test_files :::+ $log_files \
-        | tee $LOG_DIR/_recap \
-        || true
+        ::: $test_files :::+ $log_files |
+        tee $LOG_DIR/_recap ||
+        true
     end_time=$(date +%s)
 
     # Get the Exitval in _recap to find if any test failed.
     num_total=$(cat $LOG_DIR/_recap | wc -l)
-    num_total=$((num_total - 1))    # don't count header
+    num_total=$((num_total - 1)) # don't count header
     num_fail=$(cat $LOG_DIR/_recap | awk 'NR>1 && $7!=0 {print $0}' | wc -l | tr -d ' ')
     num_pass=$((num_total - num_fail))
     time=$((end_time - start_time))
     echo ============================================================
     echo "PASS: $num_pass    FAIL: $num_fail    SKIP: $num_skip    TIME: ${time}s"
-    return $num_fail
+    FAILURES=$((FAILURES+$num_fail))
 }
 
 main "$@"
+
+# dump test logs
+# TODO: the idx does not match seq number in recap.
+idx=1
+log_files=$(find test/logs/ -name '*.log')
+
+for log_file in $log_files; do
+    test_name=${log_file#test/logs/}
+    echo "========== start $test_name =========="
+    cat $log_file
+    echo "========== end $test_name =========="
+    idx=$((idx+1))
+done
+
+echo "Total Failures" $FAILURES
+if [[ $FAILURES != '0' ]]; then
+    exit 1
+fi

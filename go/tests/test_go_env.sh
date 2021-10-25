@@ -1,15 +1,14 @@
 #!/bin/bash
 
 set -xeuo pipefail
-source $(dirname $0)/../../test_utils/utils.sh
+ROOT=$(dirname $0)/../..
+source $ROOT/test_utils/utils.sh
 
 TEST_ID=$(generate_test_id)
 echo "TEST_ID = $TEST_ID"
 
 tmp_dir="/tmp/test-$TEST_ID"
 mkdir -p $tmp_dir
-
-ROOT=$(dirname $0)/../../..
 
 cleanup() {
     echo "cleanup"
@@ -27,7 +26,7 @@ env=go-$TEST_ID
 fn_poolmgr=hello-go-poolmgr-$TEST_ID
 fn_nd=hello-go-nd-$TEST_ID
 
-cd $ROOT/examples/go
+cd $ROOT/go
 
 export GO_BUILDER_IMAGE=go-builder
 export GO_RUNTIME_IMAGE=go-env

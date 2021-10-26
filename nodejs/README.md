@@ -24,7 +24,7 @@ sign up for Docker hub at hub.docker.com, or use registries from
 gcr.io, quay.io, etc.  Let's assume you're using a docker hub account
 called USER.  Build and push the image to the the registry:
 
-```
+```console
    docker build -t USER/nodejs-env . && docker push USER/nodejs-env
 ```
 
@@ -33,13 +33,13 @@ called USER.  Build and push the image to the the registry:
 You can add this customized image to fission with "fission env
 create":
 
-```
+```console
    fission env create --name nodejs --image USER/nodejs-env
 ```
 
 Or, if you already have an environment, you can update its image:
 
-```
+```console
    fission env update --name nodejs --image USER/nodejs-env   
 ```
 

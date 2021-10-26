@@ -5,7 +5,7 @@ PLATFORMS ?= linux/amd64,linux/arm64
 REPO ?= fission
 TAG ?= dev
 DOCKER_FLAGS ?= --push --progress plain
-FISSION_VERSION ?= 1.14.1
+FISSION_VERSION ?= v1.15.0-rc1
 SKAFFOLD_PROFILE ?= kind
 
 %-img:

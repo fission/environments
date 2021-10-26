@@ -52,21 +52,21 @@ timeout 180s bash -c "wait_for_builder $env_v2api"
 log "===== 1. test env with v1 api ====="
 fission fn create --name $fn1 --env $env_v1api --code $test_path/test-case-1/helloWorld.js
 
-fission route create --function $fn1 --url /$fn1 --method GET
+fission route create --name $fn1 --function $fn1 --url /$fn1 --method GET
 sleep 3     # Waiting for router to catch up
 timeout 60 bash -c "test_fn $fn1 \"hello, world!\""
 
 log "===== 2. test query string ====="
 fission fn create --name $fn2 --env $env_v1api --code $test_path/test-case-2/helloUser.js
 
-fission route create --function $fn2 --url /$fn2 --method GET
+fission route create --name $fn2 --function $fn2 --url /$fn2 --method GET
 sleep 3     # Waiting for router to catch up
 timeout 60 bash -c "test_fn $fn2?user=foo \"hello foo!\""
 
 log "===== 3. test POST ====="
 fission fn create --name $fn3 --env $env_v1api --code $test_path/test-case-3/wordCount.js
 
-fission route create --function $fn3 --url /$fn3 --method POST
+fission route create --name $fn3 --function $fn3 --url /$fn3 --method POST
 sleep 3     # Waiting for router to catch up
 body='Its a beautiful day'
 timeout 20 bash -c "test_post_route $fn3 $body 4"

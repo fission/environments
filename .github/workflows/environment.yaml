@@ -128,7 +128,7 @@ jobs:
           make nodejs-test-images
       - name: nodejs-tests
         run: |
-          echo "TODO: prepare tests"
+          ./test_utils/run_test.sh ./nodejs/test/test_node_env.sh
       - name: Collect Fission Dump
         if: ${{ always() }}
         run: |

@@ -7,6 +7,9 @@ set -e
 
 DIR=$(dirname $0)
 
+# We have to remove symlink for node_modules in tests directory
+rm -r $DIR/node_modules
+
 echo "-- Starting server"
 node $DIR/../server.js --codepath $DIR/test.js --port 8888 &
 function cleanup() {

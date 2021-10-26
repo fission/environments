@@ -14,18 +14,17 @@
   ],
   "description": "NodeJS run container for the fission framework",
   "engines": {
-    "node": ">=7.6.0"
+    "node": ">= 12.0.0"
   },
   "dependencies": {
-    "body-parser": "*",
     "co": "~4.6.0",
-    "express": "*",
+    "express": ">=4.0.0",
     "minimist": "*",
     "morgan": "*",
     "mz": "~2.7.0",
     "request": "^2.81.0",
-    "ws": "^7.4.0",
+    "request-promise-native": "^1.0.3",
     "underscore": ">=1.8.3",
-    "request-promise-native": "^1.0.3"
+    "ws": "^7.5.5"
   }
 }

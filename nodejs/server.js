@@ -32,7 +32,7 @@ process.on("uncaughtException", (err) => {
 // User function.  Starts out undefined.
 let userFunction;
 
-function loadFunction(modulepath, funcname) {
+const loadFunction = (modulepath, funcname) => {
   // Read and load the code. It's placed there securely by the fission runtime.
   try {
     let startTime = process.hrtime();
@@ -49,10 +49,10 @@ function loadFunction(modulepath, funcname) {
     console.error(`user code load error: ${e}`);
     return e;
   }
-}
+};
 
-function withEnsureGeneric(func) {
-  return function(req, res) {
+const withEnsureGeneric = (func) => {
+  return (req, res) => {
     // Make sure we're a generic container.  (No reuse of containers.
     // Once specialized, the container remains specialized.)
     if (userFunction) {
@@ -62,13 +62,13 @@ function withEnsureGeneric(func) {
 
     func(req, res);
   };
-}
+};
 
-function isFunction(func) {
+const isFunction = (func) => {
   return func && func.constructor && func.call && func.apply;
-}
+};
 
-function specializeV2(req, res) {
+const specializeV2 = (req, res) => {
   // for V2 entrypoint, 'filename.funcname' => ['filename', 'funcname']
   const entrypoint = req.body.functionName
     ? req.body.functionName.split(".")
@@ -83,9 +83,9 @@ function specializeV2(req, res) {
   } else {
     res.status(500).send(JSON.stringify(result));
   }
-}
+};
 
-function specialize(req, res) {
+const specialize = (req, res) => {
   // Specialize this server to a given user function.  The user function
   // is read from argv.codepath; it's expected to be placed there by the
   // fission runtime.
@@ -114,23 +114,23 @@ function specialize(req, res) {
   } else {
     res.status(500).send(JSON.stringify(result));
   }
-}
+};
 
 // Request logger
 app.use(morgan("combined"));
 
 let bodyParserLimit = process.env.BODY_PARSER_LIMIT || "1mb";
 
-app.use(bodyParser.urlencoded({ extended: false, limit: bodyParserLimit }));
-app.use(bodyParser.json({ limit: bodyParserLimit }));
-app.use(bodyParser.raw({ limit: bodyParserLimit }));
-app.use(bodyParser.text({ type: "text/*", limit: bodyParserLimit }));
+app.use(express.urlencoded({ extended: false, limit: bodyParserLimit }));
+app.use(express.json({ limit: bodyParserLimit }));
+app.use(express.raw({ limit: bodyParserLimit }));
+app.use(express.text({ type: "text/*", limit: bodyParserLimit }));
 
 app.post("/specialize", withEnsureGeneric(specialize));
 app.post("/v2/specialize", withEnsureGeneric(specializeV2));
 
 // Generic route -- all http requests go to the user function.
-app.all("*", function(req, res) {
+app.all("*", (req, res) => {
   if (!userFunction) {
     res.status(500).send("Generic container: no requests supported");
     return;
@@ -142,7 +142,7 @@ app.all("*", function(req, res) {
     // TODO: context should also have: URL template params, query string
   };
 
-  function callback(status, body, headers) {
+  const callback = (status, body, headers) => {
     if (!status) return;
     if (headers) {
       for (let name of Object.keys(headers)) {
@@ -150,7 +150,7 @@ app.all("*", function(req, res) {
       }
     }
     res.status(status).send(body);
-  }
+  };
 
   //
   // Customizing the request context
@@ -169,10 +169,10 @@ app.all("*", function(req, res) {
       result = Promise.resolve(userFunction(context));
     }
     result
-      .then(function({ status, body, headers }) {
+      .then(({ status, body, headers }) => {
         callback(status, body, headers);
       })
-      .catch(function(err) {
+      .catch((err) => {
         console.log(`Function error: ${err}`);
         callback(500, "Internal server error");
       });
@@ -205,19 +205,19 @@ let wss = new WSServer({
   server: server,
 });
 
-function noop() {}
+const noop = () => {};
 
-function heartbeat() {
+const heartbeat = () => {
   this.isAlive = true;
-}
+};
 // warm indicates whether this pod has ever been active
 var warm = false;
 
 let interval;
-interval = setInterval(function ping() {
+interval = setInterval(() => {
   if (warm) {
     if (wss.clients.size > 0) {
-      wss.clients.forEach(function each(ws) {
+      wss.clients.forEach((ws) => {
         // We check if all connections are alive
         if (ws.isAlive === false) return ws.terminate();
 
@@ -243,7 +243,7 @@ interval = setInterval(function ping() {
   }
 }, timeout);
 
-wss.on("connection", function connection(ws) {
+wss.on("connection", (ws) => {
   if (warm == false) {
     warm = true;
     // On successful request, there's no body returned
@@ -263,7 +263,7 @@ wss.on("connection", function connection(ws) {
   ws.isAlive = true;
   ws.on("pong", heartbeat);
 
-  wss.on("close", function close() {
+  wss.on("close", () => {
     clearInterval(interval);
   });
 

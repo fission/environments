@@ -12,12 +12,14 @@ if [ -h "$DIR/node_modules" ]; then
   rm "$DIR/node_modules"
 fi
 
-echo "-- Starting server"
-node $DIR/../server.js --codepath $DIR/test.js --port 8888 &
 function cleanup() {
     echo "-- Cleanup"
     kill %1
 }
+
+echo "-- Starting server"
+node $DIR/../server.js --codepath $DIR/test.js --port 8888 &
+
 trap cleanup EXIT
 sleep 2
 

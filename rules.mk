@@ -10,7 +10,7 @@ SKAFFOLD_PROFILE ?= kind
 
 %-img:
 	@echo === Building image $(REPO)/$(subst -img,,$@):$(TAG) using context $(CURDIR) and dockerfile $<
-	echo docker buildx build $($@-buildargs) --platform=$(PLATFORMS) -t $(REPO)/$(subst -img,,$@):$(TAG) $(DOCKER_FLAGS) -f $< .
+	docker buildx build $($@-buildargs) --platform=$(PLATFORMS) -t $(REPO)/$(subst -img,,$@):$(TAG) $(DOCKER_FLAGS) -f $< .
 
 %-builder:
 	cd builder/ && $(MAKE)

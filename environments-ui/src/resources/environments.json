@@ -9,12 +9,8 @@
     "kind": "environment",
     "maintainers": [
       {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
       },
       {
         "link": "https://github.com/vishal-biyani",
@@ -23,10 +19,10 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "8.0.0",
+    "runtimeVersion": "12.22.7",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.32.1"
   },
   {
     "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
@@ -36,12 +32,8 @@
     "kind": "environment",
     "maintainers": [
       {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
       },
       {
         "link": "https://github.com/vishal-biyani",
@@ -50,26 +42,22 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "8.0.0-debian",
+    "runtimeVersion": "12.22.7-debian",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.32.1"
   },
   {
-    "builder": "node-builder-12.16",
+    "builder": "node-builder-12",
     "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
     "icon": "./logo/nodejs-new-pantone-black.svg",
-    "image": "node-env-12.16",
+    "image": "node-env-12",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
       {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
       },
       {
         "link": "https://github.com/vishal-biyani",
@@ -78,10 +66,58 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "12.16",
+    "runtimeVersion": "12.22.7",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.32.1"
+  },
+  {
+    "builder": "node-builder-14",
+    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "image": "node-env-14",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Nodejs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/nodejs",
+    "runtimeVersion": "14.18.1",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.32.1"
+  },
+  {
+    "builder": "node-builder-16",
+    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "image": "node-env-16",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Nodejs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/nodejs",
+    "runtimeVersion": "16.12.0",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.32.1"
   }
 ]
 ,

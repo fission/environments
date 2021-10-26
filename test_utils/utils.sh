@@ -44,9 +44,13 @@ clean_resource_by_id() {
 }
 
 test_fn() {
-    
+    if [ -z $FISSION_ROUTER ]; then
+        log "Environment FISSION_ROUTER not set"
+        exit 1
+    fi
+    url="http://$FISSION_ROUTER/$1"
     expect=$2
-    test_response $1 $expect
+    test_response $url $expect
 }
 export -f test_fn
 
@@ -62,15 +66,22 @@ export -f test_ingress
 test_response() {
     # Doing an HTTP GET on the function's route
     # Checking for valid response
-    fn=$1
+    url=$1
     expect=$2
-
-    echo ">>>" $fn
 
     set +e
     while true; do
         log "test_fn: call curl"
-        resp=$(fission fn test --name $fn)
+        echo curl "$url"
+        resp=$(curl --silent --show-error "$url")
+        # log "response:" $resp
+        status_code=$?
+        log "status_code:" $status_code
+        if [ $status_code -ne 0 ]; then
+            log "test_fn: curl failed ($status_code). Retrying ..."
+            sleep 1
+            continue
+        fi
         if ! (echo $resp | grep "$expect" > /dev/null); then
             log "test_fn: resp = '$resp'    expect = '$expect'"
             log "test_fn: expected string not found. Retrying ..."
@@ -130,7 +141,7 @@ export -f wait_for_builder
 
 waitBuild() {
     log "Waiting for builder manager to finish the build"
-
+    echo "Waiting for builder manager"
     set +e
     while true; do
       kubectl --namespace default get packages $1 -o jsonpath='{.status.buildstatus}'|grep succeeded
@@ -144,6 +155,7 @@ waitBuild() {
 export -f waitBuild
 
 waitBuildExpectedStatus() {
+    echo "In wait expected status"
     pkg=$1
     status=$2
 
@@ -161,14 +173,13 @@ waitBuildExpectedStatus() {
 }
 export -f waitBuildExpectedStatus
 
-
 ## Common env parameters
 export FISSION_NAMESPACE=${FISSION_NAMESPACE:-fission}
 export FUNCTION_NAMESPACE=${FUNCTION_NAMESPACE:-fission-function}
 
 router=$(kubectl -n $FISSION_NAMESPACE get svc router -o jsonpath='{...ip}')
 
-export FISSION_ROUTER=${FISSION_ROUTER:-$router}
+export FISSION_ROUTER=${FISSION_ROUTER:-127.0.0.1:8888}
 # export FISSION_NATS_STREAMING_URL="http://defaultFissionAuthToken@$(kubectl -n $FISSION_NAMESPACE get svc nats-streaming -o jsonpath='{...ip}:{.spec.ports[0].port}')"
 
 ## Parameters used by some specific test cases

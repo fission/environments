@@ -92,35 +92,55 @@ jobs:
           kind load docker-image jvm-env && ./test_utils/run_test.sh jvm/tests/test_java_env.sh
   nodejs:
     runs-on: ubuntu-latest
-    if: contains( needs.check.outputs.packages, 'nodejs' )
     needs: check
+    if: contains( needs.check.outputs.packages, 'nodejs' )
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
-        id: filter
+      - uses: actions/setup-node@v2
         with:
-          filters: .github/workflows/filters/filters.yaml
+          node-version: '14'
+      - name: Unit test
+        run: |
+          pushd nodejs/
+          npm install
+          ./test/local_test.sh
+          popd
       - name: Helm
         uses: Azure/setup-helm@v1
+        with:
+          version: v3.3.4
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
+          image: kindest/node:v1.21.1
+          version: v0.11.1
           config: kind.yaml
-      - name: Configuring and testing the Installation
+      - name: Base Setup
         run: |
-          kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
-          kubectl get nodes
-      - name: Install Fission CLI
+          make verify-kind-cluster
+          make install-fission-cli
+          make install-skaffold
+          make create-crds
+      - name: Fission and Test images
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
-          && chmod +x fission && sudo mv fission /usr/local/bin/
-      - name: nodejs
-        uses: hiberbee/github-action-skaffold@1.5.0
+          SKAFFOLD_PROFILE=nodejs make skaffold-run
+          make nodejs-test-images
+          make router-port-forward
+      - name: nodejs-tests
+        run: |
+          ./test_utils/run_test.sh ./nodejs/test/test_node_env.sh
+      - name: Collect Fission Dump
+        if: ${{ always() }}
+        run: |
+          command -v fission && fission support dump
+      - name: Archive fission dump
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
         with:
-          command: run
-          profile: nodejs
+          name: fission-dump
+          path: fission-dump/*.zip
+          retention-days: 5
   perl:
     runs-on: ubuntu-latest
     if: contains( needs.check.outputs.packages, 'perl' )
@@ -139,7 +159,6 @@ jobs:
         with:
           config: kind.yaml
       - name: Configuring and testing the Installation
-
         run: |
           kubectl cluster-info --context kind-kind
           kind get kubeconfig --internal >$HOME/.kube/config
@@ -166,15 +185,12 @@ jobs:
         with:
           filters: .github/workflows/filters/filters.yaml
       - name: Helm
-
         uses: Azure/setup-helm@v1
       - name: Kind Clutser
-
         uses: engineerd/setup-kind@v0.5.0
         with:
           config: kind.yaml
       - name: Configuring and testing the Installation
-
         run: |
           kubectl cluster-info --context kind-kind
           kind get kubeconfig --internal >$HOME/.kube/config

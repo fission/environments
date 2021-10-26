@@ -4,7 +4,7 @@ deploy:
   helm:
     releases:
     - name: fission
-      remoteChart: https://fission.github.io/fission-charts/fission-all-1.14.1.tgz
+      remoteChart: https://fission.github.io/fission-charts/fission-all-v1.15.0-rc1.tgz
       namespace: fission
       setValues:
         analytics: "false"
@@ -81,6 +81,14 @@ profiles:
       context: nodejs/
       docker:
         dockerfile: Dockerfile
+        buildArgs:
+          NODE_BASE_IMG: "12.22.7-alpine3.14"
+    - image: node-builder
+      context: nodejs/builder/
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          NODE_BASE_IMG: "12.22.7-alpine3.14"
 - name: perl
   build:
     artifacts:

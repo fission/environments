@@ -12,7 +12,7 @@ if [ -h "$DIR/node_modules" ]; then
   rm "$DIR/node_modules"
 fi
 
-function cleanup() {
+cleanup() {
     echo "-- Cleanup"
     kill %1
 }

@@ -6,7 +6,6 @@ const process = require("process");
 const express = require("express");
 const request = require("request");
 const app = express();
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const WSServer = require("ws").Server;
 const argv = require("minimist")(process.argv.slice(1)); // Command line opts

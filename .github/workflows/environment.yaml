@@ -97,6 +97,15 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Unit test
+        run: |
+          pushd nodejs/
+          npm install
+          ./test/local_test.sh
+          popd
       - name: Helm
         uses: Azure/setup-helm@v1
         with:
@@ -149,7 +158,6 @@ jobs:
         with:
           config: kind.yaml
       - name: Configuring and testing the Installation
-
         run: |
           kubectl cluster-info --context kind-kind
           kind get kubeconfig --internal >$HOME/.kube/config
@@ -176,15 +184,12 @@ jobs:
         with:
           filters: .github/workflows/filters/filters.yaml
       - name: Helm
-
         uses: Azure/setup-helm@v1
       - name: Kind Clutser
-
         uses: engineerd/setup-kind@v0.5.0
         with:
           config: kind.yaml
       - name: Configuring and testing the Installation
-
         run: |
           kubectl cluster-info --context kind-kind
           kind get kubeconfig --internal >$HOME/.kube/config

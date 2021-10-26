@@ -43,3 +43,7 @@ skaffold-run:
 go-test-images:
 	kind load docker-image go-env
 	kind load docker-image go-builder
+
+nodejs-test-images:
+	kind load docker-image node-env
+	kind load docker-image node-builder

@@ -168,7 +168,7 @@ export FUNCTION_NAMESPACE=${FUNCTION_NAMESPACE:-fission-function}
 
 router=$(kubectl -n $FISSION_NAMESPACE get svc router -o jsonpath='{...ip}')
 
-export FISSION_ROUTER=${FISSION_ROUTER:-$router}
+export FISSION_ROUTER=${FISSION_ROUTER:-127.0.0.1:8888}
 # export FISSION_NATS_STREAMING_URL="http://defaultFissionAuthToken@$(kubectl -n $FISSION_NAMESPACE get svc nats-streaming -o jsonpath='{...ip}:{.spec.ports[0].port}')"
 
 ## Parameters used by some specific test cases

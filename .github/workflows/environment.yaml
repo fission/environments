@@ -126,6 +126,7 @@ jobs:
         run: |
           SKAFFOLD_PROFILE=nodejs make skaffold-run
           make nodejs-test-images
+          make router-port-forward
       - name: nodejs-tests
         run: |
           ./test_utils/run_test.sh ./nodejs/test/test_node_env.sh

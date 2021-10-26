@@ -1,5 +1,5 @@
 # Platforms to build in multi-architecture images.
-PLATFORMS ?= linux/amd64,linux/arm64
+PLATFORMS ?= linux/amd64,linux/arm64,linux/arm
 
 # Repository prefix and tag to push multi-architecture images to.
 REPO ?= fission

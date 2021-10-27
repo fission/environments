@@ -246,7 +246,7 @@ jobs:
           make router-port-forward
       - name: python-tests
         run: |
-          ./test_utils/run_test.sh ./nodejs/tests/test_python_env.sh
+          ./test_utils/run_test.sh ./python/tests/test_python_env.sh
       - name: Collect Fission Dump
         if: ${{ always() }}
         run: |

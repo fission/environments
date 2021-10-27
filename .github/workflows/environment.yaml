@@ -217,7 +217,7 @@ jobs:
       - name: Unit test
         run: |
           pip3 install virtualenv
-          apt-get update -y && apt-get install -y libev-dev
+          sudo apt-get update -y && sudo apt-get install -y libev-dev
           pushd python/
           ./tests/local_test.sh
           WSGI_FRAMEWORK=GEVENT

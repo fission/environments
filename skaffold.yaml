@@ -110,6 +110,14 @@ profiles:
       context: python/
       docker:
         dockerfile: Dockerfile
+        buildArgs:
+          PY_BASE_IMG: "3.7-alpine"
+    - image: python-builder
+      context: python/builder/
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          PY_BASE_IMG: "3.7-alpine"
 - name: ruby
   build:
     artifacts:

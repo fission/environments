@@ -1,10 +1,11 @@
-ARG BUILDER_IMAGE=fission/builder:latest
-FROM ${BUILDER_IMAGE}
+ARG BUILDER_IMAGE=fission/builder
+ARG PY_BASE_IMG
 
-RUN apk update
-RUN apk add --no-cache python3 python3-dev build-base gcc bash py-pip
-RUN pip3 install --upgrade pip
-RUN rm -r /root/.cache
+FROM ${BUILDER_IMAGE}
+FROM python:${PY_BASE_IMG}
+
+COPY --from=0 /builder /builder
+RUN apk add --update --no-cache python3-dev build-base gcc bash
 
 ADD defaultBuildCmd /usr/local/bin/build
 

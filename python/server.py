@@ -69,7 +69,8 @@ class FuncApp(Flask):
             body = request.get_json()
             filepath = body['filepath']
             handler = body['functionName']
-            self.logger.info('/v2/specialize called with  filepath = "{}"   handler = "{}"'.format(filepath, handler))
+            self.logger.info(
+                '/v2/specialize called with  filepath = "{}"   handler = "{}"'.format(filepath, handler))
 
             # handler looks like `path.to.module.function`
             parts = handler.rsplit(".", 1)
@@ -83,7 +84,8 @@ class FuncApp(Flask):
             else:
                 moduleName = parts[0]
                 funcName = parts[1]
-            self.logger.debug('moduleName = "{}"    funcName = "{}"'.format(moduleName, funcName))
+            self.logger.debug(
+                'moduleName = "{}"    funcName = "{}"'.format(moduleName, funcName))
 
             # check whether the destination is a directory or a file
             if os.path.isdir(filepath):

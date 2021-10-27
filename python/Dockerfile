@@ -1,12 +1,10 @@
-FROM alpine
+ARG PY_BASE_IMG
+
+FROM python:${PY_BASE_IMG}
 
 WORKDIR /app
 
-RUN apk add --update gcc && \
-    apk upgrade --no-cache && \
-    apk add --no-cache python3 python3-dev build-base libev-dev libffi-dev bash py-pip && \
-    pip3 install --upgrade pip && \
-    rm -r /root/.cache
+RUN apk add --update --no-cache gcc python3-dev build-base libev-dev libffi-dev bash
 
 COPY requirements.txt /app
 RUN pip3 install -r requirements.txt

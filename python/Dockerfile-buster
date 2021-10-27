@@ -1,7 +1,9 @@
 # offical docker image of python debian buster variant
-FROM python:3.8-buster
+ARG PY_BASE_IMG
 
-RUN apt-get update -y && apt-get install -y python-pip python3-dev libev-dev && pip3 install --upgrade pip 
+FROM ${PY_BASE_IMG}
+
+RUN apt-get update -y && apt-get install -y python3-dev libev-dev
 WORKDIR /app
 
 COPY requirements.txt /app

@@ -1,15 +1,14 @@
 #!/bin/bash
 
 set -euo pipefail
-source $(dirname $0)/../../utils.sh
+ROOT=$(dirname $0)/../..
+source $ROOT/test_utils/utils.sh
 
 TEST_ID=$(generate_test_id)
 echo "TEST_ID = $TEST_ID"
 
 tmp_dir="/tmp/test-$TEST_ID"
 mkdir -p $tmp_dir
-
-ROOT=$(dirname $0)/../../..
 
 cleanup() {
     clean_resource_by_id $TEST_ID
@@ -30,6 +29,8 @@ fn3=test-python-env-3-$TEST_ID
 fn4=test-python-env-4-$TEST_ID
 fn5=test-python-env-5-$TEST_ID
 
+PYTHON_RUNTIME_IMAGE=python-env
+PYTHON_BUILDER_IMAGE=python-builder
 
 log "Creating v1api environment ..."
 log "PYTHON_RUNTIME_IMAGE = $PYTHON_RUNTIME_IMAGE"

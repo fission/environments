@@ -2,7 +2,7 @@ ARG BUILDER_IMAGE=fission/builder
 ARG PY_BASE_IMG
 
 FROM ${BUILDER_IMAGE}
-FROM ${PY_BASE_IMG}
+FROM python:${PY_BASE_IMG}
 
 COPY --from=0 /builder /builder
 RUN apk update

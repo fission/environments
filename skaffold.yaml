@@ -112,7 +112,7 @@ profiles:
         dockerfile: Dockerfile
         buildArgs:
           PY_BASE_IMG: "3.7-alpine"
-    - image: node-builder
+    - image: python-builder
       context: python/builder/
       docker:
         dockerfile: Dockerfile

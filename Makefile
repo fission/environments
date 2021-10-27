@@ -77,5 +77,9 @@ nodejs-test-images:
 	@kind load docker-image node-env
 	@kind load docker-image node-builder
 
+python-test-images:
+	@kind load docker-image python-env
+	@kind load docker-image python-builder
+
 router-port-forward:
 	@kubectl port-forward svc/router 8888:80 -nfission &

@@ -1,6 +1,6 @@
 ARG PY_BASE_IMG
 
-FROM ${PY_BASE_IMG}
+FROM python:${PY_BASE_IMG}
 
 WORKDIR /app
 

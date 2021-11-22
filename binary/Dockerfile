@@ -3,7 +3,7 @@ FROM golang:1.16-alpine
 WORKDIR /go
 COPY *.go /go/
 
-RUN go build -o server .
+RUN go build -o server server.go
 
 FROM alpine:3.14
 

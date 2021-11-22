@@ -70,8 +70,8 @@ skaffold-run:
 	@skaffold run -p $(SKAFFOLD_PROFILE) --tag latest
 
 binary-test-images:
-	@kind load docker-image fission/binary-env
-	@kinf load docker-image fission/binary-builder
+	@kind load docker-image binary-env
+	@kinf load docker-image binary-builder
 
 go-test-images:
 	@kind load docker-image go-env

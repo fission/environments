@@ -132,3 +132,15 @@ profiles:
       context: tensorflow-serving/
       docker:
         dockerfile: Dockerfile
+- name: binary
+  build:
+    artifacts:
+    - image: binary-env
+      context: binary/
+      docker:
+        dockerfile: Dockerfile
+    - image: binary-builder
+      context: binary/builder/
+      docker:
+        dockerfile: Dockerfile
+

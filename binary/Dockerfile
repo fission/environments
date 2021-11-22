@@ -3,6 +3,9 @@ FROM golang:1.16-alpine
 WORKDIR /binary
 COPY *.go /binary/
 
+RUN go mod init
+RUN go mod tidy
+
 RUN go build -o server .
 
 FROM alpine:3.14

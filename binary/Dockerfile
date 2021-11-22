@@ -1,15 +1,15 @@
 FROM golang:1.16-alpine
 
 WORKDIR /go
-COPY *.go /go/
+COPY server.go /go/
 
-WORKDIR /app
-
-RUN go mod init
+RUN go mod init test
 RUN go mod tidy
-RUN go build -o server .
+RUN go build -o server server.go
 
 FROM alpine:3.14
+
+WORKDIR /app
 
 RUN apk update
 RUN apk add coreutils binutils findutils grep

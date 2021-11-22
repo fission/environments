@@ -15,7 +15,7 @@ WORKDIR /app
 RUN apk update
 RUN apk add coreutils binutils findutils grep
 
-COPY --from=0 /go/server /app/server
+COPY --from=0 /binary/server /app/server
 
 EXPOSE 8888
 ENTRYPOINT ["./server"]

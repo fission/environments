@@ -3,8 +3,6 @@ FROM golang:1.16-alpine
 WORKDIR /go
 COPY server.go /go/
 
-RUN go mod init test
-RUN go mod tidy
 RUN go build -o server server.go
 
 FROM alpine:3.14

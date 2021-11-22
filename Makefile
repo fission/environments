@@ -71,7 +71,7 @@ skaffold-run:
 
 binary-test-images:
 	@kind load docker-image binary-env
-	@kinf load docker-image binary-builder
+	@kind load docker-image binary-builder
 
 go-test-images:
 	@kind load docker-image go-env

@@ -1,9 +1,7 @@
 FROM golang:1.16-alpine
 
-RUN go mod init
-
-WORKDIR /go
-COPY *.go /go/
+WORKDIR /binary
+COPY *.go /binary/
 
 RUN go build -o server .
 

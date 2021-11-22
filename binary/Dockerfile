@@ -3,7 +3,8 @@ FROM golang:1.16-alpine
 WORKDIR /go
 COPY *.go /go/
 
-RUN go build -o server server.go
+RUN go mod init
+RUN go build -o server .
 
 FROM alpine:3.14
 

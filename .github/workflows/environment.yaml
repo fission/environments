@@ -42,7 +42,7 @@ jobs:
           SKAFFOLD_PROFILE=binary make skaffold-run
           make binary-test-images
       - name: binary-tests
-        run: ./test_utils/run_test.sh ./binary/tests/test_binary_env.sh
+        run: ./test_utils/run_test.sh ./binary/test/test_binary_env.sh
       - name: Collect Fission Dump
         if: ${{ always() }}
         run: |

@@ -54,10 +54,10 @@ log "Waiting for router & pools to catch up"
 sleep 5
 
 log "Testing pool manager function"
-timeout 60 bash -c "test_fn $fn_poolmgr 'Hello'"
+timeout 60 bash -c "test_fn $fn_poolmgr 'Hello World!'"
 
 log "Testing new deployment function"
-timeout 60 bash -c "test_fn $fn_nd 'Hello'"
+timeout 60 bash -c "test_fn $fn_nd 'Hello World!'"
 
 # Create zip file without top level directory (module-example)
 cd module-example && zip -0 -r $tmp_dir/module.zip * -x "*README*"

@@ -44,7 +44,7 @@ timeout 90 bash -c "waitBuild $pkgName"
 
 log "Creating pool manager & new deployment function for fission binary"
 fission fn create --name $fn_poolmgr --env $env --pkg $pkgName
-fission fn create --name $fn_nd      --env $env --pkg $pkgName --executortype newdeploy
+fission fn create --name $fn_nd      --env $env --pkg $pkgName
 
 log "Creating route for new deployment function"
 fission route create --name $fn_poolmgr --function $fn_poolmgr --url /$fn_poolmgr --method GET

@@ -34,12 +34,12 @@ fission env create --name $env --image $BINARY_RUNTIME_IMAGE --builder $BINARY_B
 
 timeout 90 bash -c "wait_for_builder $env"
 
-log "===== 1. Test GET without creating package ====="
+log "===== 1. Test GET ====="
 
 fn_poolmgr=hello-binary-poolmgr-$TEST_ID
 
 log "Creating pool manager for fission binary"
-fission fn create --name $fn_poolmgr --src hello.sh --env $env
+fission fn create --name $fn_poolmgr --code hello.sh --env $env
 
 #timeout 90 bash -c "waitBuild $pkgName"
 
@@ -51,6 +51,10 @@ sleep 5
 
 log "Testing pool manager function"
 timeout 60 bash -c "test_fn $fn_poolmgr 'Hello'"
+
+
+log "===== 2. Testing POST ====="
+
 
 
 # Create zip file without top level directory (module-example)

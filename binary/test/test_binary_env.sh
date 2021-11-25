@@ -67,4 +67,4 @@ log "Waiting for router & pools to catch up"
 sleep 5
 
 log "Testing pool manager function"
-timeout 60 bash -c "test_post_route $fn_name 'Hello' 'Hello'"
+timeout 60 bash -c "test_post_route $fn_name 'Hello' '... Hello'"

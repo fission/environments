@@ -23,8 +23,6 @@ else
 fi
 
 env=binary-$TEST_ID
-fn_poolmgr=binary-poolmgr-$TEST_ID
-fn_nd=binary-nd-$TEST_ID
 
 cd $ROOT/binary/examples
 
@@ -36,19 +34,17 @@ fission env create --name $env --image $BINARY_RUNTIME_IMAGE --builder $BINARY_B
 
 timeout 90 bash -c "wait_for_builder $env"
 
-pkgName=$(generate_test_id)
-fission package create --name $pkgName --src hello.sh --env $env
+log "===== 1. Test GET without creating package ====="
 
-# wait for build to finish at most 90s
-timeout 90 bash -c "waitBuild $pkgName"
+fn_poolmgr=hello-binary-poolmgr-$TEST_ID
 
-log "Creating pool manager & new deployment function for fission binary"
-fission fn create --name $fn_poolmgr --env $env --pkg $pkgName
-fission fn create --name $fn_nd      --env $env --pkg $pkgName
+log "Creating pool manager for fission binary"
+fission fn create --name $fn_poolmgr --src hello.sh --env $env
+
+#timeout 90 bash -c "waitBuild $pkgName"
 
 log "Creating route for new deployment function"
-fission route create --name $fn_poolmgr --function $fn_poolmgr --url /$fn_poolmgr --method GET
-fission route create --name $fn_nd --function $fn_nd --url /$fn_nd --method GET
+fission route create --function $fn_poolmgr --url /$fn_poolmgr --method GET
 
 log "Waiting for router & pools to catch up"
 sleep 5
@@ -56,11 +52,9 @@ sleep 5
 log "Testing pool manager function"
 timeout 60 bash -c "test_fn $fn_poolmgr 'Hello'"
 
-log "Testing new deployment function"
-timeout 60 bash -c "test_fn $fn_nd 'Hello'"
 
 # Create zip file without top level directory (module-example)
-cd module-example && zip -0 -r $tmp_dir/module.zip * -x "*README*"
+:'cd module-example && zip -0 -r $tmp_dir/module.zip * -x "*README*"
 
 pkgName=$(generate_test_id)
 fission package create --name $pkgName --src $tmp_dir/module.zip --env $env
@@ -81,5 +75,5 @@ timeout 60 bash -c "test_fn $fn_poolmgr 'Vendor'"
 log "Testing new deployment function with new package"
 timeout 60 bash -c "test_fn $fn_nd 'Vendor'"
 
-log "Test PASSED"
+log "Test PASSED"'
 

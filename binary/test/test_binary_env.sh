@@ -36,48 +36,35 @@ timeout 90 bash -c "wait_for_builder $env"
 
 log "===== 1. Test GET ====="
 
-fn_poolmgr=hello-binary-poolmgr-$TEST_ID
+fn_name=hello-binary-$TEST_ID
 
-log "Creating pool manager for fission binary"
-fission fn create --name $fn_poolmgr --code hello.sh --env $env
+log "Creating function for fission binary"
+fission fn create --name $fn_name --code hello.sh --env $env
 
 #timeout 90 bash -c "waitBuild $pkgName"
 
 log "Creating route for new deployment function"
-fission route create --function $fn_poolmgr --url /$fn_poolmgr --method GET
+fission route create --function $fn_name --url /$fn_name --method GET
+
+log "Waiting for router & pools to catch up"
+sleep 5
+
+log "Testing the function"
+timeout 60 bash -c "test_fn $fn_name 'Hello'"
+
+
+log "===== 2. Testing POST ====="
+
+fn_name=echo-binary-$TEST_ID
+
+log "Creating function for fission binary"
+fission fn create --name $fn_name --code echo.sh --env $env
+
+log "Creating route for new deployment function"
+fission route create --function $fn_name --url /$fn_name --method POST
 
 log "Waiting for router & pools to catch up"
 sleep 5
 
 log "Testing pool manager function"
-timeout 60 bash -c "test_fn $fn_poolmgr 'Hello'"
-
-
-log "===== 2. Testing POST ====="
-
-
-
-# Create zip file without top level directory (module-example)
-:'cd module-example && zip -0 -r $tmp_dir/module.zip * -x "*README*"
-
-pkgName=$(generate_test_id)
-fission package create --name $pkgName --src $tmp_dir/module.zip --env $env
-
-# wait for build to finish at most 90s
-timeout 90 bash -c "waitBuild $pkgName"
-
-log "Update function package"
-fission fn update --name $fn_poolmgr --pkg $pkgName
-fission fn update --name $fn_nd --pkg $pkgName
-
-log "Waiting for router & pools to catch up"
-sleep 5
-
-log "Testing pool manager function with new package"
-timeout 60 bash -c "test_fn $fn_poolmgr 'Vendor'"
-
-log "Testing new deployment function with new package"
-timeout 60 bash -c "test_fn $fn_nd 'Vendor'"
-
-log "Test PASSED"'
-
+timeout 60 bash -c "test_post_route $fn_name 'Hello' 'Hello'"

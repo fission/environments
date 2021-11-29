@@ -44,7 +44,7 @@ fission fn create --name $fn_name --code hello.sh --env $env
 #timeout 90 bash -c "waitBuild $pkgName"
 
 log "Creating route for new deployment function"
-fission route create --function $fn_name --url /$fn_name --method GET
+fission route create --name $fn_name --function $fn_name --url /$fn_name --method GET
 
 log "Waiting for router & pools to catch up"
 sleep 5
@@ -61,7 +61,7 @@ log "Creating function for fission binary"
 fission fn create --name $fn_name --code echo.sh --env $env
 
 log "Creating route for new deployment function"
-fission route create --function $fn_name --url /$fn_name --method POST
+fission route create --name $fn_name --function $fn_name --url /$fn_name --method POST
 
 log "Waiting for router & pools to catch up"
 sleep 5

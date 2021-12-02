@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -44,32 +44,41 @@ type (
 	}
 )
 
+func HttpResponse(w http.ResponseWriter, status int, body []byte) {
+	w.WriteHeader(status)
+	_, err := w.Write(body)
+	if err != nil {
+		log.Printf("Failed to write response: %s\n", err)
+	}
+}
+
+func HttpResponseWithError(w http.ResponseWriter, status int, err error) {
+	log.Println("Error:", err)
+	HttpResponse(w, status, []byte(err.Error()))
+}
+
 func (bs *BinaryServer) SpecializeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Starting Specialize request")
+	log.Println("Starting Specialize request")
 	if specialized {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Not a generic container"))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("already specialized"))
 		return
 	}
 
 	request := FunctionLoadRequest{}
-
-	codePath := bs.fetchedCodePath
 	err := json.NewDecoder(r.Body).Decode(&request)
-	if err != nil {
-		fmt.Println("Decoded function load request: ", request)
+	if err != io.EOF && err != nil {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to parse request: %w", err))
+		return
 	}
 
-	switch {
-	case err == io.EOF:
-	case err != nil:
-		panic(err)
-	}
+	log.Printf("Decoded function load request: %#v\n", request)
+	codePath := bs.fetchedCodePath
 
 	if request.FilePath != "" {
 		fileStat, err := os.Stat(request.FilePath)
 		if err != nil {
-			panic(err)
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to stat file: %w", err))
+			return
 		}
 
 		codePath = request.FilePath
@@ -79,48 +88,40 @@ func (bs *BinaryServer) SpecializeHandler(w http.ResponseWriter, r *http.Request
 		}
 	}
 
-	_, err = os.Stat(codePath)
+	fileStat, err := os.Stat(codePath)
 	if err != nil {
-		fmt.Println("Error in parsing codePath:", err)
-		if os.IsNotExist(err) {
-			w.WriteHeader(http.StatusNotFound)
-			w.Write([]byte(codePath + ": not found"))
-			return
-		} else {
-			panic(err)
-		}
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to stat file: %w", err))
+		return
 	}
-
+	if !fileStat.Mode().IsRegular() {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("file is not a regular file: %s", codePath))
+		return
+	}
 	// Future: Check if executable is correct architecture/executable.
 
 	// Copy the executable to ensure that file is executable and immutable.
-	userFunc, err := ioutil.ReadFile(codePath)
+	userFunc, err := os.ReadFile(codePath)
 	if err != nil {
-		fmt.Println("Error reading code", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Failed to read executable."))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to read file: %w", err))
 		return
 	}
-	err = ioutil.WriteFile(bs.internalCodePath, userFunc, 0555)
+	err = os.WriteFile(bs.internalCodePath, userFunc, 0555)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Failed to write executable to target location."))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to write file: %w", err))
 		return
 	}
 	bs.internalCodePath = codePath
-	fmt.Println("BinaryServer:", bs)
-	fmt.Println("Specializing ...")
+	log.Printf("BinaryServer: %#v\n", bs)
 	specialized = true
-	fmt.Println("Done")
+	log.Println("done specializing")
 }
 
 func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request) {
 	if !specialized {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Generic container: no requests supported"))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("not specialized"))
 		return
 	}
-	fmt.Println("Starting binary function execution")
+	log.Println("Starting binary function execution")
 
 	// CGI-like passing of environment variables
 	execEnv := NewEnv(nil)
@@ -138,31 +139,31 @@ func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request
 	cmd.Env = execEnv.ToStringEnv()
 
 	if r.ContentLength != 0 {
-		fmt.Println(r.ContentLength)
+		log.Println(r.ContentLength)
 		stdin, err := cmd.StdinPipe()
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(fmt.Sprintf("Failed to get STDIN pipe: %s", err)))
-			panic(err)
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdin pipe: %w", err))
+			return
 		}
-		_, err = io.Copy(stdin, r.Body)
+		written, err := io.Copy(stdin, r.Body)
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(fmt.Sprintf("Failed to pipe input: %s", err)))
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to copy body to stdin: %w", err))
+			return
 		}
-		stdin.Close()
+		log.Printf("Wrote %d bytes to stdin\n", written)
 	}
 
 	out, err := cmd.Output()
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(fmt.Sprintf("\nFunction error log: %s", err)))
-		w.Write([]byte(fmt.Sprintf("\nFunction out log: %s \n", out)))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("function error: %w\n%s", err, string(out)))
 		return
 	}
 
+	HttpResponse(w, http.StatusOK, out)
+}
+
+func readinessProbeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write(out)
 }
 
 func main() {
@@ -171,19 +172,18 @@ func main() {
 	flag.Parse()
 	absInternalCodePath, err := filepath.Abs(*internalCodePath)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	fmt.Printf("Using fetched code path: %s\n", *codePath)
-	fmt.Printf("Using internal code path: %s\n", absInternalCodePath)
-
 	server := &BinaryServer{*codePath, absInternalCodePath}
+	log.Printf("BinaryServer: %#v\n", server)
 	http.HandleFunc("/", server.InvocationHandler)
 	http.HandleFunc("/specialize", server.SpecializeHandler)
 	http.HandleFunc("/v2/specialize", server.SpecializeHandler)
+	http.HandleFunc("/healthz", readinessProbeHandler)
 
-	fmt.Println("Listening on 8888 ...")
+	log.Println("Listening on 8888 ...")
 	err = http.ListenAndServe(":8888", nil)
 	if err != nil {
-		panic(err)
+		log.Fatal("ListenAndServe: ", err)
 	}
 }

@@ -9,8 +9,11 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"sync"
+	"syscall"
 )
 
 const (
@@ -138,28 +141,79 @@ func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request
 	cmd := exec.Command("/bin/sh", bs.internalCodePath)
 	cmd.Env = execEnv.ToStringEnv()
 
-	if r.ContentLength != 0 {
-		log.Println(r.ContentLength)
-		stdin, err := cmd.StdinPipe()
-		if err != nil {
-			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdin pipe: %w", err))
+	stdinPipe, err := cmd.StdinPipe()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdin pipe: %w", err))
+		return
+	}
+	stderrPipe, err := cmd.StderrPipe()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stderr pipe: %w", err))
+		return
+	}
+	stdoutPipe, err := cmd.StdoutPipe()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdout pipe: %w", err))
+		return
+	}
+
+	err = cmd.Start()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusInternalServerError, fmt.Errorf("failed to start subprocess: %w", err))
+		return
+	}
+
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+
+	go func() {
+		defer func() {
+			stdinPipe.Close()
+			wg.Done()
+		}()
+		if r.ContentLength == 0 {
 			return
 		}
-		written, err := io.Copy(stdin, r.Body)
+		written, err := io.Copy(stdinPipe, r.Body)
 		if err != nil {
 			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to copy body to stdin: %w", err))
 			return
 		}
-		log.Printf("Wrote %d bytes to stdin\n", written)
-	}
+		log.Printf("ContentLength is %d. Wrote %d bytes to stdin\n", r.ContentLength, written)
+	}()
 
-	out, err := cmd.Output()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		stderr, err := io.ReadAll(stderrPipe)
+		if err != nil {
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stderr pipe: %w", err))
+			return
+		}
+		if len(stderr) > 0 {
+			log.Printf("stderr: %s\n", stderr)
+		}
+	}()
+
+	wg.Add(1)
+	var stdout []byte
+	go func() {
+		defer wg.Done()
+		_stdout, err := io.ReadAll(stdoutPipe)
+		stdout = _stdout
+		if err != nil {
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdout pipe: %w", err))
+			return
+		}
+	}()
+
+	err = cmd.Wait()
 	if err != nil {
-		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("function error: %w\n%s", err, string(out)))
+		HttpResponseWithError(w, http.StatusInternalServerError, fmt.Errorf("failed to wait for subprocess: %w", err))
 		return
 	}
 
-	HttpResponse(w, http.StatusOK, out)
+	HttpResponse(w, http.StatusOK, stdout)
 }
 
 func readinessProbeHandler(w http.ResponseWriter, r *http.Request) {
@@ -181,9 +235,16 @@ func main() {
 	http.HandleFunc("/v2/specialize", server.SpecializeHandler)
 	http.HandleFunc("/healthz", readinessProbeHandler)
 
-	log.Println("Listening on 8888 ...")
-	err = http.ListenAndServe(":8888", nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
+
+	go func() {
+		err = http.ListenAndServe(":8888", nil)
+		if err != nil {
+			log.Fatal("ListenAndServe: ", err)
+		}
+	}()
+	log.Println("Server started")
+	<-c
+	log.Println("Shutting down")
 }

@@ -16,8 +16,8 @@ mkdir -p "$TMPPATH"/bin
 
 echo "-- Starting server"
 go run server.go env.go -i "$TMPPATH"/bin/userfunc &
-
 SERVER_PID=$!
+
 cleanup() {
     echo "-- Cleanup"
     echo "Killing process $SERVER_PID"

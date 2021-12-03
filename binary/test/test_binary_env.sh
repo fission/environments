@@ -81,7 +81,7 @@ log "Creating function for $fn_name"
 fission fn create --name $fn_name --env $env --pkg module-example --entry "module-example/test.sh"
 
 log "Creating route for $fn_name"
-fission route create --name $fn_name --function $fn_name --url /$fn_name --method POST
+fission route create --name $fn_name --function $fn_name --url /$fn_name --method GET
 
 log "Waiting for router & pools to catch up"
 sleep 5

@@ -13,7 +13,7 @@ FROM alpine:3.14
 WORKDIR /app
 
 RUN apk update
-RUN apk add coreutils binutils findutils grep
+RUN apk add --no-cache coreutils binutils findutils grep
 
 COPY --from=0 /binary/server /app/server
 

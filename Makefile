@@ -69,6 +69,10 @@ skaffold-run:
 	@echo === Running skaffold
 	@skaffold run -p $(SKAFFOLD_PROFILE) --tag latest
 
+binary-test-images:
+	@kind load docker-image binary-env
+	@kind load docker-image binary-builder
+
 go-test-images:
 	@kind load docker-image go-env
 	@kind load docker-image go-builder

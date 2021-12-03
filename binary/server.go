@@ -1,16 +1,20 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"sync"
+	"syscall"
 )
 
 const (
@@ -44,32 +48,41 @@ type (
 	}
 )
 
+func HttpResponse(w http.ResponseWriter, status int, body []byte) {
+	w.WriteHeader(status)
+	_, err := w.Write(body)
+	if err != nil {
+		log.Printf("Failed to write response: %s\n", err)
+	}
+}
+
+func HttpResponseWithError(w http.ResponseWriter, status int, err error) {
+	log.Println("Error:", err)
+	HttpResponse(w, status, []byte(err.Error()))
+}
+
 func (bs *BinaryServer) SpecializeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Starting Specialize request")
+	log.Println("Starting Specialize request")
 	if specialized {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Not a generic container"))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("already specialized"))
 		return
 	}
 
 	request := FunctionLoadRequest{}
-
-	codePath := bs.fetchedCodePath
 	err := json.NewDecoder(r.Body).Decode(&request)
-	if err != nil {
-		fmt.Println("Decoded function load request: ", request)
+	if err != io.EOF && err != nil {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to parse request: %w", err))
+		return
 	}
 
-	switch {
-	case err == io.EOF:
-	case err != nil:
-		panic(err)
-	}
+	log.Printf("Decoded function load request: %#v\n", request)
+	codePath := bs.fetchedCodePath
 
 	if request.FilePath != "" {
 		fileStat, err := os.Stat(request.FilePath)
 		if err != nil {
-			panic(err)
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to stat file: %w", err))
+			return
 		}
 
 		codePath = request.FilePath
@@ -79,48 +92,40 @@ func (bs *BinaryServer) SpecializeHandler(w http.ResponseWriter, r *http.Request
 		}
 	}
 
-	_, err = os.Stat(codePath)
+	fileStat, err := os.Stat(codePath)
 	if err != nil {
-		fmt.Println("Error in parsing codePath:", err)
-		if os.IsNotExist(err) {
-			w.WriteHeader(http.StatusNotFound)
-			w.Write([]byte(codePath + ": not found"))
-			return
-		} else {
-			panic(err)
-		}
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to stat file: %w", err))
+		return
 	}
-
+	if !fileStat.Mode().IsRegular() {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("file is not a regular file: %s", codePath))
+		return
+	}
 	// Future: Check if executable is correct architecture/executable.
 
 	// Copy the executable to ensure that file is executable and immutable.
-	userFunc, err := ioutil.ReadFile(codePath)
+	userFunc, err := os.ReadFile(codePath)
 	if err != nil {
-		fmt.Println("Error reading code", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Failed to read executable."))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to read file: %w", err))
 		return
 	}
-	err = ioutil.WriteFile(bs.internalCodePath, userFunc, 0555)
+	err = os.WriteFile(bs.internalCodePath, userFunc, 0555)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Failed to write executable to target location."))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to write file: %w", err))
 		return
 	}
 	bs.internalCodePath = codePath
-	fmt.Println("BinaryServer:", bs)
-	fmt.Println("Specializing ...")
+	log.Printf("BinaryServer: %#v\n", bs)
 	specialized = true
-	fmt.Println("Done")
+	log.Println("done specializing")
 }
 
 func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request) {
 	if !specialized {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Generic container: no requests supported"))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("not specialized"))
 		return
 	}
-	fmt.Println("Starting binary function execution")
+	log.Println("Starting binary function execution")
 
 	// CGI-like passing of environment variables
 	execEnv := NewEnv(nil)
@@ -137,32 +142,104 @@ func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request
 	cmd := exec.Command("/bin/sh", bs.internalCodePath)
 	cmd.Env = execEnv.ToStringEnv()
 
-	if r.ContentLength != 0 {
-		fmt.Println(r.ContentLength)
-		stdin, err := cmd.StdinPipe()
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(fmt.Sprintf("Failed to get STDIN pipe: %s", err)))
-			panic(err)
-		}
-		_, err = io.Copy(stdin, r.Body)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(fmt.Sprintf("Failed to pipe input: %s", err)))
-		}
-		stdin.Close()
-	}
-
-	out, err := cmd.Output()
+	stdinPipe, err := cmd.StdinPipe()
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(fmt.Sprintf("\nFunction error log: %s", err)))
-		w.Write([]byte(fmt.Sprintf("\nFunction out log: %s \n", out)))
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdin pipe: %w", err))
+		return
+	}
+	stderrPipe, err := cmd.StderrPipe()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stderr pipe: %w", err))
+		return
+	}
+	stdoutPipe, err := cmd.StdoutPipe()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdout pipe: %w", err))
 		return
 	}
 
+	err = cmd.Start()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusInternalServerError, fmt.Errorf("failed to start subprocess: %w", err))
+		return
+	}
+
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+
+	go func() {
+		defer func() {
+			stdinPipe.Close()
+			wg.Done()
+		}()
+		if r.ContentLength == 0 {
+			return
+		}
+		written, err := io.Copy(stdinPipe, r.Body)
+		if err != nil {
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to copy body to stdin: %w", err))
+			return
+		}
+		log.Printf("ContentLength is %d. Wrote %d bytes to stdin\n", r.ContentLength, written)
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		stderr, err := io.ReadAll(stderrPipe)
+		if err != nil {
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stderr pipe: %w", err))
+			return
+		}
+		if len(stderr) > 0 {
+			log.Printf("stderr: %s\n", stderr)
+		}
+	}()
+
+	wg.Add(1)
+	var stdout []byte
+	go func() {
+		defer wg.Done()
+		_stdout, err := io.ReadAll(stdoutPipe)
+		stdout = _stdout
+		if err != nil {
+			HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to get stdout pipe: %w", err))
+			return
+		}
+	}()
+
+	err = cmd.Wait()
+	if err != nil {
+		HttpResponseWithError(w, http.StatusInternalServerError, fmt.Errorf("failed to wait for subprocess: %w", err))
+		return
+	}
+
+	HttpResponse(w, http.StatusOK, stdout)
+}
+
+func readinessProbeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write(out)
+}
+
+var onlyOneSignalHandler = make(chan struct{})
+
+func SetupSignalHandlerWithContext() context.Context {
+	var shutdownSignals = []os.Signal{os.Interrupt, syscall.SIGTERM}
+
+	close(onlyOneSignalHandler) // panics when called twice
+
+	ctx, cancel := context.WithCancel(context.Background())
+	c := make(chan os.Signal, 2)
+	signal.Notify(c, shutdownSignals...)
+	go func() {
+		signal := <-c
+		log.Printf("Received signal %s, exiting\n", signal.String())
+		cancel()
+		<-c
+		panic("multiple signals received")
+	}()
+
+	return ctx
 }
 
 func main() {
@@ -171,19 +248,34 @@ func main() {
 	flag.Parse()
 	absInternalCodePath, err := filepath.Abs(*internalCodePath)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	fmt.Printf("Using fetched code path: %s\n", *codePath)
-	fmt.Printf("Using internal code path: %s\n", absInternalCodePath)
-
 	server := &BinaryServer{*codePath, absInternalCodePath}
-	http.HandleFunc("/", server.InvocationHandler)
-	http.HandleFunc("/specialize", server.SpecializeHandler)
-	http.HandleFunc("/v2/specialize", server.SpecializeHandler)
+	log.Printf("BinaryServer: %#v\n", server)
 
-	fmt.Println("Listening on 8888 ...")
-	err = http.ListenAndServe(":8888", nil)
-	if err != nil {
-		panic(err)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", server.InvocationHandler)
+	mux.HandleFunc("/specialize", server.SpecializeHandler)
+	mux.HandleFunc("/v2/specialize", server.SpecializeHandler)
+	mux.HandleFunc("/healthz", readinessProbeHandler)
+
+	httpServer := &http.Server{
+		Addr:    ":8888",
+		Handler: mux,
 	}
+
+	ctx := SetupSignalHandlerWithContext()
+	go func() {
+		err = httpServer.ListenAndServe()
+		if err != nil {
+			log.Fatal("ListenAndServe: ", err)
+		}
+	}()
+	log.Println("Server started")
+	<-ctx.Done()
+	err = httpServer.Shutdown(ctx)
+	if err != nil {
+		log.Println("Server Shutdown: ", err)
+	}
+	os.Exit(0)
 }

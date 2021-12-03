@@ -4,7 +4,7 @@ deploy:
   helm:
     releases:
     - name: fission
-      remoteChart: https://fission.github.io/fission-charts/fission-all-v1.15.0-rc1.tgz
+      remoteChart: https://fission.github.io/fission-charts/fission-all-v1.15.0.tgz
       namespace: fission
       setValues:
         analytics: "false"
@@ -132,3 +132,15 @@ profiles:
       context: tensorflow-serving/
       docker:
         dockerfile: Dockerfile
+- name: binary
+  build:
+    artifacts:
+    - image: binary-env
+      context: binary/
+      docker:
+        dockerfile: Dockerfile
+    - image: binary-builder
+      context: binary/builder/
+      docker:
+        dockerfile: Dockerfile
+

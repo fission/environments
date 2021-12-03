@@ -1,4 +1,4 @@
 #!/bin/sh
 
 printf "... "
-cat -
+/bin/cat -

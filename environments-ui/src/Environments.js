@@ -175,7 +175,7 @@ export default function Environments() {
             {environments.map((env) => {
               const value = env[0].name.split(" ")[0];
               const labelId = `checkbox-list-secondary-label-${value}`;
-              if (distinctFilter.indexOf(value) > -1) return;
+              if (distinctFilter.indexOf(value) > -1) return <></>;
               distinctFilter.push(value);
               return (
                 <ListItem key={value} button>
@@ -286,6 +286,8 @@ export default function Environments() {
                     </Card>
                   </Grid>
                 );
+              } else {
+                return <></>;
               }
             });
           })}

@@ -17,12 +17,10 @@ mkdir -p "$TMPPATH"/bin
 echo "-- Starting server"
 go build -o binary-server server.go env.go
 ./binary-server -i "$TMPPATH"/bin/userfunc &
-SERVER_PID=$!
 
 cleanup() {
     echo "-- Cleanup"
     echo "Killing process $SERVER_PID"
-    kill -s TERM $SERVER_PID
     pkill binary-server
 }
 trap cleanup EXIT

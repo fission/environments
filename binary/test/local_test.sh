@@ -7,7 +7,7 @@ set -x
 set -e
 
 DIR=$(dirname $0)
-if [ -d "$TMPPATH" ] ; then
+if [ -d "$TMPPATH" ]; then
     rm -r $TMPPATH
 fi
 
@@ -15,13 +15,15 @@ mkdir -p "$TMPPATH"/userfunc/user
 mkdir -p "$TMPPATH"/bin
 
 echo "-- Starting server"
-go run server.go env.go -i "$TMPPATH"/bin/userfunc &
+go build -o binary-server server.go env.go
+./binary-server -i "$TMPPATH"/bin/userfunc &
 SERVER_PID=$!
 
 cleanup() {
     echo "-- Cleanup"
     echo "Killing process $SERVER_PID"
-    kill $SERVER_PID
+    kill -s TERM $SERVER_PID
+    pkill binary-server
 }
 trap cleanup EXIT
 sleep 5

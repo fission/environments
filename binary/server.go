@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -220,6 +221,27 @@ func readinessProbeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+var onlyOneSignalHandler = make(chan struct{})
+
+func SetupSignalHandlerWithContext() context.Context {
+	var shutdownSignals = []os.Signal{os.Interrupt, syscall.SIGTERM}
+
+	close(onlyOneSignalHandler) // panics when called twice
+
+	ctx, cancel := context.WithCancel(context.Background())
+	c := make(chan os.Signal, 2)
+	signal.Notify(c, shutdownSignals...)
+	go func() {
+		signal := <-c
+		log.Printf("Received signal %s, exiting\n", signal.String())
+		cancel()
+		<-c
+		panic("multiple signals received")
+	}()
+
+	return ctx
+}
+
 func main() {
 	codePath := flag.String("c", DEFAULT_CODE_PATH, "Path to expected fetched executable.")
 	internalCodePath := flag.String("i", DEFAULT_INTERNAL_CODE_PATH, "Path to specialized executable.")
@@ -230,21 +252,30 @@ func main() {
 	}
 	server := &BinaryServer{*codePath, absInternalCodePath}
 	log.Printf("BinaryServer: %#v\n", server)
-	http.HandleFunc("/", server.InvocationHandler)
-	http.HandleFunc("/specialize", server.SpecializeHandler)
-	http.HandleFunc("/v2/specialize", server.SpecializeHandler)
-	http.HandleFunc("/healthz", readinessProbeHandler)
 
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", server.InvocationHandler)
+	mux.HandleFunc("/specialize", server.SpecializeHandler)
+	mux.HandleFunc("/v2/specialize", server.SpecializeHandler)
+	mux.HandleFunc("/healthz", readinessProbeHandler)
 
+	httpServer := &http.Server{
+		Addr:    ":8888",
+		Handler: mux,
+	}
+
+	ctx := SetupSignalHandlerWithContext()
 	go func() {
-		err = http.ListenAndServe(":8888", nil)
+		err = httpServer.ListenAndServe()
 		if err != nil {
 			log.Fatal("ListenAndServe: ", err)
 		}
 	}()
 	log.Println("Server started")
-	<-c
-	log.Println("Shutting down")
+	<-ctx.Done()
+	err = httpServer.Shutdown(ctx)
+	if err != nil {
+		log.Println("Server Shutdown: ", err)
+	}
+	os.Exit(0)
 }

@@ -52,7 +52,6 @@ sleep 5
 log "Testing the $fn_name function"
 timeout 60 bash -c "test_fn $fn_name 'Hello'"
 
-
 log "===== 2. Testing POST ====="
 
 fn_name=echo-binary-$TEST_ID
@@ -76,7 +75,7 @@ fn_name=module-binary-$TEST_ID
 zip module-example.zip module-example/*
 
 log "Creating package for $fn_name"
-fission pkg create --src module-example.zip --name module-example
+fission pkg create --src module-example.zip --name module-example --env $env
 
 log "Creating function for $fn_name"
 fission fn create --name $fn_name --env $env --pkg module-example --entry test.sh

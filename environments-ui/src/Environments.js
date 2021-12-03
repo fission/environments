@@ -102,7 +102,7 @@ export default function Environments() {
     let value = event.target.name;
     let newChecked = [...checked];
     if (event.target.checked) {
-      if (value == "all") {
+      if (value === "all") {
         newChecked = ["all"];
       } else {
         const allindex = newChecked.indexOf("all");
@@ -114,7 +114,7 @@ export default function Environments() {
     } else {
       const currentindex = newChecked.indexOf(value);
       newChecked.splice(currentindex, 1);
-      if (newChecked.length == 0) {
+      if (newChecked.length === 0) {
         newChecked = ["all"];
       }
     }
@@ -136,7 +136,7 @@ export default function Environments() {
             noWrap
             style={{ paddingLeft: "5px", fontWeight: "bold" }}
           >
-            fission environments
+            Environments
           </Typography>
         </Toolbar>
       </AppBar>

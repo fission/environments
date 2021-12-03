@@ -42,7 +42,7 @@ update-env-json: sort-env-jsons
 	./hack/merge-json.sh
 
 build-ui: update-env-json
-	cd environments-ui && npm i && npm run build
+	cd environments-ui && yarn install && yarn build
 
 install-skaffold:
 	@echo === Installing skaffold

@@ -1,12 +1,17 @@
-import React, { memo } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import Environments from "./Environments";
+import "./index.css";
+import Environment from "./Environments";
+import reportWebVitals from "./reportWebVitals";
 
-const EnvApp = memo((props) => {
-  return <Environments />;
-});
+ReactDOM.render(
+  <React.StrictMode>
+    <Environment />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<EnvApp />, rootElement);
-
-module.hot.accept();
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

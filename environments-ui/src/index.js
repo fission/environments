@@ -1,11 +1,9 @@
 import React, { memo } from "react";
 import ReactDOM from "react-dom";
-import Environments from './Environments'
+import Environments from "./Environments";
 
-const EnvApp = memo(props => {
-  return (
-    <Environments />
-  );
+const EnvApp = memo((props) => {
+  return <Environments />;
 });
 
 const rootElement = document.getElementById("root");

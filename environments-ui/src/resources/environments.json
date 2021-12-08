@@ -583,7 +583,7 @@
     "runtimeVersion": "3.14-alpine",
     "shortDescription": "Fission environment to run any binary",
     "status": "Stable",
-    "version": "1.32.1"
+    "version": "1.33.1"
   }
 ]
 ,

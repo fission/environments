@@ -1,4 +1,3 @@
 #!/bin/sh
-
 printf "... "
-/bin/cat -
+cat -

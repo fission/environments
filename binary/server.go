@@ -109,7 +109,7 @@ func (bs *BinaryServer) SpecializeHandler(w http.ResponseWriter, r *http.Request
 		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to read file: %w", err))
 		return
 	}
-	err = os.WriteFile(bs.internalCodePath, userFunc, 0555)
+	err = os.WriteFile(bs.internalCodePath, userFunc, 0755)
 	if err != nil {
 		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to write file: %w", err))
 		return

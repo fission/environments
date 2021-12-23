@@ -15,10 +15,11 @@ pip3 install -r requirements.txt
 echo "-- Starting server"
 python3 $DIR/../server.py &
 
+SERVER_PID=$!
 cleanup() {
     echo "-- Cleanup"
     echo "Killing process $SERVER_PID"
-    pkill -f '.*server.py'
+    kill $SERVER_PID
     deactivate
     rm -r test_env
 }

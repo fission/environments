@@ -16,7 +16,7 @@ IS_PY2 = (sys.version_info.major == 2)
 SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
 SENTRY_RELEASE = os.environ.get('SENTRY_RELEASE', None)
 USERFUNCVOL = os.environ.get("USERFUNCVOL", "/userfunc")
-RUNTIME_PORT= os.environ.get("RUNTIME_PORT", "8888")
+RUNTIME_PORT= int(os.environ.get("RUNTIME_PORT", "8888"))
 
 if SENTRY_DSN:
     params = {'dsn': SENTRY_DSN, 'integrations': [FlaskIntegration()]}

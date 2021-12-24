@@ -16,6 +16,7 @@ IS_PY2 = (sys.version_info.major == 2)
 SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
 SENTRY_RELEASE = os.environ.get('SENTRY_RELEASE', None)
 USERFUNCVOL = os.environ.get("USERFUNCVOL", "/userfunc")
+RUNTIME_PORT= os.environ.get("RUNTIME_PORT", "8888")
 
 if SENTRY_DSN:
     params = {'dsn': SENTRY_DSN, 'integrations': [FlaskIntegration()]}
@@ -185,11 +186,11 @@ def main():
     #
     if os.environ.get("WSGI_FRAMEWORK") == "GEVENT":
         app.logger.info("Starting gevent based server")
-        svc = WSGIServer(('0.0.0.0', 8888), app)
+        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT), app)
         svc.serve_forever()
     else:
         app.logger.info("Starting bjoern based server")
-        bjoern.run(app, '0.0.0.0', 8888, reuse_port=True)
+        bjoern.run(app, '0.0.0.0', RUNTIME_PORT, reuse_port=True)
 
 
 main()

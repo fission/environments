@@ -23,6 +23,7 @@ cleanup() {
     kill $SERVER_PID
     deactivate
     rm -r test_env
+    ps -ef | grep python3 | grep -v grep
 }
 trap cleanup EXIT
 sleep 5

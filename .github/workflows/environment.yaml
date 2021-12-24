@@ -268,8 +268,9 @@ jobs:
           pip3 install virtualenv
           sudo apt-get update -y && sudo apt-get install -y libev-dev
           pushd python/
+          export USERFUNCVOL=/tmp
           ./tests/local_test.sh
-          WSGI_FRAMEWORK=GEVENT
+          export WSGI_FRAMEWORK=GEVENT
           ./tests/local_test.sh
           popd
       - name: Helm

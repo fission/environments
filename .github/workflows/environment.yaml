@@ -268,9 +268,13 @@ jobs:
           pip3 install virtualenv
           sudo apt-get update -y && sudo apt-get install -y libev-dev
           pushd python/
+          export USERFUNCVOL=/tmp
+          export RUNTIME_PORT=8882
           ./tests/local_test.sh
-          WSGI_FRAMEWORK=GEVENT
+          export RUNTIME_PORT=8883
+          export WSGI_FRAMEWORK=GEVENT
           ./tests/local_test.sh
+          unset RUNTIME_PORT
           popd
       - name: Helm
         uses: Azure/setup-helm@v1

@@ -287,7 +287,7 @@
     "runtimeVersion": "3.7",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "alpha",
-    "version": "1.32.2"
+    "version": "1.33.1"
   },
   {
     "builder": "python-builder-3.7",
@@ -311,7 +311,7 @@
     "runtimeVersion": "3.7",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "alpha",
-    "version": "1.32.2"
+    "version": "1.33.1"
   },
   {
     "builder": "python-builder-3.8",
@@ -335,7 +335,7 @@
     "runtimeVersion": "3.8",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "alpha",
-    "version": "1.32.2"
+    "version": "1.33.1"
   },
   {
     "builder": "python-builder-3.9",
@@ -359,7 +359,7 @@
     "runtimeVersion": "3.9",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "alpha",
-    "version": "1.32.2"
+    "version": "1.33.1"
   },
   {
     "builder": "python-builder-3.10",
@@ -383,7 +383,7 @@
     "runtimeVersion": "3.10",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "alpha",
-    "version": "1.32.2"
+    "version": "1.33.1"
   }
 ]
 ,

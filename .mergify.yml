@@ -5,9 +5,17 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - label=ready-to-merge
       - label!=hold-off-merging
-      - status-success=build
+      - check-success=check
+      - or:
+        - check-success=binary
+        - check-success=go
+        - check-success=jvm
+        - check-success=nodejs
+        - check-success=perl
+        - check-success=php7
+        - check-success=python
+        - check-success=ruby
+        - check-success=tensorflow
     actions:
       merge:
         method: squash
-        commit_message: title+body
-        strict: smart

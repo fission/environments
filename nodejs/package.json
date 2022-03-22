@@ -19,7 +19,7 @@
   "dependencies": {
     "co": "~4.6.0",
     "express": ">=4.0.0",
-    "minimist": "*",
+    "minimist": "1.2.6",
     "morgan": "*",
     "mz": "~2.7.0",
     "request": "^2.81.0",

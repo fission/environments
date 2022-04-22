@@ -113,20 +113,14 @@ class FuncApp(Flask):
         @self.route(
             '/', methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
         def f():
-            if self.userfunc is None:
-                print("Generic container: no requests supported")
-                abort(500)
-            #
-            # Customizing the request context
-            #
-            # If you want to pass something to the function, you can
-            # add it to 'g':
-            #   g.myKey = myValue
-            #
-            # And the user func can then access that
-            # (after doing a"from flask import g").
+            return self.func_call()
 
-            return self.userfunc()
+    def func_call(self, *args):
+        self.logger.info('func_call called')
+        if self.userfunc is None:
+            self.logger.error('userfunc is None')
+            return abort(500)
+        return self.userfunc(*args)
 
     def _load_v2(self, specialize_info):
         filepath = specialize_info['filepath']
@@ -178,17 +172,24 @@ class FuncApp(Flask):
 
 
 def main():
-    register_signal_handlers()
     app = FuncApp(__name__, logging.DEBUG)
     register_signal_handlers(app.signal_handler)
+    from flask_sockets import Sockets
+    sockets = Sockets(app)
 
+    @sockets.route('/', methods=['GET', 'POST'])
+    def echo_socket(*args):
+        app.func_call(*args)
+
+    ## app.run(port=RUNTIME_PORT)
     #
     # TODO: this starts the built-in server, which isn't the most
     # efficient.  We should use something better.
     #
     if os.environ.get("WSGI_FRAMEWORK") == "GEVENT":
         app.logger.info("Starting gevent based server")
-        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT), app)
+        from gevent_ws import WebSocketHandler
+        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT), app, handler_class=WebSocketHandler)
         svc.serve_forever()
     else:
         app.logger.info("Starting bjoern based server")

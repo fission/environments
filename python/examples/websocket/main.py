@@ -6,6 +6,9 @@ print("loaded code")
 
 def main(ws):
     print("main")
-    while not ws.closed:
+    count = 0
+    while not ws.closed and count < 5:
         message = ws.receive()
         ws.send(message)
+        count += 1
+    ws.close()

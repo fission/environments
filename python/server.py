@@ -6,7 +6,9 @@ import signal
 import sys
 import json
 
-from flask import Flask, request, abort, g
+from flask import Flask, request, abort
+from flask_sockets import Sockets
+
 from gevent.pywsgi import WSGIServer
 import bjoern
 import sentry_sdk
@@ -87,36 +89,24 @@ class FuncApp(Flask):
             self.userfunc = self._load_v2(specialize_info)
             self.logger.info('Loaded user function {}'.format(specialize_info))
 
-        #
-        # Register the routers
-        #
-        @self.route('/specialize', methods=['POST'])
-        def load():
-            self.logger.info('/specialize called')
-            # load user function from codepath
-            self.userfunc = import_src('/userfunc/user').main
-            return ""
+    def load(self):
+        self.logger.info('/specialize called')
+        # load user function from codepath
+        self.userfunc = import_src('/userfunc/user').main
+        return ""
 
-        @self.route('/v2/specialize', methods=['POST'])
-        def loadv2():
-            specialize_info = request.get_json()
-            if check_specialize_info_exists():
-                self.logger.warning("Found state.json, overwriting")
-            self.userfunc = self._load_v2(specialize_info)
-            store_specialize_info(specialize_info)
-            return ""
+    def loadv2(self):
+        specialize_info = request.get_json()
+        if check_specialize_info_exists():
+            self.logger.warning("Found state.json, overwriting")
+        self.userfunc = self._load_v2(specialize_info)
+        store_specialize_info(specialize_info)
+        return ""
 
-        @self.route('/healthz', methods=['GET'])
-        def healthz():
-            return "", 200
+    def healthz(self):
+        return "", 200
 
-        @self.route(
-            '/', methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
-        def f():
-            return self.func_call()
-
-    def func_call(self, *args):
-        self.logger.info('func_call called')
+    def userfunc_call(self, *args):
         if self.userfunc is None:
             self.logger.error('userfunc is None')
             return abort(500)
@@ -170,18 +160,17 @@ class FuncApp(Flask):
         signal.signal(signalnum, signal.SIG_DFL)
         raise SignalExit(signalnum)
 
-
 def main():
     app = FuncApp(__name__, logging.DEBUG)
-    register_signal_handlers(app.signal_handler)
-    from flask_sockets import Sockets
     sockets = Sockets(app)
+    register_signal_handlers(app.signal_handler)
 
-    @sockets.route('/', methods=['GET', 'POST'])
-    def echo_socket(*args):
-        app.func_call(*args)
+    app.add_url_rule('/specialize', 'load', app.load, methods=['POST'])
+    app.add_url_rule('/v2/specialize', 'loadv2', app.loadv2, methods=['POST'])
+    app.add_url_rule('/healthz', 'healthz', app.healthz, methods=['GET'])
+    app.add_url_rule('/', 'userfunc_call', app.userfunc_call, methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
+    sockets.add_url_rule('/', 'userfunc_call', app.userfunc_call, methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
 
-    ## app.run(port=RUNTIME_PORT)
     #
     # TODO: this starts the built-in server, which isn't the most
     # efficient.  We should use something better.

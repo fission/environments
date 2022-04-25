@@ -7,12 +7,12 @@ import sys
 import json
 
 from flask import Flask, request, abort
-from flask_sockets import Sockets
-
 from gevent.pywsgi import WSGIServer
 import bjoern
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
+
+from flask_sockets import Sockets
 
 IS_PY2 = (sys.version_info.major == 2)
 SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
@@ -53,6 +53,7 @@ def remove_specialize_info():
 
 
 class SignalExit(SystemExit):
+
     def __init__(self, signo, exccode=1):
         super(SignalExit, self).__init__(exccode)
         self.signo = signo
@@ -64,6 +65,7 @@ def register_signal_handlers(signal_handler=signal.SIG_DFL):
 
 
 class FuncApp(Flask):
+
     def __init__(self, name, loglevel=logging.DEBUG):
         super(FuncApp, self).__init__(name)
 
@@ -160,6 +162,7 @@ class FuncApp(Flask):
         signal.signal(signalnum, signal.SIG_DFL)
         raise SignalExit(signalnum)
 
+
 def main():
     app = FuncApp(__name__, logging.DEBUG)
     sockets = Sockets(app)
@@ -168,8 +171,16 @@ def main():
     app.add_url_rule('/specialize', 'load', app.load, methods=['POST'])
     app.add_url_rule('/v2/specialize', 'loadv2', app.loadv2, methods=['POST'])
     app.add_url_rule('/healthz', 'healthz', app.healthz, methods=['GET'])
-    app.add_url_rule('/', 'userfunc_call', app.userfunc_call, methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
-    sockets.add_url_rule('/', 'userfunc_call', app.userfunc_call, methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
+    app.add_url_rule(
+        '/',
+        'userfunc_call',
+        app.userfunc_call,
+        methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
+    sockets.add_url_rule(
+        '/',
+        'userfunc_call',
+        app.userfunc_call,
+        methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
 
     #
     # TODO: this starts the built-in server, which isn't the most
@@ -178,7 +189,9 @@ def main():
     if os.environ.get("WSGI_FRAMEWORK") == "GEVENT":
         app.logger.info("Starting gevent based server")
         from gevent_ws import WebSocketHandler
-        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT), app, handler_class=WebSocketHandler)
+        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT),
+                         app,
+                         handler_class=WebSocketHandler)
         svc.serve_forever()
     else:
         app.logger.info("Starting bjoern based server")

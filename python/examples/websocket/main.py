@@ -1,11 +1,5 @@
-from flask import request
-from flask import current_app
-from flask import g
-
-print("loaded code")
-
-def main(ws):
-    print("main")
+def main(ws, clients):
+    print("The number of clients is: {}".format(len(clients)))
     count = 0
     while not ws.closed and count < 5:
         message = ws.receive()

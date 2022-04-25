@@ -4,10 +4,13 @@
 # The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import gevent
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import NotFound
 from werkzeug.http import parse_cookie
 from flask import request
+
+from socket_tracker import WebsocketTracker
 
 
 class SocketMiddleware(object):
@@ -32,7 +35,8 @@ class SocketMiddleware(object):
                 with self.app.request_context(environ):
                     # add cookie to the request to have correct session handling
                     request.cookie = cookie
-                    handler(environment, **values)
+                    self.ws.tracker.add_client(environment)
+                    handler(environment, self.ws.tracker.clients, **values)
                     return []
         except (NotFound, KeyError):
             return self.wsgi_app(environ, start_response)
@@ -53,12 +57,14 @@ class Sockets(object):
         #: you how often they got attached.
         self.blueprints = {}
         self._blueprint_order = []
+        self.tracker = WebsocketTracker(app.logger)
 
         if app:
             self.init_app(app)
 
     def init_app(self, app):
         app.wsgi_app = SocketMiddleware(app.wsgi_app, app, self)
+        gevent.spawn(self.tracker.monitor)
 
     def route(self, rule, **options):
 
@@ -66,6 +72,7 @@ class Sockets(object):
             endpoint = options.pop('endpoint', None)
             self.add_url_rule(rule, endpoint, f, **options)
             return f
+
         return decorator
 
     def add_url_rule(self, rule, _, f, **options):
@@ -84,8 +91,8 @@ class Sockets(object):
             assert self.blueprints[blueprint.name] is blueprint, (
                 'A blueprint\'s name collision occurred between %r and '
                 '%r.  Both share the same name "%s".  Blueprints that '
-                'are created on the fly need unique names.'
-                % (blueprint, self.blueprints[blueprint.name], blueprint.name))
+                'are created on the fly need unique names.' %
+                (blueprint, self.blueprints[blueprint.name], blueprint.name))
         else:
             self.blueprints[blueprint.name] = blueprint
             self._blueprint_order.append(blueprint)

@@ -1,7 +1,7 @@
 ARG BUILDER_IMAGE=fission/builder:latest
 FROM ${BUILDER_IMAGE}
 
-FROM php:7.3-alpine
+FROM php:7.4.29-alpine
 
 ENV PATH="/root/.composer/vendor/bin:${PATH}" \
     COMPOSER_ALLOW_SUPERUSER=1

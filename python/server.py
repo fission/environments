@@ -6,11 +6,13 @@ import signal
 import sys
 import json
 
-from flask import Flask, request, abort, g
+from flask import Flask, request, abort
 from gevent.pywsgi import WSGIServer
 import bjoern
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
+
+from flask_sockets import Sockets
 
 IS_PY2 = (sys.version_info.major == 2)
 SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
@@ -51,6 +53,7 @@ def remove_specialize_info():
 
 
 class SignalExit(SystemExit):
+
     def __init__(self, signo, exccode=1):
         super(SignalExit, self).__init__(exccode)
         self.signo = signo
@@ -62,6 +65,7 @@ def register_signal_handlers(signal_handler=signal.SIG_DFL):
 
 
 class FuncApp(Flask):
+
     def __init__(self, name, loglevel=logging.DEBUG):
         super(FuncApp, self).__init__(name)
 
@@ -87,46 +91,28 @@ class FuncApp(Flask):
             self.userfunc = self._load_v2(specialize_info)
             self.logger.info('Loaded user function {}'.format(specialize_info))
 
-        #
-        # Register the routers
-        #
-        @self.route('/specialize', methods=['POST'])
-        def load():
-            self.logger.info('/specialize called')
-            # load user function from codepath
-            self.userfunc = import_src('/userfunc/user').main
-            return ""
+    def load(self):
+        self.logger.info('/specialize called')
+        # load user function from codepath
+        self.userfunc = import_src('/userfunc/user').main
+        return ""
 
-        @self.route('/v2/specialize', methods=['POST'])
-        def loadv2():
-            specialize_info = request.get_json()
-            if check_specialize_info_exists():
-                self.logger.warning("Found state.json, overwriting")
-            self.userfunc = self._load_v2(specialize_info)
-            store_specialize_info(specialize_info)
-            return ""
+    def loadv2(self):
+        specialize_info = request.get_json()
+        if check_specialize_info_exists():
+            self.logger.warning("Found state.json, overwriting")
+        self.userfunc = self._load_v2(specialize_info)
+        store_specialize_info(specialize_info)
+        return ""
 
-        @self.route('/healthz', methods=['GET'])
-        def healthz():
-            return "", 200
+    def healthz(self):
+        return "", 200
 
-        @self.route(
-            '/', methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
-        def f():
-            if self.userfunc is None:
-                print("Generic container: no requests supported")
-                abort(500)
-            #
-            # Customizing the request context
-            #
-            # If you want to pass something to the function, you can
-            # add it to 'g':
-            #   g.myKey = myValue
-            #
-            # And the user func can then access that
-            # (after doing a"from flask import g").
-
-            return self.userfunc()
+    def userfunc_call(self, *args):
+        if self.userfunc is None:
+            self.logger.error('userfunc is None')
+            return abort(500)
+        return self.userfunc(*args)
 
     def _load_v2(self, specialize_info):
         filepath = specialize_info['filepath']
@@ -178,9 +164,23 @@ class FuncApp(Flask):
 
 
 def main():
-    register_signal_handlers()
     app = FuncApp(__name__, logging.DEBUG)
+    sockets = Sockets(app)
     register_signal_handlers(app.signal_handler)
+
+    app.add_url_rule('/specialize', 'load', app.load, methods=['POST'])
+    app.add_url_rule('/v2/specialize', 'loadv2', app.loadv2, methods=['POST'])
+    app.add_url_rule('/healthz', 'healthz', app.healthz, methods=['GET'])
+    app.add_url_rule(
+        '/',
+        'userfunc_call',
+        app.userfunc_call,
+        methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
+    sockets.add_url_rule(
+        '/',
+        'userfunc_call',
+        app.userfunc_call,
+        methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
 
     #
     # TODO: this starts the built-in server, which isn't the most
@@ -188,7 +188,10 @@ def main():
     #
     if os.environ.get("WSGI_FRAMEWORK") == "GEVENT":
         app.logger.info("Starting gevent based server")
-        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT), app)
+        from gevent_ws import WebSocketHandler
+        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT),
+                         app,
+                         handler_class=WebSocketHandler)
         svc.serve_forever()
     else:
         app.logger.info("Starting bjoern based server")

@@ -91,9 +91,11 @@ namespace Builder.Engine
         public async Task<bool> Compile()
         {
             var syntaxTrees = new List<SyntaxTree>();
+            var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.Latest);
+
             foreach (var codeInDirectory in CompilerHelper.GetCSharpSources(SRC_PKG)) 
             {
-                syntaxTrees.Add(CSharpSyntaxTree.ParseText(File.ReadAllText(codeInDirectory)));
+                syntaxTrees.Add(CSharpSyntaxTree.ParseText(File.ReadAllText(codeInDirectory), options));
             }
             string assemblyName = Path.GetRandomFileName();
 

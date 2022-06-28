@@ -46,7 +46,8 @@ namespace Fission.DotNet
         {
             errors = new List<string>();
 
-            SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(text: source);
+            var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.Latest);
+            SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source, options);
 
             var coreDir = Directory.GetParent(path: typeof(Enumerable).GetTypeInfo().Assembly.Location);
 
@@ -114,11 +115,12 @@ namespace Fission.DotNet
         {
             errors = new List<string>();
             outputInfo = new List<string>();
+            var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.Latest);
 
             var syntaxTrees = new List<SyntaxTree>();
             foreach (var codeInDirectory in CompilerHelper.GetCSharpSources(packagePath)) 
             {
-                syntaxTrees.Add(CSharpSyntaxTree.ParseText(File.ReadAllText(codeInDirectory)));
+                syntaxTrees.Add(CSharpSyntaxTree.ParseText(File.ReadAllText(codeInDirectory), options));
             }
 
             string assemblyName = Path.GetRandomFileName();

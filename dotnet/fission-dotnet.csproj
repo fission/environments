@@ -11,7 +11,7 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="3.1.8" />
     <PackageReference Include="Nancy" Version="2.0.0-barneyrubble" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="1.3.0-*" />
     <PackageReference Include="System.Runtime.Loader" Version="4.0.0-*" />

@@ -1,0 +1,10 @@
+[[redirects]]
+  from = "/"
+  to = "https://fission.io/environments/"
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "https://fission.io/environments/"
+  force = true
+

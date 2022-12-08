@@ -1,6 +1,6 @@
 bjoern==3.2.1
 blinker==1.4
-certifi==2021.10.8
+certifi==2022.12.7
 chardet==4.0.0
 charset-normalizer==2.0.7
 click==8.0.3

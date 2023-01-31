@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fission-dotnet6", "fission-dotnet6\fission-dotnet6.csproj", "{7FDAA994-D65D-4525-8375-EE77CF150AB8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fission.Functions", "Fission.Functions\Fission.Functions.csproj", "{A04A5119-DEF9-467E-9ABC-5030F2EF38CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A91D1E8C-4FB8-4A18-90D4-BC94440CE5DC}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Dockerfile = Dockerfile
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FDAA994-D65D-4525-8375-EE77CF150AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FDAA994-D65D-4525-8375-EE77CF150AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FDAA994-D65D-4525-8375-EE77CF150AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FDAA994-D65D-4525-8375-EE77CF150AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A04A5119-DEF9-467E-9ABC-5030F2EF38CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A04A5119-DEF9-467E-9ABC-5030F2EF38CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A04A5119-DEF9-467E-9ABC-5030F2EF38CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A04A5119-DEF9-467E-9ABC-5030F2EF38CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB21B789-DB52-41EC-87D2-B6618931797C}
+	EndGlobalSection
+EndGlobal

@@ -109,7 +109,7 @@ func (bs *BinaryServer) SpecializeHandler(w http.ResponseWriter, r *http.Request
 		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to read file: %w", err))
 		return
 	}
-	err = os.WriteFile(bs.internalCodePath, userFunc, 0555)
+	err = os.WriteFile(bs.internalCodePath, userFunc, 0755)
 	if err != nil {
 		HttpResponseWithError(w, http.StatusBadRequest, fmt.Errorf("failed to write file: %w", err))
 		return
@@ -132,14 +132,14 @@ func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request
 	execEnv.SetEnv(&EnvVar{"REQUEST_METHOD", r.Method})
 	execEnv.SetEnv(&EnvVar{"REQUEST_URI", r.RequestURI})
 	execEnv.SetEnv(&EnvVar{"CONTENT_LENGTH", fmt.Sprintf("%d", r.ContentLength)})
-	execEnv.SetEnv(&EnvVar{"PATH", "$PATH:/userfunc/deployarchive:/userfunc"})
+	execEnv.SetEnv(&EnvVar{"PATH", "$PATH:/bin:/usr/bin:/usr/local/bin:/userfunc/deployarchive:/userfunc"})
 
 	for header, val := range r.Header {
 		execEnv.SetEnv(&EnvVar{fmt.Sprintf("HTTP_%s", strings.ToUpper(header)), val[0]})
 	}
 
 	// Future: could be improved by keeping subprocess open while environment is specialized
-	cmd := exec.Command("/bin/sh", bs.internalCodePath)
+	cmd := exec.Command("/bin/sh", "-c", bs.internalCodePath)
 	cmd.Env = execEnv.ToStringEnv()
 
 	stdinPipe, err := cmd.StdinPipe()

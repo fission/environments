@@ -88,3 +88,22 @@ sleep 5
 
 log "Testing the $fn_name function"
 timeout 60 bash -c "test_fn $fn_name 'Modules are awesome'"
+
+
+log "===== 4. Testing simple binary ====="
+
+fn_name=go-binary-$TEST_ID
+
+go build -o hello-go-bin hello.go
+
+log "Creating function for $fn_name"
+fission fn create --name $fn_name --code hello-go-func --env $env
+
+log "Creating route for $fn_name"
+fission route create --name $fn_name --function $fn_name --url /$fn_name --method GET
+
+log "Waiting for router & pools to catch up"
+sleep 5
+
+log "Testing the $fn_name function"
+timeout 60 bash -c "test_fn $fn_name 'Hello Go Binary'"

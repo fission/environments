@@ -8,7 +8,7 @@ RUN go mod tidy
 
 RUN go build -o server .
 
-FROM alpine:3.14
+FROM alpine:latest
 
 WORKDIR /app
 

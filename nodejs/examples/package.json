@@ -23,7 +23,7 @@
     "minimist": "*",
     "morgan": "*",
     "mz": "~2.7.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.2.10",
     "underscore": ">=1.8.3"
   }
 }

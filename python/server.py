@@ -108,8 +108,14 @@ class FuncApp(Flask):
 
     def userfunc_call(self, *args):
         if self.userfunc is None:
-            self.logger.error('userfunc is None')
-            return abort(500)
+            if check_specialize_info_exists():
+                self.logger.info('Found state.json')
+                specialize_info = read_specialize_info()
+                self.userfunc = self._load_v2(specialize_info)
+                self.logger.info('Loaded user function {}'.format(specialize_info))
+            else:
+                self.logger.error('userfunc is None')
+                return abort(500)
         return self.userfunc(*args)
 
     def _load_v2(self, specialize_info):

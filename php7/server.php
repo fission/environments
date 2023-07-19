@@ -58,28 +58,33 @@ $server = new Server(function (ServerRequestInterface $request) use (&$codePath,
             return new Response(500, [], "$codePath not found");
         }
 
-        $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
         try {
+            $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
             $parser->parse(file_get_contents($codePath));
         } catch (Throwable $throwable) {
             $logger->error($codePath . ' - ' . $throwable->getMessage());
             return new Response(500, [], $codePath . ' - ' . $throwable->getMessage());
         }
 
+        //backwards compatibility: php code didn't have userFunction, return the content
+        if ($userFunction === null) {
+
+            require $codePath;
+            $bodyRowContent = ob_get_contents();
+            ob_end_clean();
+
+            return new Response(200, [], $bodyRowContent);
+        }
+
         require_once $codePath;
 
-        //If the function as an handler class it will be called with request, response and logger
+        //If the function as a handler class it will be called with request, response and logger
         if (function_exists($userFunction)) {
             $response = new Response();
             ob_end_clean();
             $userFunction(['request' =>$request, 'response' => $response, 'logger' => $logger]);
             return $response;
         }
-        //backwards compatibility: php code didn't have userFunction, i will return the content
-        $bodyRowContent = ob_get_contents();
-        ob_end_clean();
-
-        return new Response(200, [], $bodyRowContent);
     }
 
     return new Response(404, ['Content-Type' => 'text/plain'], 'Not found');

@@ -63,7 +63,8 @@ public class Server {
 
 			// TODO Check if the classloading can be improved for ex. use something like:
 			// Thread.currentThread().setContextClassLoader(cl);
-			if (this.getClass().getClassLoader() == null) {
+			URLClassLoader currentLoader = (URLClassLoader) this.getClass().getClassLoader();
+			if (currentLoader == null ) { // this.getClass().getClassLoader() == null) {
 				cl = URLClassLoader.newInstance(urls);
 			} else {
 				cl = URLClassLoader.newInstance(urls, this.getClass().getClassLoader());
@@ -72,21 +73,7 @@ public class Server {
 			if (cl == null) {
 				return ResponseEntity.status(500).body("Failed to initialize the classloader");
 			}
-
-			// Load all dependent classes from libraries etc.
-			while (e.hasMoreElements()) {
-				JarEntry je = e.nextElement();
-				if (je.isDirectory() || !je.getName().endsWith(".class")) {
-					continue;
-				}
-				String className = je.getName().substring(0, je.getName().length() - CLASS_LENGTH);
-				className = className.replace('/', '.');
-				cl.loadClass(className);
-			}
-
-			// Instantiate the function class
-			fn = (Function) cl.loadClass(entryPoint).newInstance();
-
+			fn = (Function)Class.forName(entryPoint, true, cl).newInstance();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("Error loading the Function class file");
@@ -102,6 +89,9 @@ public class Server {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body("Error reading the JAR file");
+		} catch (NoClassDefFoundError e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("Class Dependency Missing");
 		} finally {
 			try {
 				// cl.close();

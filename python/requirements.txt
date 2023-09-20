@@ -5,7 +5,7 @@ chardet==4.0.0
 charset-normalizer==2.0.7
 click==8.0.3
 Flask==2.1.1
-gevent==21.12.0
+gevent==23.9.0
 gevent-ws==2.1.0
 greenlet==1.1.2
 hiredis==2.0.0

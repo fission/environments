@@ -108,7 +108,7 @@ class FuncApp(Flask):
     def healthz(self):
         return "", 200
 
-    def userfunc_call(self, *args):
+    def userfunc_call(self, *args, **kwargs):
         if self.userfunc is None:
             self.logger.error('userfunc is None')
             return abort(500)
@@ -173,6 +173,11 @@ def main():
     app.add_url_rule('/healthz', 'healthz', app.healthz, methods=['GET'])
     app.add_url_rule(
         '/',
+        'userfunc_call',
+        app.userfunc_call,
+        methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
+    app.add_url_rule(
+        '/<path:path>',
         'userfunc_call',
         app.userfunc_call,
         methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])

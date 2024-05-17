@@ -165,8 +165,8 @@ func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request
 	}
 
 	wg := sync.WaitGroup{}
-	wg.Add(1)
 
+	wg.Add(1)
 	go func() {
 		defer func() {
 			stdinPipe.Close()
@@ -207,6 +207,8 @@ func (bs *BinaryServer) InvocationHandler(w http.ResponseWriter, r *http.Request
 			return
 		}
 	}()
+
+	wg.Wait()
 
 	err = cmd.Wait()
 	if err != nil {

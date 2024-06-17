@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net"
 	"net/http"
@@ -66,7 +66,7 @@ func specializeHandlerV2(logger *zap.Logger) func(http.ResponseWriter, *http.Req
 			return
 		}
 
-		body, err := ioutil.ReadAll(r.Body)
+		body, err := io.ReadAll(r.Body)
 		if err != nil {
 			logger.Error("error reading request body", zap.Error(err))
 			w.WriteHeader(http.StatusInternalServerError)

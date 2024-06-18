@@ -46,7 +46,7 @@ log "Creating pool manager & new deployment function for Golang"
 fission fn create --name $fn_poolmgr --env $env --pkg $pkgName --entrypoint Handler
 fission fn create --name $fn_nd      --env $env --pkg $pkgName --entrypoint Handler --executortype newdeploy
 
-log "Creating route for new deployment function"
+log "Creating routes for pool manager & new deployment function"
 fission route create --name $fn_poolmgr --function $fn_poolmgr --url /$fn_poolmgr --method GET
 fission route create --name $fn_nd --function $fn_nd --url /$fn_nd --method GET
 

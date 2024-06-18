@@ -91,6 +91,7 @@ jobs:
         run: |
           SKAFFOLD_PROFILE=go make skaffold-run
           make go-test-images
+          make router-port-forward
       - name: go-tests
         run: ./test_utils/run_test.sh ./go/tests/test_go_env.sh
       - name: Collect Fission Dump

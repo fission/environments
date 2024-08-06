@@ -7,8 +7,6 @@ import sys
 import json
 
 from flask import Flask, request, abort
-from gevent.pywsgi import WSGIServer
-import bjoern
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 
@@ -110,8 +108,14 @@ class FuncApp(Flask):
 
     def userfunc_call(self, *args):
         if self.userfunc is None:
-            self.logger.error('userfunc is None')
-            return abort(500)
+            if check_specialize_info_exists():
+                self.logger.info('Found state.json')
+                specialize_info = read_specialize_info()
+                self.userfunc = self._load_v2(specialize_info)
+                self.logger.info('Loaded user function {}'.format(specialize_info))
+            else:
+                self.logger.error('userfunc is None')
+                return abort(500)
         return self.userfunc(*args)
 
     def _load_v2(self, specialize_info):
@@ -163,39 +167,21 @@ class FuncApp(Flask):
         raise SignalExit(signalnum)
 
 
-def main():
-    app = FuncApp(__name__, logging.DEBUG)
-    sockets = Sockets(app)
-    register_signal_handlers(app.signal_handler)
 
-    app.add_url_rule('/specialize', 'load', app.load, methods=['POST'])
-    app.add_url_rule('/v2/specialize', 'loadv2', app.loadv2, methods=['POST'])
-    app.add_url_rule('/healthz', 'healthz', app.healthz, methods=['GET'])
-    app.add_url_rule(
-        '/',
-        'userfunc_call',
-        app.userfunc_call,
-        methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
-    sockets.add_url_rule(
-        '/',
-        'userfunc_call',
-        app.userfunc_call,
-        methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
+app = FuncApp(__name__, logging.DEBUG)
+sockets = Sockets(app)
+register_signal_handlers(app.signal_handler)
 
-    #
-    # TODO: this starts the built-in server, which isn't the most
-    # efficient.  We should use something better.
-    #
-    if os.environ.get("WSGI_FRAMEWORK") == "GEVENT":
-        app.logger.info("Starting gevent based server")
-        from gevent_ws import WebSocketHandler
-        svc = WSGIServer(('0.0.0.0', RUNTIME_PORT),
-                         app,
-                         handler_class=WebSocketHandler)
-        svc.serve_forever()
-    else:
-        app.logger.info("Starting bjoern based server")
-        bjoern.run(app, '0.0.0.0', RUNTIME_PORT, reuse_port=True)
-
-
-main()
+app.add_url_rule('/specialize', 'load', app.load, methods=['POST'])
+app.add_url_rule('/v2/specialize', 'loadv2', app.loadv2, methods=['POST'])
+app.add_url_rule('/healthz', 'healthz', app.healthz, methods=['GET'])
+app.add_url_rule(
+    '/',
+    'userfunc_call',
+    app.userfunc_call,
+    methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])
+sockets.add_url_rule(
+    '/',
+    'userfunc_call',
+    app.userfunc_call,
+    methods=['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE'])

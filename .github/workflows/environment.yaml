@@ -136,6 +136,7 @@ jobs:
       - name: jvm
         uses: hiberbee/github-action-skaffold@1.27.0
         with:
+          skaffold-version: '1.39.2'
           command: run
           profile: jvm
           tag: latest

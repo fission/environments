@@ -118,6 +118,8 @@ jobs:
           filters: .github/workflows/filters/filters.yaml
       - name: Helm
         uses: Azure/setup-helm@v1
+        with:
+          version: 'v2.16.7'
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:

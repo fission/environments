@@ -118,22 +118,27 @@ jobs:
           filters: .github/workflows/filters/filters.yaml
       - name: Helm
         uses: Azure/setup-helm@v1
+        with:
+          version: 'v3.0.0'
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
+          image: kindest/node:v1.21.1
+          version: v0.11.1
           config: kind.yaml
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
+          kind get kubeconfig >$HOME/.kube/config
           kubectl get nodes
       - name: Install Fission CLI
         run: |
           curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
           && chmod +x fission && sudo mv fission /usr/local/bin/
       - name: jvm
-        uses: hiberbee/github-action-skaffold@1.5.0
+        uses: hiberbee/github-action-skaffold@1.27.0
         with:
+          skaffold-version: '1.39.2'
           command: run
           profile: jvm
           tag: latest
@@ -211,7 +216,7 @@ jobs:
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
+          kind get kubeconfig >$HOME/.kube/config
           kubectl get nodes
       - name: Install Fission CLI
         run: |
@@ -243,7 +248,7 @@ jobs:
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
+          kind get kubeconfig >$HOME/.kube/config
           kubectl get nodes
       - name: Install Fission CLI
         run: |
@@ -263,7 +268,7 @@ jobs:
         uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.10'
       - name: Unit test
         run: |
           pip3 install virtualenv
@@ -332,7 +337,7 @@ jobs:
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
+          kind get kubeconfig >$HOME/.kube/config
           kubectl get nodes
       - name: Install Fission CLI
         run: |
@@ -363,7 +368,7 @@ jobs:
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
-          kind get kubeconfig --internal >$HOME/.kube/config
+          kind get kubeconfig >$HOME/.kube/config
           kubectl get nodes
       - name: Install Fission CLI
         run: |

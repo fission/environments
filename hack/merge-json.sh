@@ -33,7 +33,7 @@ if ! $JQ . <"$TMP_FILE" >/dev/null; then
 fi
 
 echo "Updating environments.json"
-cp -v $TMP_FILE ./environments-ui/src/resources/environments.json
+cp -v $TMP_FILE ./environments.json
 rm $TMP_FILE*
 
 # cd environments-ui && npm i && npm run build

@@ -82,13 +82,13 @@ profiles:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          NODE_BASE_IMG: "12.22.7-alpine3.14"
+          NODE_BASE_IMG: "20.16.0-alpine3.20"
     - image: node-builder
       context: nodejs/builder/
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          NODE_BASE_IMG: "12.22.7-alpine3.14"
+          NODE_BASE_IMG: "20.16.0-alpine3.20"
 - name: perl
   build:
     artifacts:

@@ -41,9 +41,6 @@ sort-env-jsons:
 update-env-json: sort-env-jsons
 	./hack/merge-json.sh
 
-build-ui: update-env-json
-	cd environments-ui && npm install && npm run build
-
 install-skaffold:
 	@echo === Installing skaffold
 	curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \

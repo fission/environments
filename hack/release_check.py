@@ -5,11 +5,11 @@ import sys
 import requests
 import subprocess
 
-FISSION_REPO = "fission"
+FISSION_REPO = "ghcr.io/fission"
 
-DOCKERHUB_URL = "https://hub.docker.com/v2/repositories/{repo}/{env}/tags/{tag}"
+GHCR_URL = "https://ghcr.io/v2/{repo}/{env}/tags/{tag}"
 def check_if_image_exists(image,tag):
-    docker_uri = DOCKERHUB_URL.format(
+    docker_uri = GHCR_URL.format(
         repo=FISSION_REPO,
         env=image,
         tag=tag,

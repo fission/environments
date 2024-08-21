@@ -201,7 +201,8 @@
     "status": "Stable",
     "version": "1.32.2"
   }
-],
+]
+,
 [
   {
     "examples": "https://github.com/fission/environments/tree/master/dotnet/examples",

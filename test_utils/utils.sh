@@ -129,7 +129,7 @@ wait_for_builder() {
     # wait for tiller ready
     set +e
     while true; do
-      kubectl --namespace fission-builder get pod -l envName=$env -o jsonpath="$JSONPATH" | grep "Ready=True"
+      kubectl get pod -l envName=$env -o jsonpath="$JSONPATH" | grep "Ready=True"
       if [[ $? -eq 0 ]]; then
           break
       fi
@@ -175,7 +175,7 @@ export -f waitBuildExpectedStatus
 
 ## Common env parameters
 export FISSION_NAMESPACE=${FISSION_NAMESPACE:-fission}
-export FUNCTION_NAMESPACE=${FUNCTION_NAMESPACE:-fission-function}
+export FUNCTION_NAMESPACE=${FUNCTION_NAMESPACE:-default}
 
 router=$(kubectl -n $FISSION_NAMESPACE get svc router -o jsonpath='{...ip}')
 

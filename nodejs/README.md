@@ -24,14 +24,14 @@ Build and push the image to the the registry:
 Building runtime image,
 
 ```console
-docker build -t USER/node-env --build-arg NODE_BASE_IMG=16.12.0-alpine3.14 -f Dockerfile . 
+docker build -t USER/node-env --build-arg NODE_BASE_IMG=22.6.0-alpine3.20 -f Dockerfile .
 docker push USER/node-env
 ```
 
 Building builder image,
 
 ```console
-cd builder && docker build -t USER/node-builder --build-arg NODE_BASE_IMG=16.12.0-alpine3.14 -f Dockerfile .
+cd builder && docker build -t USER/node-builder --build-arg NODE_BASE_IMG=22.6.0-alpine3.20 -f Dockerfile .
 docker push USER/go-builder
 ```
 

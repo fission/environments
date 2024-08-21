@@ -152,9 +152,9 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '20'
       - name: Unit test
         run: |
           pushd nodejs/
@@ -162,9 +162,9 @@ jobs:
           ./test/local_test.sh
           popd
       - name: Helm
-        uses: Azure/setup-helm@v1
+        uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: v3.3.4
+          version: v3.13.0
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:

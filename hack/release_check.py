@@ -7,18 +7,17 @@ import subprocess
 
 FISSION_REPO = "ghcr.io/fission"
 
-GHCR_URL = "https://ghcr.io/v2/{repo}/{env}/tags/{tag}"
+GHCR_URL = "https://ghcr.io/v2/{repo}/{env}/tags/list"
 def check_if_image_exists(image,tag):
     docker_uri = GHCR_URL.format(
         repo=FISSION_REPO,
-        env=image,
-        tag=tag,
+        env=image
     )
     resp = requests.get(docker_uri)
     json_resp = resp.json()
     if "message" in json_resp and "not found" in json_resp['message']:
         return False
-    elif "images" in json_resp and len(json_resp["images"]) > 0:
+    elif "tags" in json_resp and tag in json_resp["images"]:
         return True
     else:
         return False

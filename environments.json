@@ -63,10 +63,10 @@
 ,
 [
   {
-    "builder": "python-builder-3.10",
+    "builder": "python-builder",
     "examples": "https://github.com/fission/environments/tree/master/python/examples",
     "icon": "./logo/Python-logo-notext.png",
-    "image": "python-env-3.10",
+    "image": "python-env",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
@@ -81,10 +81,34 @@
     ],
     "name": "Python Environment",
     "readme": "https://github.com/fission/environments/tree/master/python",
-    "runtimeVersion": "3.10",
+    "runtimeVersion": "3.11",
     "shortDescription": "Fission Python environment based on Flask framework.",
-    "status": "alpha",
-    "version": "1.34.0"
+    "status": "stable",
+    "version": "1.34.1"
+  },
+  {
+    "builder": "python-builder-3.12",
+    "examples": "https://github.com/fission/environments/tree/master/python/examples",
+    "icon": "./logo/Python-logo-notext.png",
+    "image": "python-env-3.12",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Python Environment",
+    "readme": "https://github.com/fission/environments/tree/master/python",
+    "runtimeVersion": "3.12",
+    "shortDescription": "Fission Python environment based on Flask framework.",
+    "status": "stable",
+    "version": "1.34.1"
   }
 ]
 ,
@@ -108,10 +132,10 @@
     ],
     "name": "Fission Binary Environment",
     "readme": "https://github.com/fission/environments/tree/master/binary",
-    "runtimeVersion": "3.14-alpine",
+    "runtimeVersion": "3.20-alpine",
     "shortDescription": "Fission environment to run any binary",
     "status": "Stable",
-    "version": "1.32.1"
+    "version": "1.32.2"
   }
 ]
 ,
@@ -179,10 +203,10 @@
 ,
 [
   {
-    "builder": "go-builder-1.22",
+    "builder": "go-builder",
     "examples": "https://github.com/fission/environments/tree/master/go/examples",
     "icon": "./logo/go-logo-blue.svg",
-    "image": "go-env-1.22",
+    "image": "go-env",
     "kind": "environment",
     "maintainers": [
       {
@@ -199,10 +223,32 @@
     "runtimeVersion": "1.22",
     "shortDescription": "Fission Go 1.22 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.32.2"
+    "version": "1.32.3"
+  },
+  {
+    "builder": "go-builder-1.23",
+    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "icon": "./logo/go-logo-blue.svg",
+    "image": "go-env-1.23",
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Go Environment",
+    "readme": "https://github.com/fission/environments/tree/master/go",
+    "runtimeVersion": "1.23",
+    "shortDescription": "Fission Go 1.23 environment, which uses dynamic loader based on Go plugins.",
+    "status": "Stable",
+    "version": "1.32.3"
   }
-]
-,
+],
 [
   {
     "examples": "https://github.com/fission/environments/tree/master/dotnet/examples",
@@ -343,16 +389,16 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "12.22.7-debian",
+    "runtimeVersion": "20.16.0-debian",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.32.2"
+    "version": "1.32.4"
   },
   {
-    "builder": "node-builder-16",
+    "builder": "node-builder-22",
     "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
     "icon": "./logo/nodejs-new-pantone-black.svg",
-    "image": "node-env-16",
+    "image": "node-env-22",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
@@ -367,10 +413,34 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "16.12.0",
+    "runtimeVersion": "22.6.0",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.32.2"
+    "version": "1.32.4"
+  },
+  {
+    "builder": "node-builder",
+    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "image": "node-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Nodejs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/nodejs",
+    "runtimeVersion": "20.16.0",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.32.4"
   }
 ]
 

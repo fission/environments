@@ -48,14 +48,14 @@ profiles:
       docker:
         dockerfile: Dockerfile-1.1x
         buildArgs:
-          GO_VERSION: "1.16"
-          UBUNTU_VERSION: "20.04"
+          GO_VERSION: "1.22"
+          UBUNTU_VERSION: "22.04"
     - image: go-builder
       context: go/builder/
       docker:
         dockerfile: Dockerfile-1.1x
         buildArgs:
-          GO_VERSION: "1.16"
+          GO_VERSION: "1.22"
 - name: jvm
   build:
     artifacts:
@@ -111,13 +111,13 @@ profiles:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          PY_BASE_IMG: "3.7-alpine"
+          PY_BASE_IMG: "3.11-alpine"
     - image: python-builder
       context: python/builder/
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          PY_BASE_IMG: "3.7-alpine"
+          PY_BASE_IMG: "3.11-alpine"
 - name: ruby
   build:
     artifacts:
@@ -139,6 +139,9 @@ profiles:
       context: binary/
       docker:
         dockerfile: Dockerfile
+        buildArgs:
+          GO_BASE_IMAGE: "1.22-alpine"
+          ALPINE_VERSION: "3.20"
     - image: binary-builder
       context: binary/builder/
       docker:

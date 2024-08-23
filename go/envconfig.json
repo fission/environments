@@ -1,9 +1,9 @@
 [
   {
-    "builder": "go-builder-1.22",
+    "builder": "go-builder",
     "examples": "https://github.com/fission/environments/tree/master/go/examples",
     "icon": "./logo/go-logo-blue.svg",
-    "image": "go-env-1.22",
+    "image": "go-env",
     "kind": "environment",
     "maintainers": [
       {
@@ -20,6 +20,29 @@
     "runtimeVersion": "1.22",
     "shortDescription": "Fission Go 1.22 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.32.2"
+    "version": "1.32.3"
+  },
+  {
+    "builder": "go-builder-1.23",
+    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "icon": "./logo/go-logo-blue.svg",
+    "image": "go-env-1.23",
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Go Environment",
+    "readme": "https://github.com/fission/environments/tree/master/go",
+    "runtimeVersion": "1.23",
+    "shortDescription": "Fission Go 1.23 environment, which uses dynamic loader based on Go plugins.",
+    "status": "Stable",
+    "version": "1.32.3"
   }
 ]

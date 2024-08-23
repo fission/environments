@@ -1,8 +1,8 @@
 # Platforms to build in multi-architecture images.
-PLATFORMS ?= linux/amd64,linux/arm64,linux/arm
+PLATFORMS ?= linux/amd64,linux/arm64
 
 # Repository prefix and tag to push multi-architecture images to.
-REPO ?= fission
+REPO ?= ghcr.io/fission
 TAG ?= dev
 DOCKER_FLAGS ?= --push --progress plain
 FISSION_VERSION ?= v1.20.3

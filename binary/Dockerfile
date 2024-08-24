@@ -1,4 +1,7 @@
-FROM golang:1.16-alpine
+ARG GO_BASE_IMAGE
+ARG ALPINE_VERSION
+
+FROM golang:${GO_BASE_IMAGE}
 
 WORKDIR /binary
 COPY *.go /binary/
@@ -8,7 +11,7 @@ RUN go mod tidy
 
 RUN go build -o server .
 
-FROM alpine:3.14
+FROM alpine:${ALPINE_VERSION}
 
 WORKDIR /app
 

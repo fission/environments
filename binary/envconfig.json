@@ -18,9 +18,9 @@
     ],
     "name": "Fission Binary Environment",
     "readme": "https://github.com/fission/environments/tree/master/binary",
-    "runtimeVersion": "3.14-alpine",
+    "runtimeVersion": "3.20-alpine",
     "shortDescription": "Fission environment to run any binary",
     "status": "Stable",
-    "version": "1.32.1"
+    "version": "1.32.2"
   }
 ]

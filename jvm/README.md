@@ -2,7 +2,7 @@
 
 This is the JVM environment for Fission.
 
-It's a Docker image containing a OpenJDK8 runtime, along with a
+It's a Docker image containing a OpenJDK22 runtime by [Eclipse Temurin](https://hub.docker.com/_/eclipse-temurin), along with a
 dynamic loader.  A few dependencies are included in the
 pom.xml file.
 
@@ -67,4 +67,4 @@ JVM environment uses Tomcat HTTP server by default as it is included in spring w
 
 ## Java and JVM builder
 
-JVM environment builder is based on OpenJDK8 and Maven 3.5.4 version. The default build command runs `mvn clean package` and uses the target/*with-dependencies.jar file for function. The default build command can be overridden as long as the uber jar file is copied to ${DEPLOY_PKG}.
+JVM environment builder is based on OpenJDK22 built by Eclipse Temurin and Maven 3.9.9 version. The default build command runs `mvn clean package` and uses the target/*with-dependencies.jar file for function. The default build command can be overridden as long as the uber jar file is copied to ${DEPLOY_PKG}.

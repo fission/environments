@@ -1,6 +1,6 @@
 -include ../../rules.mk
 
 .PHONY: all
-all: jvm-env-builder-img 
+all: jvm-builder-img
 
 jvm-builder-img : Dockerfile

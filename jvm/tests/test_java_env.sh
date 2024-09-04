@@ -24,7 +24,7 @@ cd jvm/examples/java
 
 log "Creating the jar from application"
 #Using Docker to build Jar so that maven & other Java dependencies are not needed on CI server
-docker run -it --rm  -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.9.9-eclipse-temurin-22-alpine mvn clean package -q
+docker run --rm -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.9.9-eclipse-temurin-22-alpine mvn clean package -q
 
 log "Creating environment for Java"
 fission env create --name $env --image $JVM_RUNTIME_IMAGE --version 2 --keeparchive=true

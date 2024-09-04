@@ -2,9 +2,6 @@ name: Environments build and test
 on:
   pull_request:
     branches: [master]
-env:
-  FISSION_CLI_VERSION: 1.20.3
-
 jobs:
   # Job to run change detection
   check:
@@ -135,20 +132,19 @@ jobs:
           kubectl cluster-info --context kind-kind
           kind get kubeconfig >$HOME/.kube/config
           kubectl get nodes
-      - name: Install Fission CLI
+      - name: Base Setup
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/${{ env.FISSION_CLI_VERSION }}/fission-${{ env.FISSION_CLI_VERSION }}-linux-amd64 \
-          && chmod +x fission && sudo mv fission /usr/local/bin/
+          make verify-kind-cluster
+          make install-fission-cli
+          make install-skaffold
+          make create-crds
       - name: jvm
-        uses: hiberbee/github-action-skaffold@1.27.0
-        with:
-          skaffold-version: '2.13.1'
-          command: run
-          profile: jvm
-          tag: latest
-      - name: jvm-tests
         run: |
-          kind load docker-image jvm-env && ./test_utils/run_test.sh jvm/tests/test_java_env.sh
+          SKAFFOLD_PROFILE=jvm make skaffold-run
+          make jvm-test-images
+          make router-port-forward
+      - name: jvm-tests
+        run: ./test_utils/run_test.sh jvm/tests/test_java_env.sh
   nodejs:
     runs-on: ubuntu-latest
     needs: check

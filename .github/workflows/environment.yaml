@@ -2,6 +2,9 @@ name: Environments build and test
 on:
   pull_request:
     branches: [master]
+env:
+  FISSION_CLI_VERSION: 1.20.3
+
 jobs:
   # Job to run change detection
   check:
@@ -134,12 +137,12 @@ jobs:
           kubectl get nodes
       - name: Install Fission CLI
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
+          curl -Lo fission https://github.com/fission/fission/releases/download/${{ env.FISSION_CLI_VERSION }}/fission-${{ env.FISSION_CLI_VERSION }}-linux-amd64 \
           && chmod +x fission && sudo mv fission /usr/local/bin/
       - name: jvm
         uses: hiberbee/github-action-skaffold@1.27.0
         with:
-          skaffold-version: '1.39.2'
+          skaffold-version: '2.13.1'
           command: run
           profile: jvm
           tag: latest

@@ -22,9 +22,9 @@
     ],
     "name": "JVM Environment",
     "readme": "https://github.com/fission/environments/tree/master/jvm",
-    "runtimeVersion": "8",
+    "runtimeVersion": "22",
     "shortDescription": "JVM environment based on Spring Boot server",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.31.2"
   }
 ]

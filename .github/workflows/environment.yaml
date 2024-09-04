@@ -118,34 +118,33 @@ jobs:
         with:
           filters: .github/workflows/filters/filters.yaml
       - name: Helm
-        uses: Azure/setup-helm@v1
+        uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: 'v3.0.0'
+          version: v3.13.0
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          image: kindest/node:v1.21.1
-          version: v0.11.1
+          image: kindest/node:v1.25.16
+          version: v0.23.0
           config: kind.yaml
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
           kind get kubeconfig >$HOME/.kube/config
           kubectl get nodes
-      - name: Install Fission CLI
+      - name: Base Setup
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
-          && chmod +x fission && sudo mv fission /usr/local/bin/
+          make verify-kind-cluster
+          make install-fission-cli
+          make install-skaffold
+          make create-crds
       - name: jvm
-        uses: hiberbee/github-action-skaffold@1.27.0
-        with:
-          skaffold-version: '1.39.2'
-          command: run
-          profile: jvm
-          tag: latest
-      - name: jvm-tests
         run: |
-          kind load docker-image jvm-env && ./test_utils/run_test.sh jvm/tests/test_java_env.sh
+          SKAFFOLD_PROFILE=jvm make skaffold-run
+          make jvm-test-images
+          make router-port-forward
+      - name: jvm-tests
+        run: ./test_utils/run_test.sh jvm/tests/test_java_env.sh
   nodejs:
     runs-on: ubuntu-latest
     needs: check

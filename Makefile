@@ -74,6 +74,10 @@ go-test-images:
 	@kind load docker-image go-env
 	@kind load docker-image go-builder
 
+jvm-test-images:
+	@kind load docker-image jvm-env
+	@kind load docker-image jvm-builder
+
 nodejs-test-images:
 	@kind load docker-image node-env
 	@kind load docker-image node-builder

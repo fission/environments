@@ -6,7 +6,7 @@ It's a Docker image containing a Python 3.5 runtime, along with a
 dynamic loader.  A few common dependencies are included in the
 requirements.txt file.
 
-Looking for ready-to-run examples? See the [Python examples directory](../../examples/python).
+Looking for ready-to-run examples? See the [Python examples directory](./examples).
 
 ## Customizing this image
 
@@ -25,7 +25,7 @@ gcr.io, quay.io, etc.  Let's assume you're using a docker hub account
 called USER.  Build and push the image to the the registry:
 
 ```
-   docker build -t USER/python-env . && docker push USER/python-env
+   docker build -t USER/python-env --build-arg PY_BASE_IMG=3.11-alpine . && docker push USER/python-env
 ```
 
 ## Using the image in fission

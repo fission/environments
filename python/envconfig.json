@@ -21,6 +21,6 @@
     "runtimeVersion": "3.11",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "stable",
-    "version": "1.34.1"
+    "version": "1.34.2"
   }
 ]

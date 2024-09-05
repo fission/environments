@@ -2,7 +2,6 @@ package io.fission;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -11,16 +10,15 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.container.ContainerRequestContext;
-
-import io.fission.Function;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 
 @Path("/")
 public class JerseyServer {
@@ -29,7 +27,7 @@ public class JerseyServer {
 
 	private static final int CLASS_LENGTH = 6;
 
-	private static Logger logger = Logger.getGlobal();
+	private static final Logger logger = Logger.getGlobal();
 
 	@GET
 	public Response home(@Context ContainerRequestContext request) {
@@ -63,7 +61,7 @@ public class JerseyServer {
 		}
 
 		String entryPoint = req.getFunctionName();
-		logger.log(Level.INFO, "Entrypoint class:" + entryPoint);
+		logger.log(Level.INFO, "Entrypoint class:{0}", entryPoint);
 		if (entryPoint == null) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Entrypoint class is missing in the JAR or the name is incorrect")
 					.build();
@@ -105,35 +103,35 @@ public class JerseyServer {
 			// Instantiate the function class
 			fn = (Function) cl.loadClass(entryPoint).newInstance();
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return Response.status(Response.Status.BAD_REQUEST).entity("Entrypoint class is missing in the function")
 					.build();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return Response.status(Response.Status.BAD_REQUEST).entity("Error loading Function or dependent class")
 					.build();
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity("Error creating a new instance of function class").build();
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity("Error creating a new instance of function class").build();
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return Response.status(Response.Status.BAD_REQUEST).entity("Error reading the JAR file").build();
 		} finally {
 			try {
 				jarFile.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				e.printStackTrace(System.err);
 				return Response.status(Response.Status.BAD_REQUEST)
 						.entity("Error closing the file while loading the class").build();
 			}
 		}
 		long elapsedTime = System.nanoTime() - startTime;
-		logger.log(Level.INFO, "Specialize call done in: " + elapsedTime / 1000000 + " ms");
+		logger.log(Level.INFO, "Specialize call done in: {0} ms", elapsedTime / 1000000);
 		return Response.status(Response.Status.OK).entity("Done").build();
 	}
 

@@ -1,48 +1,33 @@
 ## Fission builder base image
-ARG BUILDER_IMAGE=fission/builder:latest
-FROM ${BUILDER_IMAGE}
+ARG BUILDER_IMAGE=fission/builder
+FROM ${BUILDER_IMAGE} AS builder
 
-## Section copied from the openjdk:8-jdk-alpine Dockerfile - (https://github.com/docker-library/openjdk/blob/47a6539cd18023dafb45db9013455136cc0bca07/8/jdk/alpine/Dockerfile)
+## From the eclipse-temurin:22-jdk-alpine - (https://github.com/adoptium/containers/blob/07677395574f5d3462c3b6fdf5f6c4a0a350b683/22/jdk/alpine/Dockerfile)
 
-ENV LANG C.UTF-8
-RUN { \
-    echo '#!/bin/sh'; \
-    echo 'set -e'; \
-    echo; \
-    echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
-    } > /usr/local/bin/docker-java-home \
-    && chmod +x /usr/local/bin/docker-java-home
-ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
-ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
-
-ENV JAVA_VERSION 8u181
-## Use "fuzzy" version matching to pin the version to a major/minor release
-ENV JAVA_ALPINE_VERSION "~8"
-
-RUN set -x \
-    && apk add --no-cache \
-    openjdk8="$JAVA_ALPINE_VERSION" \
-    && [ "$JAVA_HOME" = "$(docker-java-home)" ]
+FROM eclipse-temurin:22-jdk-alpine
 
 ## Section copied from the Maven Dockerfile
 
-RUN apk add --no-cache curl tar bash procps
+RUN apk add --no-cache bash procps curl tar openssh-client
 
-ARG MAVEN_VERSION=3.5.4
+LABEL org.opencontainers.image.title="Apache Maven"
+LABEL org.opencontainers.image.source=https://github.com/carlossg/docker-maven
+LABEL org.opencontainers.image.url=https://github.com/carlossg/docker-maven
+LABEL org.opencontainers.image.description="Apache Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information."
+
+ENV MAVEN_HOME=/usr/share/maven
+
+COPY --from=maven:3.9.9-eclipse-temurin-11 ${MAVEN_HOME} ${MAVEN_HOME}
+COPY --from=maven:3.9.9-eclipse-temurin-11 /usr/local/bin/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
+COPY --from=maven:3.9.9-eclipse-temurin-11 /usr/share/maven/ref/settings-docker.xml /usr/share/maven/ref/settings-docker.xml
+
+RUN ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn
+
+ARG MAVEN_VERSION=3.9.9
 ARG USER_HOME_DIR="/root"
-ARG SHA=ce50b1c91364cb77efe3776f756a6d92b76d9038b0a0782f7d53acf1e997a14d
-ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
-
-RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-    && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
-    && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha256sum -c - \
-    && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
-    && rm -f /tmp/apache-maven.tar.gz \
-    && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-
-ENV MAVEN_HOME /usr/share/maven
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+ENV MAVEN_CONFIG="$USER_HOME_DIR/.m2"
 
 ## Fission builder specific section
+COPY --from=builder /builder /builder
 ADD build.sh /usr/local/bin/build
 EXPOSE 8001

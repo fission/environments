@@ -1,6 +1,6 @@
 -include ../rules.mk
 
 .PHONY: all
-all: jvm-jersey-env-11-img
+all: jvm-jersey-env-22-img
 
-jvm-jersey-env-11-img: Dockerfile-11
+jvm-jersey-env-22-img: Dockerfile

@@ -11,7 +11,7 @@ public class Main {
 
 	private static final int DEFAULT_PORT = 8888;
 	
-	private int serverPort;
+	private final int serverPort;
 	
 	public Main(int serverPort) throws Exception {
 		this.serverPort = serverPort;
@@ -42,9 +42,13 @@ public class Main {
 			try {
 				serverPort = Integer.parseInt(args[0]);
 			} catch (NumberFormatException e) {
-				e.printStackTrace();
+				e.printStackTrace(System.err);
 			}
 		}
-		new Main(serverPort);	
+		try {
+			Main _ = new Main(serverPort);
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
 	}
 }

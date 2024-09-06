@@ -2,7 +2,7 @@
 
 The `binary` runtime is a go server that uses a subprocess to invoke executables or execute shell scripts.
 
-For more info read the [environment README](../../environments/binary/README.md).
+For more info read the [environment README](../README.md).
 
 ## Requirements
 

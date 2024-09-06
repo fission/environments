@@ -11,13 +11,15 @@ import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import io.fission.Function;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableAutoConfiguration
@@ -27,9 +29,9 @@ public class Server {
 
 	private static final int CLASS_LENGTH = 6;
 
-	private static Logger logger = Logger.getGlobal();
+	private static final Logger logger = Logger.getGlobal();
 
-	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
+	@RequestMapping(value = {"/", "/**"}, method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
 			RequestMethod.PUT })
 	ResponseEntity<Object> home(RequestEntity<?> req) {
 		if (fn == null) {
@@ -48,7 +50,7 @@ public class Server {
 		}
 
 		String entryPoint = req.getFunctionName();
-		logger.log(Level.INFO, "Entrypoint class:" + entryPoint);
+		logger.log(Level.INFO, "Entrypoint class:{0}", entryPoint);
 		if (entryPoint == null) {
 			return ResponseEntity.badRequest().body("Entrypoint class is missing in the function");
 		}
@@ -88,31 +90,31 @@ public class Server {
 			fn = (Function) cl.loadClass(entryPoint).newInstance();
 
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return ResponseEntity.badRequest().body("Error loading the Function class file");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return ResponseEntity.badRequest().body("Error loading Function or dependent class");
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return ResponseEntity.badRequest().body("Error creating a new instance of function class");
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return ResponseEntity.badRequest().body("Error creating a new instance of function class");
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 			return ResponseEntity.badRequest().body("Error reading the JAR file");
 		} finally {
 			try {
 				// cl.close();
 				jarFile.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				e.printStackTrace(System.err);
 				return ResponseEntity.badRequest().body("Error closing the file while loading the class");
 			}
 		}
 		long elapsedTime = System.nanoTime() - startTime;
-		logger.log(Level.INFO, "Specialize call done in: " + elapsedTime / 1000000 + " ms");
+		logger.log(Level.INFO, "Specialize call done in: {0} ms", elapsedTime / 1000000);
 		return ResponseEntity.ok("Done");
 	}
 

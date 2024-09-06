@@ -1,9 +1,9 @@
 [
   {
-    "builder": "jvm-jersey-builder-11",
+    "builder": "jvm-jersey-builder-22",
     "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "icon": "./logo/Java-Logo.png",
-    "image": "jvm-jersey-env-11",
+    "image": "jvm-jersey-env-22",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
@@ -22,9 +22,9 @@
     ],
     "name": "JVM Environment",
     "readme": "https://github.com/fission/environments/tree/master/jvm-jersey",
-    "runtimeVersion": "11",
+    "runtimeVersion": "22",
     "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.31.2"
   }
 ]

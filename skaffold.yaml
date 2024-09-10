@@ -118,14 +118,13 @@ profiles:
         dockerfile: Dockerfile
         buildArgs:
           PY_BASE_IMG: "3.11-alpine"  
-  - name: python-fastapi
-    build:
-      artifacts:
-        - image: python-fastapi-env
-          context: python-fastapi/
-          docker:
-            dockerfile: Dockerfile
-
+- name: python-fastapi
+  build:
+    artifacts:
+      - image: python-fastapi-env
+        context: python-fastapi/
+        docker:
+          dockerfile: Dockerfile
 - name: ruby
   build:
     artifacts:

@@ -1,4 +1,6 @@
-FROM python:3.7-alpine
+ARG PY_BASE_IMG=3.11-alpine
+
+FROM python:${PY_BASE_IMG}
 
 WORKDIR /app
 
@@ -7,8 +9,7 @@ RUN pip install --no-cache-dir --upgrade pip
 COPY requirements.txt /app
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY . /app
+COPY *.py /app
 
-ENV PYTHONUNBUFFERED 1
-ENTRYPOINT ["python"]
+ENTRYPOINT ["python3"]
 CMD ["server.py"]

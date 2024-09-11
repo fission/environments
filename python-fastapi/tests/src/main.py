@@ -1,5 +1,7 @@
-def main(request):
-    return 'THIS_IS_MAIN_MAIN'
+from fastapi import Request, Response
 
-def func(request):
-    return 'THIS_IS_MAIN_FUNC'
+def main(request: Request):
+    return Response('THIS_IS_MAIN_MAIN')
+
+def func(request: Request):
+    return Response('THIS_IS_MAIN_FUNC')

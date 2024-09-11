@@ -1,2 +1,4 @@
-def bar(request):
-    return 'THIS_IS_FOO_BAR'
+from fastapi import Request, Response
+
+def bar(request: Request):
+    return Response('THIS_IS_FOO_BAR')

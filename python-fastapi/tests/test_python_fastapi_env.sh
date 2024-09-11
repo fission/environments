@@ -57,7 +57,7 @@ timeout 60s bash -c "waitBuild $pkg"
 
 
 log "===== 1. test env with v1 api ====="
-fission fn create --name $fn1 --env $env_v1api --code $ROOT/python/examples/hello.py
+fission fn create --name $fn1 --env $env_v1api --code $ROOT/python-fastapi/examples/hello.py
 fission route create --name $fn1 --function $fn1 --url /$fn1 --method GET
 sleep 3     # Waiting for router to catch up
 timeout 60 bash -c "test_fn $fn1 'Hello, world!'"

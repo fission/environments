@@ -6,7 +6,6 @@ import os
 import sys
 import json
 
-from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request, Response
 
 try:
@@ -29,9 +28,6 @@ def read_specialize_info():
 
 def import_src(path):
     return importlib.machinery.SourceFileLoader("mod", path).load_module()
-
-def remove_specialize_info():
-    os.remove(os.path.join(USERFUNCVOL, "state.json"))
 
 class FuncApp(FastAPI):
     def __init__(self, loglevel=logging.DEBUG):
@@ -60,41 +56,32 @@ class FuncApp(FastAPI):
             self.userfunc = self._load_v2(specialize_info)
             self.logger.info('Loaded user function {}'.format(specialize_info))
 
-        @self.api_route("/specialize", methods=["POST"])
-        async def load():
-            self.logger.info("/specialize called")
-            # load user function from codepath
-            self.userfunc = import_src("/userfunc/user").main
-            return ""
+    async def load(self):
+        self.logger.info("/specialize called")
+        # load user function from codepath
+        self.userfunc = import_src("/userfunc/user").main
+        return ""
 
-        @self.api_route("/v2/specialize", methods=["POST"])
-        async def loadv2(request: Request):
-            specialize_info = await request.json()
-            if check_specialize_info_exists():
-                self.logger.warning("Found state.json, overwriting")
-            self.userfunc = self._load_v2(specialize_info)
-            store_specialize_info(specialize_info)
-            return ""
-            
-        @self.api_route("/healthz", methods=["GET"])
-        async def healthz():
-            return "", Response(status_code=200)
+    async def loadv2(self, request: Request):
+        specialize_info = await request.json()
+        if check_specialize_info_exists():
+            self.logger.warning("Found state.json, overwriting")
+        self.userfunc = self._load_v2(specialize_info)
+        store_specialize_info(specialize_info)
+        return ""
 
-        @self.api_route("/{path_name:path}", methods=["GET", "POST", "PUT", "HEAD", "OPTIONS", "DELETE"])
-        async def all_route(request: Request):
-            if self.userfunc is None:
-                print("Generic container: no requests supported")
-                raise HTTPException(status_code=500)
-            if asyncio.iscoroutinefunction(self.userfunc):
-                return await self.userfunc(request)
-            else:
-                return self.userfunc(request)
+    async def healthz(self):
+        return "", Response(status_code=200)
 
-    def userfunc_call(self, request):
+    async def userfunc_call(self, request: Request):
         if self.userfunc is None:
-            self.logger.error('userfunc is None')
+            print("userfunc is None")
             return Response(status_code=500)
-        return self.userfunc(request)
+        print(self.userfunc)
+        if asyncio.iscoroutinefunction(self.userfunc):
+            return await self.userfunc(request)
+        else:
+            return self.userfunc(request)
 
     def _load_v2(self, specialize_info):
         filepath = specialize_info['filepath']
@@ -139,6 +126,13 @@ def main():
     import uvicorn
 
     app = FuncApp(LOG_LEVEL)
+
+    app.add_api_route(path='/specialize', endpoint=app.load, methods=["POST"])
+    app.add_api_route(path='/v2/specialize', endpoint=app.loadv2, methods=["POST"])
+    app.add_api_route(path='/healthz', endpoint=app.healthz, methods=["GET"])
+
+    app.add_api_route(path='/', endpoint=app.userfunc_call, methods=["GET", "POST", "PUT", "HEAD", "OPTIONS", "DELETE"])
+    app.add_api_route(path='/{path_name:path}', endpoint=app.userfunc_call, methods=["GET", "POST", "PUT", "HEAD", "OPTIONS", "DELETE"])
 
     uvicorn.run(app, host="0.0.0.0", port=RUNTIME_PORT, log_level=LOG_LEVEL)
 

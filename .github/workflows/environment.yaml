@@ -60,7 +60,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip
@@ -101,7 +101,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip
@@ -191,7 +191,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip
@@ -262,7 +262,7 @@ jobs:
   python:
     runs-on: ubuntu-latest
     needs: check
-    if: contains( needs.check.outputs.packages, 'python' )
+    if: contains( needs.check.outputs, 'python' )
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -312,7 +312,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip
@@ -367,7 +367,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip

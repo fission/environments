@@ -1,2 +1,2 @@
 def main(request):
-    return "Hello World"
+    return "Hello, world!\n"

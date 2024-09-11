@@ -18,6 +18,8 @@ perl:
     - 'perl/envconfig.json'
 python:
     - 'python/envconfig.json'
+python-fastapi:
+    - 'python-fastapi/envconfig.json'
 ruby: 
     - 'ruby/envconfig.json'
 tensorflow-serving:

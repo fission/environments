@@ -17,6 +17,7 @@
 FISSION_ENVS := nodejs-envs \
 	go-envs \
 	python-envs \
+	python-fastapi-envs \
 	perl-envs \
 	jvm-envs \
 	php7-envs \
@@ -85,6 +86,10 @@ nodejs-test-images:
 python-test-images:
 	@kind load docker-image python-env
 	@kind load docker-image python-builder
+
+python-fastapi-test-images:
+	@kind load docker-image python-fastapi-env
+	@kind load docker-image python-fastapi-builder
 
 router-port-forward:
 	@kubectl port-forward svc/router 8888:80 -nfission &

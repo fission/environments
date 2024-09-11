@@ -2,6 +2,8 @@
 
 This directory contains a Python examples to show different the features of the Fission Python environment:
 - `hello.py` is a simple Pythonic _hello world_ function.
+- `sourcepkg/` is an example of how to use the Fission Python Build environment to resolve (pip) dependencies 
+  before deploying the function.
 
 ## Getting Started
 

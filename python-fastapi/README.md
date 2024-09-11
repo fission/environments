@@ -6,7 +6,7 @@ It's a Docker image containing a Python 3.11 runtime, along with a
 dynamic loader.  A few common dependencies are included in the
 requirements.txt file.
 
-Looking for ready-to-run examples? See the [Python examples directory](./examples).
+Looking for ready-to-run examples? See the [Python FastAPI examples directory](./examples).
 
 ## Customizing this image
 
@@ -25,22 +25,21 @@ gcr.io, quay.io, etc.  Let's assume you're using a docker hub account
 called USER.  Build and push the image to the the registry:
 
 ```
-   docker build -t USER/python-env --build-arg PY_BASE_IMG=3.11-alpine . && docker push USER/python-env
+   docker build -t USER/python-fastapi-env --build-arg PY_BASE_IMG=3.11-alpine . && docker push USER/python-fastapi-env
 ```
 
 ## Using the image in fission
 
-You can add this customized image to fission with "fission env
-create":
+You can add this customized image to fission with "fission env create":
 
 ```
-   fission env create --name python --image USER/python-env
+   fission env create --name python --image USER/python-fastapi-env
 ```
 
 Or, if you already have an environment, you can update its image:
 
 ```
-   fission env update --name python --image USER/python-env
+   fission env update --name python --image USER/python-fastapi-env
 ```
 
 After this, fission functions that have the env parameter set to the
@@ -50,7 +49,3 @@ same environment name as this command will use this environment.
 
 Python environment build and start a ASGI server, to support high HTTP
 traffic. It provides Uvicorn server framework.
-
-The environment value is configured normally in two ways. One way is to set in Dockerfile
-and build it into image. The other way is to set in Kubernetes deployment spec during
-pod running and restart it.

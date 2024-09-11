@@ -358,9 +358,9 @@ jobs:
           SKAFFOLD_PROFILE=python-fastapi make skaffold-run
           make python-fastapi-test-images
           make router-port-forward
-      - name: python-tests
+      - name: python-fastapi-tests
         run: |
-          ./test_utils/run_test.sh ./python-fastapi/tests/test_python_env.sh
+          ./test_utils/run_test.sh ./python-fastapi/tests/test_python_fastapi_env.sh
       - name: Collect Fission Dump
         if: ${{ always() }}
         run: |

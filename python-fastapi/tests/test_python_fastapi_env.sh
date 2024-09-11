@@ -22,29 +22,29 @@ else
     log "TEST_NOCLEANUP is set; not cleaning up test artifacts afterwards."
 fi
 
-env_v1api=python-v1-$TEST_ID
-env_v2api=python-v2-$TEST_ID
-fn1=test-python-env-1-$TEST_ID
-fn2=test-python-env-2-$TEST_ID
-fn3=test-python-env-3-$TEST_ID
-fn4=test-python-env-4-$TEST_ID
-fn5=test-python-env-5-$TEST_ID
+env_v1api=python-fastapi-v1-$TEST_ID
+env_v2api=python-fastapi-v2-$TEST_ID
+fn1=test-python-fastapi-env-1-$TEST_ID
+fn2=test-python-fastapi-env-2-$TEST_ID
+fn3=test-python-fastapi-env-3-$TEST_ID
+fn4=test-python-fastapi-env-4-$TEST_ID
+fn5=test-python-fastapi-env-5-$TEST_ID
 
-PYTHON_RUNTIME_IMAGE=python-fastapi-env
-PYTHON_BUILDER_IMAGE=python-fastapi-builder
+PYTHON_FASTAPI_RUNTIME_IMAGE=python-fastapi-env
+PYTHON_FASTAPI_BUILDER_IMAGE=python-fastapi-builder
 
 log "Creating v1api environment ..."
-log "PYTHON_RUNTIME_IMAGE = $PYTHON_RUNTIME_IMAGE"
+log "PYTHON_FASTAPI_RUNTIME_IMAGE = $PYTHON_FASTAPI_RUNTIME_IMAGE"
 fission env create \
     --name $env_v1api \
-    --image $PYTHON_RUNTIME_IMAGE \
+    --image $PYTHON_FASTAPI_RUNTIME_IMAGE \
 
 log "Creating v2api environment ..."
-log "PYTHON_RUNTIME_IMAGE = $PYTHON_RUNTIME_IMAGE     PYTHON_BUILDER_IMAGE = $PYTHON_BUILDER_IMAGE"
+log "PYTHON_FASTAPI_RUNTIME_IMAGE = $PYTHON_FASTAPI_RUNTIME_IMAGE     PYTHON_FASTAPI_BUILDER_IMAGE = $PYTHON_FASTAPI_BUILDER_IMAGE"
 fission env create \
     --name $env_v2api \
-    --image $PYTHON_RUNTIME_IMAGE \
-    --builder $PYTHON_BUILDER_IMAGE
+    --image $PYTHON_FASTAPI_RUNTIME_IMAGE \
+    --builder $PYTHON_FASTAPI_BUILDER_IMAGE
 timeout 180s bash -c "wait_for_builder $env_v2api"
 
 log "Creating package ..."

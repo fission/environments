@@ -1,5 +1,2 @@
 fastapi==0.114.0
 uvicorn==0.30.6
-redis==3.5.3
-MarkupSafe==2.1.4
-python-multipart==0.0.9

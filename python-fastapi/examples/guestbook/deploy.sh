@@ -11,8 +11,14 @@ then
 fi
 
 # Create python env if it doesn't exist
-fission env get --name python || fission env create --name python --image python-fastapi-env
+fission env get --name python || fission env create --name python --image python-fastapi-env --builder python-fastapi-builder
+
+# Create zip file
+zip -jr guestbook.zip ../guestbook
+
+# Create packages
+fission package create --name guestbook --sourcearchive guestbook.zip --env python --buildcmd "./build.sh"
 
 # Register functions and routes with fission
-fission function create --name guestbook-get --env python --code get.py --url /guestbook --method GET
-fission function create --name guestbook-add --env python --code add.py --url /guestbook --method POST
+fission function create --name guestbook-get --env python --pkg guestbook --entrypoint "get.main" --url /guestbook --method GET
+fission function create --name guestbook-add --env python --pkg guestbook --entrypoint "add.main" --url /guestbook --method POST

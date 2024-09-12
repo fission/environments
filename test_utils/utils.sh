@@ -186,6 +186,8 @@ export FISSION_ROUTER=${FISSION_ROUTER:-127.0.0.1:8888}
 ## To change the environment image setting for CI test, please refer run_all_tests() in test_utils.sh.
 export PYTHON_RUNTIME_IMAGE=${PYTHON_RUNTIME_IMAGE:-fission/python-env}
 export PYTHON_BUILDER_IMAGE=${PYTHON_BUILDER_IMAGE:-fission/python-builder}
+export PYTHON_FASTAPI_RUNTIME_IMAGE=${PYTHON_FASTAPI_RUNTIME_IMAGE:-fission/python-fastapi-env}
+export PYTHON_FASTAPI_BUILDER_IMAGE=${PYTHON_FASTAPI_BUILDER_IMAGE:-fission/python-fastapi-builder}
 export GO_RUNTIME_IMAGE=${GO_RUNTIME_IMAGE:-fission/go-env-1.12}
 export GO_BUILDER_IMAGE=${GO_BUILDER_IMAGE:-fission/go-builder-1.12}
 export JVM_RUNTIME_IMAGE=${JVM_RUNTIME_IMAGE:-fission/jvm-env}

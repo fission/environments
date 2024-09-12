@@ -18,6 +18,8 @@ perl:
     - 'perl/**'
 python:
     - 'python/**'
+python-fastapi:
+    - 'python-fastapi/**'
 ruby: 
     - 'ruby/**'
 tensorflow-serving:

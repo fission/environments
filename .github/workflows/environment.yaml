@@ -60,7 +60,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip
@@ -101,7 +101,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip
@@ -191,7 +191,7 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip
@@ -262,7 +262,7 @@ jobs:
   python:
     runs-on: ubuntu-latest
     needs: check
-    if: contains( needs.check.outputs.packages, 'python' )
+    if: contains( needs.check.outputs, 'python' )
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -312,7 +312,62 @@ jobs:
           command -v fission && fission support dump
       - name: Archive fission dump
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
+        with:
+          name: fission-dump
+          path: fission-dump/*.zip
+          retention-days: 5
+  python-fastapi:
+    runs-on: ubuntu-latest
+    needs: check
+    if: contains( needs.check.outputs.packages, 'python-fastapi' )
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+      - name: Unit test
+        run: |
+          pip3 install virtualenv
+          sudo apt-get update -y && sudo apt-get install -y libev-dev
+          pushd python-fastapi/
+          export USERFUNCVOL=/tmp
+          export RUNTIME_PORT=8882
+          ./tests/local_test.sh
+          unset RUNTIME_PORT
+          popd
+      - name: Helm
+        uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
+        with:
+          version: v3.13.0
+      - name: Kind Clutser
+        uses: engineerd/setup-kind@v0.5.0
+        with:
+          image: kindest/node:v1.25.16
+          version: v0.23.0
+          config: kind.yaml
+      - name: Base Setup
+        run: |
+          make verify-kind-cluster
+          make install-fission-cli
+          make install-skaffold
+          make create-crds
+      - name: Fission and Test images
+        run: |
+          SKAFFOLD_PROFILE=python-fastapi make skaffold-run
+          make python-fastapi-test-images
+          make router-port-forward
+      - name: python-fastapi-tests
+        run: |
+          ./test_utils/run_test.sh ./python-fastapi/tests/test_python_fastapi_env.sh
+      - name: Collect Fission Dump
+        if: ${{ always() }}
+        run: |
+          command -v fission && fission support dump
+      - name: Archive fission dump
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
         with:
           name: fission-dump
           path: fission-dump/*.zip

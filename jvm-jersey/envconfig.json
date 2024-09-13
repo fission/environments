@@ -20,7 +20,7 @@
         "name": "vishal-biyani"
       }
     ],
-    "name": "JVM Environment",
+    "name": "JVM Jersey Environment",
     "readme": "https://github.com/fission/environments/tree/master/jvm-jersey",
     "runtimeVersion": "22",
     "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",

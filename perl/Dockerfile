@@ -1,4 +1,4 @@
-FROM perl:latest
+FROM perl:5.41.4-bookworm
 
 RUN cpanm -n Twiggy Getopt::Args Dancer2
 

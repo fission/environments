@@ -9,7 +9,7 @@
 
 	<properties>
         <maven.compiler.release>22</maven.compiler.release>
-		<jetty.version>9.4.55.v20240627</jetty.version>
+		<jetty.version>9.4.56.v20240826</jetty.version>
 		<jersey.version>2.41</jersey.version>
 	</properties>
 

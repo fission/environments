@@ -6,7 +6,7 @@ It's a Docker image containing a NodeJS runtime, along with a dynamic
 loader.  A few common dependencies are included in the package.json
 file.
 
-Looking for ready-to-run examples? See the [NodeJS examples directory](../../examples/nodejs).
+Looking for ready-to-run examples? See the [NodeJS examples directory](./examples/).
 
 ## Customizing this image
 

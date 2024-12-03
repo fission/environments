@@ -12,7 +12,7 @@ Looking for ready-to-run examples? See the [NodeJS examples directory](./example
 
 To add package dependencies, edit [package.json](./package.json) to add what you need, and rebuild this image (instructions below).
 
-You also may want to customize what's available to the function in it's request context.
+You also may want to customize what's available to the function in its request context.
 You can do this by editing [server.js](./server.js) (see the comment in that file about customizing request context).
 
 ## Rebuilding and pushing the image

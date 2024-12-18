@@ -25,18 +25,14 @@ Building runtime image,
 
 ```console
 docker build -t USER/bun-env --build-arg BUN_BASE_IMG=1.1.40-alpine -f Dockerfile .
-docker build -t ghcr.io/danhtran94/bun-env --build-arg BUN_BASE_IMG=1.1.40-alpine -f Dockerfile .
 docker push USER/bun-env
-docker push ghcr.io/danhtran94/bun-env
 ```
 
 Building builder image,
 
 ```console
 cd builder && docker build -t USER/bun-builder --build-arg BUN_BASE_IMG=1.1.40-alpine -f Dockerfile .
-cd builder && docker build -t ghcr.io/danhtran94/bun-builder --build-arg BUN_BASE_IMG=1.1.40-alpine -f Dockerfile .
 docker push USER/bun-builder
-docker push ghcr.io/danhtran94/bun-builder
 ```
 
 ## Using the image in fission

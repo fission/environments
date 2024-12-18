@@ -1,0 +1,32 @@
+{
+  "name": "fission-bun-runtime",
+  "version": "0.1.0",
+  "author": "danhtran94",
+  "contributors": [
+    {
+      "name": "Tran Thanh Danh",
+      "email": "danh.tt1294@gmail.com"
+    }
+  ],
+  "description": "BunJS run container for the fission framework",
+  "engines": {
+  },
+  "dependencies": {
+    "co": "~4.6.0",
+    "express": ">=4.0.0",
+    "minimist": "*",
+    "morgan": "*",
+    "mz": "~2.7.0",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.3",
+    "underscore": ">=1.8.3",
+    "ws": "^7.5.5"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.14",
+    "@types/express": "^5.0.0",
+    "@types/minimist": "^1.2.5",
+    "@types/morgan": "^1.9.9",
+    "@types/request": "^2.48.12"
+  }
+}

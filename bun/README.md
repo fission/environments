@@ -1,12 +1,12 @@
-# Fission: NodeJS Environment
+# Fission: Bun Environment
 
-This is the NodeJS environment for Fission.
+This is the Bun environment for Fission.
 
-It's a Docker image containing a NodeJS runtime, along with a dynamic
+It's a Docker image containing a Bun runtime, along with a dynamic
 loader.  A few common dependencies are included in the package.json
 file.
 
-Looking for ready-to-run examples? See the [NodeJS examples directory](../../examples/nodejs).
+Looking for ready-to-run examples? See the [Bun examples directory](../../examples/bun).
 
 ## Customizing this image
 
@@ -44,13 +44,13 @@ docker push ghcr.io/danhtran94/bun-builder
 You can add this customized image to fission with "fission env create":
 
 ```console
-fission env create --name node --image USER/bun-env
+fission env create --name bun --image USER/bun-env
 ```
 
 Or, if you already have an environment, you can update its image:
 
 ```console
-fission env update --name node --image USER/bun-env
+fission env update --name bun --image USER/bun-env
 ```
 
 After this, fission functions that have the env parameter set to the

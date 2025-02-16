@@ -1,0 +1,22 @@
+[
+  {
+    "builder": "",
+    "examples": "https://github.com/fission/environments/tree/master/dotnet8/examples",
+    "icon": "./logo/logo_NETcore.svg",
+    "image": "dotnet8-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/lcsoft77",
+        "name": "lcsoft77"
+      }
+    ],
+    "name": "Dotnet 8 Environment",
+    "readme": "https://github.com/fission/environments/tree/master/dotnet8",
+    "runtimeVersion": "8.0.0",
+    "shortDescription": "Fission Dotnet 8.0.0 runtime uses Kestrel to host the internal web server. The runtime use dll external compiled on zip file.",
+    "status": "Stable",
+    "version": "1.1.0"
+  }
+]

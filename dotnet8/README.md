@@ -12,6 +12,22 @@ This project is an environment for [Fission](https://fission.io/), a serverless 
 
 This project is inspired by Fission's official environment for .NET Core 2.0 but focuses on improvements and updates requested by the community, allowing developers to work with newer versions of the .NET framework and complex projects that include multiple assemblies.
 
+## Rebuilding and pushing the image
+
+To rebuild the image you will have to install Docker with version higher than 17.05+
+in order to support multi-stage builds feature.  
+
+### Rebuild containers
+
+Move to the directory containing the source and start the container build process:
+
+```
+docker build -t USER/dotnet-env .
+```
+
+After the build finishes push the new image to a Docker registry using the 
+standard procedure.
+
 ## Usage
 
 1. **Add the environment to Fission**:
@@ -33,9 +49,12 @@ This project is inspired by Fission's official environment for .NET Core 2.0 but
      }
      ```
 
-3. **Compression**: Compress the assemblies and related files into a ZIP file.
+3. **Pre-compilation**: 
+   To avoid performance issues during the cold start of the function, it is necessary to compile the source code externally. The resulting assemblies will be used by Fission.
 
-4. **Deploy to Fission**: Use this environment to deploy your project to Fission, leveraging the ability to handle multiple linked assemblies. After compressing your project into a ZIP file, you can create the function in Fission with the following command:
+4. **Compression**: Compress the assemblies and related files into a ZIP file.
+
+5. **Deploy to Fission**: Use this environment to deploy your project to Fission, leveraging the ability to handle multiple linked assemblies. After compressing your project into a ZIP file, you can create the function in Fission with the following command:
 
     ```bash
     fission fn create --name <function_name> --env dotnet8 --code <your_project.zip> --entrypoint <name_of_assembly_without_extension>:<namespace>:<classname>

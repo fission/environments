@@ -6,13 +6,13 @@ It's a Docker image containing a NodeJS runtime, along with a dynamic
 loader.  A few common dependencies are included in the package.json
 file.
 
-Looking for ready-to-run examples? See the [NodeJS examples directory](../../examples/nodejs).
+Looking for ready-to-run examples? See the [NodeJS examples directory](./examples/).
 
 ## Customizing this image
 
 To add package dependencies, edit [package.json](./package.json) to add what you need, and rebuild this image (instructions below).
 
-You also may want to customize what's available to the function in it's request context.
+You also may want to customize what's available to the function in its request context.
 You can do this by editing [server.js](./server.js) (see the comment in that file about customizing request context).
 
 ## Rebuilding and pushing the image

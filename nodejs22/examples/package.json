@@ -1,0 +1,46 @@
+{
+  "name": "fission-nodejs22-examples",
+  "version": "1.0.0",
+  "description": "Node.js 22 examples for Fission framework showcasing modern ESM and latest features",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "keywords": [
+    "fission",
+    "serverless",
+    "nodejs22",
+    "esm",
+    "modern-javascript"
+  ],
+  "author": "Fission Community",
+  "contributors": [
+    {
+      "name": "Soam Vasani",
+      "email": "soamvasani+1@gmail.com"
+    },
+    {
+      "name": "Gary Yeap",
+      "email": "contact@garyyeap.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Use 'fission fn test --name <function-name>' to test functions\"",
+    "lint": "echo \"Linting not configured - add ESLint for production use\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fission/environments"
+  },
+  "bugs": {
+    "url": "https://github.com/fission/environments/issues"
+  },
+  "homepage": "https://github.com/fission/environments/tree/master/nodejs22/examples"
+}

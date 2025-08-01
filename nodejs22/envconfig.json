@@ -1,0 +1,26 @@
+[
+  {
+    "builder": "node-builder-22",
+    "examples": "https://github.com/fission/environments/tree/master/nodejs22/examples",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "image": "node-env-22",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Nodejs 22 Environment",
+    "readme": "https://github.com/fission/environments/tree/master/nodejs22",
+    "runtimeVersion": "22.6.0",
+    "shortDescription": "Fission NodeJS 22 environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.32.4"
+  }
+]

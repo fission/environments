@@ -119,6 +119,10 @@ jobs:
         uses: ./.github/actions/collect-fission-dump
         if: ${{ failure() }}
         with:
+      - name: Collect Fission Dump
+        uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
+        with:
           workflow-name: nodejs
   perl:
     runs-on: ubuntu-latest

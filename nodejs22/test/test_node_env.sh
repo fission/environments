@@ -32,7 +32,7 @@ fn2=test-nodejs-env-2-$TEST_ID
 fn3=test-nodejs-env-3-$TEST_ID
 fn4=test-nodejs-env-4-$TEST_ID
 
-test_path=$ROOT/nodejs/test
+test_path=$ROOT/nodejs22/test
 
 log "Creating v1api environment ..."
 log "NODE_RUNTIME_IMAGE = $NODE_RUNTIME_IMAGE"

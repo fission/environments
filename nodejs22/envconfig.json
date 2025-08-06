@@ -18,7 +18,7 @@
     ],
     "name": "Nodejs 22 Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs22",
-    "runtimeVersion": "22.6.0",
+    "runtimeVersion": "22.17.1",
     "shortDescription": "Fission NodeJS 22 environment based on Express with some basic dependencies added",
     "status": "Stable",
     "version": "1.32.4"

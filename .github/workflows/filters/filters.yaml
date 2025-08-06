@@ -14,6 +14,8 @@ jvm:
     - 'jvm/**'     
 nodejs:
     - 'nodejs/**'
+nodejs22:
+    - 'nodejs22/**'
 perl: 
     - 'perl/**'
 python:

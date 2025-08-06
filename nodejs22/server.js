@@ -11,8 +11,8 @@ import minimist from "minimist";
 // ESM equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const DEFAULT_TIMEOUT = 60000;
 
-// Pure ESM Node.js 22 Runtime for Fission
 
 // Initialize modern structured logger
 const logger = pino({
@@ -33,7 +33,7 @@ let timeout;
 if (process.env.TIMEOUT) {
   timeout = process.env.TIMEOUT;
 } else {
-  timeout = 60000;
+  timeout = DEFAULT_TIMEOUT;
 }
 
 // To catch unhandled exceptions thrown by user code async callbacks,
@@ -212,7 +212,7 @@ const specialize = async (req, res) => {
       );
     } catch (err) {
       if (err.code !== 'EEXIST') {
-        console.log(`Warning: Could not create symlink: ${err.message}`);
+        logger.warn(`Could not create symlink: ${err.message}`);
       }
     }
   }
@@ -297,7 +297,7 @@ app.use((req, res) => {
         callback(status, body, headers);
       })
       .catch((err) => {
-        console.log(`Function error: ${err}`);
+        logger.error(`Function error: ${err}`);
         callback(500, "Internal server error");
       });
   } else {
@@ -305,7 +305,7 @@ app.use((req, res) => {
     try {
       userFunction(context, callback);
     } catch (err) {
-      console.log(`Function error: ${err}`);
+      logger.error(`Function error: ${err}`);
       callback(500, "Internal server error");
     }
   }
@@ -387,7 +387,7 @@ wss.on("connection", (ws) => {
   try {
     userFunction(ws, wss.clients);
   } catch (err) {
-    console.log(`Function error: ${err}`);
+    logger.error({ err }, "Function error");
     ws.close();
   }
 });

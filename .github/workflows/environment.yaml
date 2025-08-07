@@ -2,6 +2,14 @@ name: Environments build and test
 on:
   pull_request:
     branches: [master]
+
+env:
+  KIND_NODE_IMAGE: kindest/node:v1.27.16
+  KIND_VERSION: v0.23.0
+  HELM_VERSION: v3.18.4
+  FISSION_CLI_VERSION: v1.21.0
+  KIND_CONFIG: kind.yaml
+
 jobs:
   # Job to run change detection
   check:
@@ -34,13 +42,13 @@ jobs:
       - name: Helm
         uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: v3.13.0
+          version: ${{ env.HELM_VERSION }}
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          image: kindest/node:v1.25.16
-          version: v0.23.0
-          config: kind.yaml
+          image: ${{ env.KIND_NODE_IMAGE }}
+          version: ${{ env.KIND_VERSION }}
+          config: ${{ env.KIND_CONFIG }}
       - name: Base Setup
         run: |
           make verify-kind-cluster
@@ -62,7 +70,7 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
-          name: fission-dump
+          name: ${{ github.workflow }}-fission-dump
           path: fission-dump/*.zip
           retention-days: 5
   go:
@@ -75,13 +83,13 @@ jobs:
       - name: Helm
         uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: v3.13.0
+          version: ${{ env.HELM_VERSION }}
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          image: kindest/node:v1.25.16
-          version: v0.23.0
-          config: kind.yaml
+          image: ${{ env.KIND_NODE_IMAGE }}
+          version: ${{ env.KIND_VERSION }}
+          config: ${{ env.KIND_CONFIG }}
       - name: Base Setup
         run: |
           make verify-kind-cluster
@@ -103,7 +111,7 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
-          name: fission-dump
+          name: ${{ github.workflow }}-fission-dump
           path: fission-dump/*.zip
           retention-days: 5
   jvm:
@@ -120,13 +128,13 @@ jobs:
       - name: Helm
         uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: v3.13.0
+          version: ${{ env.HELM_VERSION }}
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          image: kindest/node:v1.25.16
-          version: v0.23.0
-          config: kind.yaml
+          image: ${{ env.KIND_NODE_IMAGE }}
+          version: ${{ env.KIND_VERSION }}
+          config: ${{ env.KIND_CONFIG }}
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
@@ -164,13 +172,13 @@ jobs:
       - name: Helm
         uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: v3.13.0
+          version: ${{ env.HELM_VERSION }}
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          image: kindest/node:v1.25.16
-          version: v0.23.0
-          config: kind.yaml
+          image: ${{ env.KIND_NODE_IMAGE }}
+          version: ${{ env.KIND_VERSION }}
+          config: ${{ env.KIND_CONFIG }}
       - name: Base Setup
         run: |
           make verify-kind-cluster
@@ -193,7 +201,7 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
-          name: fission-dump
+          name: ${{ github.workflow }}-fission-dump
           path: fission-dump/*.zip
           retention-days: 5
   perl:
@@ -212,7 +220,7 @@ jobs:
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          config: kind.yaml
+          config: ${{ env.KIND_CONFIG }}
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
@@ -220,7 +228,7 @@ jobs:
           kubectl get nodes
       - name: Install Fission CLI
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
+          curl -Lo fission https://github.com/fission/fission/releases/download/${{ env.FISSION_CLI_VERSION }}/fission-${{ env.FISSION_CLI_VERSION }}-linux-amd64 \
           && chmod +x fission && sudo mv fission /usr/local/bin/
       - name: perl
         if: steps.filter.outputs.perl == 'true'
@@ -244,7 +252,7 @@ jobs:
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          config: kind.yaml
+          config: ${{ env.KIND_CONFIG }}
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
@@ -252,7 +260,7 @@ jobs:
           kubectl get nodes
       - name: Install Fission CLI
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
+          curl -Lo fission https://github.com/fission/fission/releases/download/${{ env.FISSION_CLI_VERSION }}/fission-${{ env.FISSION_CLI_VERSION }}-linux-amd64 \
           && chmod +x fission && sudo mv fission /usr/local/bin/
       - name: php7
         uses: hiberbee/github-action-skaffold@1.5.0
@@ -285,13 +293,13 @@ jobs:
       - name: Helm
         uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: v3.13.0
+          version: ${{ env.HELM_VERSION }}
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          image: kindest/node:v1.25.16
-          version: v0.23.0
-          config: kind.yaml
+          image: ${{ env.KIND_NODE_IMAGE }}
+          version: ${{ env.KIND_VERSION }}
+          config: ${{ env.KIND_CONFIG }}
       - name: Base Setup
         run: |
           make verify-kind-cluster
@@ -314,7 +322,7 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
-          name: fission-dump
+          name: ${{ github.workflow }}-fission-dump
           path: fission-dump/*.zip
           retention-days: 5
   python-fastapi:
@@ -340,13 +348,13 @@ jobs:
       - name: Helm
         uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
         with:
-          version: v3.13.0
+          version: ${{ env.HELM_VERSION }}
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          image: kindest/node:v1.25.16
-          version: v0.23.0
-          config: kind.yaml
+          image: ${{ env.KIND_NODE_IMAGE }}
+          version: ${{ env.KIND_VERSION }}
+          config: ${{ env.KIND_CONFIG }}
       - name: Base Setup
         run: |
           make verify-kind-cluster
@@ -369,7 +377,7 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
-          name: fission-dump
+          name: ${{ github.workflow }}-fission-dump
           path: fission-dump/*.zip
           retention-days: 5
   ruby:
@@ -388,7 +396,7 @@ jobs:
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          config: kind.yaml
+          config: ${{ env.KIND_CONFIG }}
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
@@ -396,7 +404,7 @@ jobs:
           kubectl get nodes
       - name: Install Fission CLI
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
+          curl -Lo fission https://github.com/fission/fission/releases/download/${{ env.FISSION_CLI_VERSION }}/fission-${{ env.FISSION_CLI_VERSION }}-linux-amd64 \
           && chmod +x fission && sudo mv fission /usr/local/bin/
       - name: ruby
         uses: hiberbee/github-action-skaffold@1.5.0
@@ -419,7 +427,7 @@ jobs:
       - name: Kind Clutser
         uses: engineerd/setup-kind@v0.5.0
         with:
-          config: kind.yaml
+          config: ${{ env.KIND_CONFIG }}
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-kind
@@ -427,7 +435,7 @@ jobs:
           kubectl get nodes
       - name: Install Fission CLI
         run: |
-          curl -Lo fission https://github.com/fission/fission/releases/download/1.12.0/fission-cli-linux \
+          curl -Lo fission https://github.com/fission/fission/releases/download/${{ env.FISSION_CLI_VERSION }}/fission-${{ env.FISSION_CLI_VERSION }}-linux-amd64 \
           && chmod +x fission && sudo mv fission /usr/local/bin/
       - name: tensorflow-serving
         if: steps.filter.outputs.tensorflow-serving == 'true'

@@ -3,3 +3,5 @@ environments-ui/node_modules
 environments-ui/public/bundle.js
 environments-ui/server.js
 .vscode
+node_modules
+**/node_modules/**

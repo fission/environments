@@ -22,8 +22,8 @@ else
     log "TEST_NOCLEANUP is set; not cleaning up test artifacts afterwards."
 fi
 
-NODE_RUNTIME_IMAGE=node-env
-NODE_BUILDER_IMAGE=node-builder
+NODE_RUNTIME_IMAGE=nodejs22-env
+NODE_BUILDER_IMAGE=nodejs22-builder
 
 env_v1api=nodejs-v1-$TEST_ID
 env_v2api=nodejs-v2-$TEST_ID
@@ -54,7 +54,7 @@ fission fn create --name $fn1 --env $env_v1api --code $test_path/test-case-1/hel
 
 fission route create --name $fn1 --function $fn1 --url /$fn1 --method GET
 sleep 3     # Waiting for router to catch up
-timeout 60 bash -c "test_fn $fn1 \"hello, world!\""
+timeout 60 bash -c "test_fn $fn1 \"hello, world from ESM! 🎉\""
 
 log "===== 2. test query string ====="
 fission fn create --name $fn2 --env $env_v1api --code $test_path/test-case-2/helloUser.js

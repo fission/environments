@@ -24,9 +24,9 @@ if (process.env.TIMEOUT) {
 
 // To catch unhandled exceptions thrown by user code async callbacks,
 // these exceptions cannot be catched by try-catch in user function invocation code below
-// process.on("uncaughtException", (err) => {
-//   console.error(`Caught exception: ${err}`);
-// });
+process.on("uncaughtException", (err) => {
+  console.error(`Caught exception: ${err}`);
+});
 
 // User function.  Starts out undefined.
 let userFunction;

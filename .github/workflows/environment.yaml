@@ -131,6 +131,7 @@ jobs:
           ./test_utils/run_test.sh ./nodejs/test/test_node_env.sh
       - name: Collect Fission Dump
         uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
         with:
           workflow-name: ${{ github.jobs[github.job].name }}
   perl:
@@ -205,6 +206,7 @@ jobs:
           ./test_utils/run_test.sh ./python/tests/test_python_env.sh
       - name: Collect Fission Dump
         uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
         with:
           workflow-name: ${{ github.jobs[github.job].name }}
   python-fastapi:
@@ -239,6 +241,7 @@ jobs:
           ./test_utils/run_test.sh ./python-fastapi/tests/test_python_fastapi_env.sh
       - name: Collect Fission Dump
         uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
         with:
           workflow-name: ${{ github.jobs[github.job].name }}
   ruby:

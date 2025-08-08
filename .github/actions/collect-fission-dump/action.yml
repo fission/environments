@@ -14,7 +14,7 @@ runs:
         command -v fission && fission support dump
 
     - name: Archive fission dump
-      if: ${{ failure() }}
+      if: ${{ always() }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.workflow-name }}-fission-dump

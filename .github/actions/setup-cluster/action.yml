@@ -1,0 +1,59 @@
+name: 'Setup Fission Environment'
+description: 'Sets up Helm, Kind cluster, Fission CLI, and completes base Fission setup'
+inputs:
+  kind-node-image:
+    description: 'Kind node image to use'
+    required: false
+    default: 'kindest/node:v1.27.16'
+  kind-version:
+    description: 'Kind version to use'
+    required: false
+    default: 'v0.23.0'
+  helm-version:
+    description: 'Helm version to use'
+    required: false
+    default: 'v3.18.4'
+  kind-config:
+    description: 'Kind config file'
+    required: false
+    default: 'kind.yaml'
+  fission-cli-version:
+    description: 'Fission CLI version to install'
+    required: false
+    default: 'v1.21.0'
+runs:
+  using: "composite"
+  steps:
+    - name: Helm
+      uses: Azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3.5
+      with:
+        version: ${{ inputs.helm-version }}
+
+    - name: Kind Cluster
+      uses: engineerd/setup-kind@v0.5.0
+      with:
+        image: ${{ inputs.kind-node-image }}
+        version: ${{ inputs.kind-version }}
+        config: ${{ inputs.kind-config }}
+
+    - name: Configuring and testing the Installation
+      shell: bash
+      run: |
+        kubectl cluster-info --context kind-kind
+        kind get kubeconfig >$HOME/.kube/config
+        kubectl get nodes
+
+    - name: Install Fission CLI
+      shell: bash
+      run: |
+        curl -Lo fission https://github.com/fission/fission/releases/download/${{ inputs.fission-cli-version }}/fission-${{ inputs.fission-cli-version }}-linux-amd64 \
+        && chmod +x fission && sudo mv fission /usr/local/bin/
+
+    # Base Setup Steps (merged from fission-base-setup)
+    - name: Base Setup
+      shell: bash
+      run: |
+        make verify-kind-cluster
+        make install-fission-cli
+        make install-skaffold
+        make create-crds

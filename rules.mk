@@ -5,7 +5,7 @@ PLATFORMS ?= linux/amd64,linux/arm64
 REPO ?= ghcr.io/fission
 TAG ?= dev
 DOCKER_FLAGS ?= --push --progress plain
-FISSION_VERSION ?= v1.20.3
+FISSION_VERSION ?= v1.21.0
 SKAFFOLD_PROFILE ?= kind
 
 %-img:

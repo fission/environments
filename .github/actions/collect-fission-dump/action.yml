@@ -1,0 +1,20 @@
+name: 'Collect Fission Dump'
+description: 'Collects Fission dump on job failure'
+inputs:
+  workflow-name:
+    description: 'Name of the workflow'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Collect Fission Dump
+      shell: bash
+      run: |
+        command -v fission && fission support dump
+
+    - name: Archive fission dump
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.workflow-name }}-fission-dump
+        path: fission-dump/*.zip
+        retention-days: 5

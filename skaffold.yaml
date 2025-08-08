@@ -1,10 +1,10 @@
-apiVersion: skaffold/v2beta24
+apiVersion: skaffold/v4beta13
 kind: Config
 deploy:
   helm:
     releases:
     - name: fission
-      remoteChart: https://github.com/fission/fission-charts/releases/download/fission-all-v1.20.3/fission-all-v1.20.3.tgz
+      remoteChart: https://github.com/fission/fission-charts/releases/download/fission-all-v1.21.0/fission-all-v1.21.0.tgz
       namespace: fission
       setValues:
         analytics: "false"
@@ -82,13 +82,13 @@ profiles:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          NODE_BASE_IMG: "20.16.0-alpine3.20"
+          NODE_BASE_IMG: 22.18.0-alpine3.21
     - image: node-builder
       context: nodejs/builder/
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          NODE_BASE_IMG: "20.16.0-alpine3.20"
+          NODE_BASE_IMG: 22.18.0-alpine3.21
 - name: perl
   build:
     artifacts:
@@ -100,7 +100,7 @@ profiles:
   build:
     artifacts:
     - image: php7-env
-      context: php7/
+      context: php7/  
       docker:
         dockerfile: Dockerfile
 - name: python

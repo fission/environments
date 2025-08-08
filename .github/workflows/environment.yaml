@@ -6,20 +6,6 @@ on:
 env:
   # Only FISSION_VERSION is needed for the Makefile
   FISSION_VERSION: v1.21.0
-  
-  # Version pinning documentation (used in setup-cluster/action.yml defaults)
-  # KIND_NODE_IMAGE: kindest/node:v1.27.16
-  # KIND_VERSION: v0.23.0
-  # HELM_VERSION: v3.18.4
-  # FISSION_CLI_VERSION: v1.21.0
-  # KIND_CONFIG: kind.yaml
-  # CHECKOUT_VERSION: v2
-  # SETUP_GO_VERSION: v2
-  # SETUP_NODE_VERSION: v4
-  # SETUP_PYTHON_VERSION: v2
-  # PATHS_FILTER_VERSION: v2
-  # UPLOAD_ARTIFACT_VERSION: v4
-  # SKAFFOLD_ACTION_VERSION: 1.5.0
 
 jobs:
   # Job to run change detection
@@ -29,8 +15,8 @@ jobs:
       packages: ${{ steps.filter.outputs.changes }}
     steps:
       - name: Checkout the current repo
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/workflows/filters/filters.yaml
@@ -40,9 +26,9 @@ jobs:
     if: contains( needs.check.outputs.packages, 'binary')
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: setup go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
           go-version: 1.22
       - name: Unit test
@@ -62,14 +48,14 @@ jobs:
       - name: Collect Fission Dump
         uses: ./.github/actions/collect-fission-dump
         with:
-          workflow-name: ${{ github.run_id }}
+          workflow-name: binary
   go:
     runs-on: ubuntu-latest
     needs: check
     if: contains( needs.check.outputs.packages, 'go' )
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Fission Environment
         uses: ./.github/actions/setup-cluster
       - name: Fission and Test images
@@ -82,15 +68,15 @@ jobs:
       - name: Collect Fission Dump
         uses: ./.github/actions/collect-fission-dump
         with:
-          workflow-name: ${{ github.run_id }}
+          workflow-name: go
   jvm:
     runs-on: ubuntu-latest
     needs: check
     if: contains( needs.check.outputs.packages, 'jvm' )
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/workflows/filters/filters.yaml
@@ -109,10 +95,10 @@ jobs:
     if: contains( needs.check.outputs.packages, 'nodejs' )
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Unit test
         run: |
           pushd nodejs/
@@ -133,15 +119,15 @@ jobs:
         uses: ./.github/actions/collect-fission-dump
         if: ${{ failure() }}
         with:
-          workflow-name: ${{ github.run_id }}
+          workflow-name: nodejs
   perl:
     runs-on: ubuntu-latest
     if: contains( needs.check.outputs.packages, 'perl' )
     needs: check
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/workflows/filters/filters.yaml
@@ -149,7 +135,7 @@ jobs:
         uses: ./.github/actions/setup-cluster
       - name: perl
         if: steps.filter.outputs.perl == 'true'
-        uses: hiberbee/github-action-skaffold@1.5.0
+        uses: hiberbee/github-action-skaffold@1.27.0
         with:
           command: run
           profile: perl
@@ -159,15 +145,15 @@ jobs:
     if: contains( needs.check.outputs.packages, 'php7' )
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/workflows/filters/filters.yaml
       - name: Setup Fission Cluster
         uses: ./.github/actions/setup-cluster
       - name: php7
-        uses: hiberbee/github-action-skaffold@1.5.0
+        uses: hiberbee/github-action-skaffold@1.27.0
         with:
           command: run
           profile: php7
@@ -177,7 +163,7 @@ jobs:
     if: contains( needs.check.outputs, 'python' )
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - uses: actions/setup-python@v2
         with:
           python-version: '3.11'
@@ -208,14 +194,14 @@ jobs:
         uses: ./.github/actions/collect-fission-dump
         if: ${{ failure() }}
         with:
-          workflow-name: ${{ github.run_id }}
+          workflow-name: python
   python-fastapi:
     runs-on: ubuntu-latest
     needs: check
     if: contains( needs.check.outputs.packages, 'python-fastapi' )
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - uses: actions/setup-python@v2
         with:
           python-version: '3.11'
@@ -243,22 +229,22 @@ jobs:
         uses: ./.github/actions/collect-fission-dump
         if: ${{ failure() }}
         with:
-          workflow-name: ${{ github.run_id }}
+          workflow-name: python-fastapi
   ruby:
     runs-on: ubuntu-latest
     needs: check
     if: contains(needs.check.outputs.packages, 'ruby')
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/workflows/filters/filters.yaml
       - name: Setup Fission Cluster
         uses: ./.github/actions/setup-cluster
       - name: ruby
-        uses: hiberbee/github-action-skaffold@1.5.0
+        uses: hiberbee/github-action-skaffold@1.27.0
         with:
           command: run
           profile: ruby
@@ -268,8 +254,8 @@ jobs:
     if: contains(needs.check.outputs.packages, 'tensorflow-serving')
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/workflows/filters/filters.yaml
@@ -277,7 +263,7 @@ jobs:
         uses: ./.github/actions/setup-cluster
       - name: tensorflow-serving
         if: steps.filter.outputs.tensorflow-serving == 'true'
-        uses: hiberbee/github-action-skaffold@1.5.0
+        uses: hiberbee/github-action-skaffold@1.27.0
         with:
           command: run
           profile: tensorflow-serving

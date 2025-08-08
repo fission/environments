@@ -43,12 +43,6 @@ runs:
         kind get kubeconfig >$HOME/.kube/config
         kubectl get nodes
 
-    - name: Install Fission CLI
-      shell: bash
-      run: |
-        curl -Lo fission https://github.com/fission/fission/releases/download/${{ inputs.fission-cli-version }}/fission-${{ inputs.fission-cli-version }}-linux-amd64 \
-        && chmod +x fission && sudo mv fission /usr/local/bin/
-
     # Base Setup Steps (merged from fission-base-setup)
     - name: Base Setup
       shell: bash

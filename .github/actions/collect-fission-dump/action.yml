@@ -8,13 +8,11 @@ runs:
   using: "composite"
   steps:
     - name: Collect Fission Dump
-      if: ${{ always() }}
       shell: bash
       run: |
         command -v fission && fission support dump
 
     - name: Archive fission dump
-      if: ${{ always() }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.workflow-name }}-fission-dump

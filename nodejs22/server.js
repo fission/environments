@@ -19,6 +19,10 @@ const logger = pino({
   level: process.env.LOG_LEVEL || 'info'
 });
 
+// Module loading mode configuration
+const LOAD_ESM = process.env.LOAD_ESM !== 'false'; // Default to true (ESM mode)
+logger.info(`Module loading mode: ${LOAD_ESM ? 'ESM' : 'CJS'}`);
+
 
 
 const app = express();
@@ -52,16 +56,45 @@ const loadFunction = async (modulepath, funcname) => {
     // support v1 codepath and v2 entrypoint like 'foo', '', 'index.hello'
     let userModule;
     
-    // For ESM user functions, we need to use dynamic import with proper file extensions
-    // ESM requires explicit file extensions per Node.js spec
-    
     let importPath = modulepath;
+    
+    // Handle missing file extensions based on LOAD_ESM mode
     if (!path.extname(modulepath)) {
-      importPath = modulepath + '.js';
+      const basePath = modulepath;
+      let possibleExtensions;
+      
+      if (LOAD_ESM) {
+        // ESM mode: prioritize .js (ESM), .mjs, then .cjs
+        possibleExtensions = ['.js', '.mjs', '.cjs'];
+      } else {
+        // CJS mode: prioritize .js (CJS), .cjs, then .mjs  
+        possibleExtensions = ['.js', '.cjs', '.mjs'];
+      }
+      
+      let foundPath = null;
+      for (const ext of possibleExtensions) {
+        const testPath = basePath + ext;
+        if (fs.existsSync(testPath)) {
+          foundPath = testPath;
+          break;
+        }
+      }
+      
+      importPath = foundPath || (basePath + '.js');
     }
     
+    // Determine how to interpret .js files based on LOAD_ESM mode
+    const isJsFile = importPath.endsWith('.js');
+    const isCjsFile = importPath.endsWith('.cjs'); 
+    const isMjsFile = importPath.endsWith('.mjs');
+    
+    // In ESM mode: .js = ESM, .mjs = ESM, .cjs = CJS
+    // In CJS mode: .js = CJS, .cjs = CJS, .mjs = ESM
+    const treatAsCjs = isCjsFile || (!LOAD_ESM && isJsFile);
+    const treatAsEsm = isMjsFile || (LOAD_ESM && (isJsFile || isMjsFile));
+    
     try {
-      // Use dynamic import() which works in both CommonJS and ESM
+      // Always use dynamic import() - Node.js handles both ESM and CJS correctly
       userModule = await import(importPath);
     } catch (importError) {
       try {
@@ -82,13 +115,25 @@ const loadFunction = async (modulepath, funcname) => {
       }
     }
     
-    let userFunction = funcname
-      ? userModule[funcname] || userModule.default?.[funcname]
-      : userModule.default || userModule;
+    // Handle function extraction based on module type
+    let userFunction;
+    if (funcname) {
+      // Named function requested
+      userFunction = userModule[funcname] || userModule.default?.[funcname];
+    } else {
+      // Default export requested - handle based on module type
+      if (treatAsCjs) {
+        // CJS: module.exports becomes default export when imported
+        userFunction = userModule.default || userModule;
+      } else {
+        // ESM: prefer default export
+        userFunction = userModule.default || userModule;
+      }
+    }
       
     let elapsed = process.hrtime(startTime);
     console.log(
-      `user code loaded in ${elapsed[0]}sec ${elapsed[1] / 1000000}ms`
+      `user code loaded in ${elapsed[0]}sec ${elapsed[1] / 1000000}ms (${LOAD_ESM ? 'ESM' : 'CJS'} mode)`
     );
     return userFunction;
   } catch (e) {
@@ -131,37 +176,52 @@ const specializeV2 = async (req, res) => {
     funcname = undefined; // Default export
   }
   
-  // If we don't have a filename yet, find it from the directory
+  // If we don't have a filename yet, find it from the directory or file
   if (!filename) {
-    // Look for .js files in the directory
     try {
-      const files = fs.readdirSync(req.body.filepath).filter(f => f.endsWith('.js'));
+      const stats = fs.statSync(req.body.filepath);
       
-      if (files.length === 1) {
-        filename = path.parse(files[0]).name; // Remove .js extension
-      } else if (files.length > 1) {
-        // Try to find the main file from package.json
-        let mainFile = null;
-        try {
-          const packageJsonPath = path.join(req.body.filepath, 'package.json');
-          if (fs.existsSync(packageJsonPath)) {
-            const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-            if (packageJson.main && files.includes(packageJson.main)) {
-              mainFile = packageJson.main;
+      if (stats.isFile()) {
+        // The filepath points directly to a file
+        filename = path.basename(req.body.filepath, path.extname(req.body.filepath));
+      } else if (stats.isDirectory()) {
+        // The filepath is a directory, look for files inside
+        const allFiles = fs.readdirSync(req.body.filepath);
+        
+        const files = allFiles.filter(f => 
+          f.endsWith('.js') || f.endsWith('.mjs') || f.endsWith('.cjs')
+        );
+        
+        if (files.length === 1) {
+          filename = path.parse(files[0]).name; // Remove file extension
+        } else if (files.length > 1) {
+          // Try to find the main file from package.json
+          let mainFile = null;
+          try {
+            const packageJsonPath = path.join(req.body.filepath, 'package.json');
+            if (fs.existsSync(packageJsonPath)) {
+              const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+              if (packageJson.main && files.includes(packageJson.main)) {
+                mainFile = packageJson.main;
+              }
             }
+          } catch (err) {
+            // Ignore package.json read errors
           }
-        } catch (err) {
-          // Ignore package.json read errors
+          
+          // Fallback to common patterns - prioritize index files
+          if (!mainFile) {
+            mainFile = files.find(f => f === 'index.js') || 
+                      files.find(f => f === 'index.mjs') ||
+                      files.find(f => f === 'index.cjs') ||
+                      files.find(f => f === 'main.js') ||
+                      files[0];
+          }
+          
+          filename = path.parse(mainFile).name;
+        } else {
+          filename = 'index';
         }
-        
-        // Fallback to common patterns
-        if (!mainFile) {
-          mainFile = files.find(f => f === 'index.js' || f === 'main.js') || files[0];
-        }
-        
-        filename = path.parse(mainFile).name;
-      } else {
-        filename = 'index';
       }
     } catch (err) {
       filename = 'index';
@@ -169,12 +229,22 @@ const specializeV2 = async (req, res) => {
   }
   
   // Construct the module path
-  let modulepath = path.join(req.body.filepath, filename);
-  
-  // ESM fix: Add .js extension if missing
-  if (!path.extname(modulepath)) {
-    modulepath += '.js';
+  let modulepath;
+  try {
+    const stats = fs.statSync(req.body.filepath);
+    if (stats.isFile()) {
+      // If filepath is already a file, use it directly
+      modulepath = req.body.filepath;
+    } else {
+      // If filepath is a directory, join with filename
+      modulepath = path.join(req.body.filepath, filename);
+    }
+  } catch (err) {
+    // Fallback: assume it's a directory
+    modulepath = path.join(req.body.filepath, filename);
   }
+  
+  // Don't automatically add .js extension here - let loadFunction handle extension detection
   
   const result = await loadFunction(modulepath, funcname);
 
@@ -190,7 +260,7 @@ const specialize = async (req, res) => {
   // Specialize this server to a given user function.  The user function
   // is read from argv.codepath; it's expected to be placed there by the
   // fission runtime.
-  const modulepath = argv.codepath || "/userfunc/user";
+  let modulepath = argv.codepath || "/userfunc/user";
 
   // Node resolves module paths according to a file's location. We load
   // the file from argv.codepath, but tell users to put dependencies in
@@ -214,6 +284,26 @@ const specialize = async (req, res) => {
       if (err.code !== 'EEXIST') {
         logger.warn(`Could not create symlink: ${err.message}`);
       }
+    }
+  }
+  
+  // Enhanced: Handle extension detection for CJS support
+  // If modulepath doesn't have an extension, try to find the right file
+  if (!path.extname(modulepath)) {
+    const basePath = modulepath;
+    const possibleExtensions = ['.js', '.mjs', '.cjs'];
+    let foundPath = null;
+    
+    for (const ext of possibleExtensions) {
+      const testPath = basePath + ext;
+      if (fs.existsSync(testPath)) {
+        foundPath = testPath;
+        break;
+      }
+    }
+    
+    if (foundPath) {
+      modulepath = foundPath;
     }
   }
   

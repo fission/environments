@@ -1,29 +1,43 @@
 # Fission Node.js 22 Examples
 
-This directory contains examples showcasing **Node.js 22** with **ESM** support and modern JavaScript features.
+This directory contains examples showcasing **Node.js 22** with **dual ESM/CJS** support and modern JavaScript features.
 
 **What's New in Node.js 22:**
-- **Native ESM Support** - Use `import`/`export` syntax
+- **Dual Module Support** - Both ESM (`import`/`export`) and CJS (`require`/`module.exports`)
+- **Native ESM Support** - Use `import`/`export` syntax as default
 - **Top-level await** - No need to wrap in async functions
 - **Latest JavaScript features** - Modern syntax and APIs
 - **Enhanced performance** - Faster execution and better memory usage
 
+## LOAD_ESM Environment Variable Control
+
+The `LOAD_ESM` environment variable controls how `.js` files are interpreted:
+- **LOAD_ESM=true (Default)**: `.js` files use ESM (`import`/`export`)
+- **LOAD_ESM=false**: `.js` files use CJS (`require()`/`module.exports`)
+
 ## Environment Setup
 
-Create a Node.js 22 environment with ESM support:
-
+### **ESM Environment (Default):**
 ```bash
-# Option 1: Use our pre-built Node.js 22 environment
-$ fission env create --name node22 --image fission/node-env-22:latest
-
-# Option 2: Use official images (when available)
-$ fission env create --name node22 --image fission/node-env-22:latest --builder fission/node-builder-22:latest
+fission env create --name node22-esm \
+  --image davidchase03/node-env-22:v3.0.0 \
+  --builder davidchase03/node-builder-22:v3.0.0 \
+  --runtime-env LOAD_ESM=true
 ```
+
+### **CJS Environment:**
+```bash
+fission env create --name node22-cjs \
+  --image davidchase03/node-env-22:v3.0.0 \
+  --builder davidchase03/node-builder-22:v3.0.0 \
+  --runtime-env LOAD_ESM=false
+```
+
 
 ## Function Signatures
 
-### **ESM (Node.js 22 Standard)**
-All examples use modern ESM syntax:
+### **ESM (ES Modules - Default)**
+ESM examples use modern ES6+ syntax:
 ```javascript
 // Single function export
 export default async function(context) {
@@ -46,42 +60,108 @@ export const entry1 = async (context) => { /* ... */ };
 export const entry2 = async (context) => { /* ... */ };
 ```
 
+### **CJS (CommonJS - Traditional)**
+CJS examples use traditional Node.js syntax with `.cjs` extension:
+```javascript
+// Single function export
+module.exports = async function(context) {
+    return {
+        status: 200,
+        body: JSON.stringify({
+            message: "Hello from Node.js 22 CJS!",
+            nodeVersion: process.version
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+}
+
+// Callback pattern
+module.exports = function(context, callback) {
+    callback(200, JSON.stringify({ message: "Hello!" }), {
+        'Content-Type': 'application/json'
+    });
+};
+```
+
 ## Examples Overview
 
-| Example | Description | Node.js 22 Features |
-|---------|-------------|---------------------|
-| `hello.js` | ESM hello world | ESM module |
+### ESM Examples (ES Modules)
+| Example | Description | Features |
+|---------|-------------|----------|
+| `hello.js` | ESM hello world | Default export, modern syntax |
 | `weather.js` | HTTP requests demo | Native fetch API, error handling |
 | `multi-entry.js` | Multiple endpoints | Named exports, routing |
 | `broadcast.js` | WebSocket broadcasting | Multi-client messaging |
 | `kubeEventsSlack.js` | Kubernetes integration | Event processing, webhooks |
 
-### ESM Environment:
-- **All `.js` files** use ESM syntax (`import`/`export`)
-- **Native Node.js 22** ESM support with `"type": "module"` 
-- **For CommonJS examples**, see the regular `nodejs` environment folder
+### CJS Examples for LOAD_ESM=false (CommonJS Mode)
+| Example | Description | Features |
+|---------|-------------|----------|
+| `hello-cjs.js` | CJS hello world with .js | Basic module.exports with .js extension |
+| `callback-cjs.js` | Callback pattern with .js | Traditional callback style with .js extension |
+| `require-cjs.js` | Using require() with .js | Node.js built-ins with require() and .js extension |
+
+### Legacy CJS Example (works in both modes)
+| Example | Description | Features |
+|---------|-------------|----------|
+| `index.cjs` | CJS hello world | Basic module.exports with .cjs extension (legacy compatibility) |
+
+### LOAD_ESM Environment Variable:
+- **LOAD_ESM=true (Default)**: `.js` files use ESM (`import`/`export`), `.cjs` files use CJS
+- **LOAD_ESM=false**: `.js` files use CJS (`require()`/`module.exports`), `.cjs` files use CJS  
+- **Always**: `.mjs` files always use ESM, `.cjs` files always use CJS
 
 ## Quick Start
 
-1. **Create the environment:**
+### **ESM Quick Start (Default):**
+1. **Create ESM environment:**
 ```bash
-fission env create --name node22 --image fission/node-env-22:latest
+fission env create --name node22-esm \
+  --image davidchase03/node-env-22:v3.0.0 \
+  --builder davidchase03/node-builder-22:v3.0.0 \
+  --runtime-env LOAD_ESM=true
 ```
 
-2. **Deploy a function:**
+2. **Deploy ESM function:**
 ```bash
-fission fn create --name hello --env node22 --code hello.cjs
+fission fn create --name hello-esm --env node22-esm --code hello.js
 ```
 
 3. **Test it:**
 ```bash
-fission fn test --name hello
+fission fn test --name hello-esm
 ```
 
-4. **Create an HTTP route:**
+### **CJS Quick Start:**
+1. **Create CJS environment:**
 ```bash
-fission route create --method GET --url /hello --function hello
-curl $FISSION_ROUTER/hello
+fission env create --name node22-cjs \
+  --image davidchase03/node-env-22:v3.0.0 \
+  --builder davidchase03/node-builder-22:v3.0.0 \
+  --runtime-env LOAD_ESM=false
+```
+
+2. **Deploy CJS function:**
+```bash
+fission fn create --name hello-cjs --env node22-cjs --code hello-cjs.js
+```
+
+3. **Test it:**
+```bash
+fission fn test --name hello-cjs
+```
+
+### **Create HTTP routes:**
+```bash
+fission route create --method GET --url /hello-esm --function hello-esm
+fission route create --method GET --url /hello-cjs --function hello-cjs
+
+# Test via HTTP (requires port forwarding)
+kubectl port-forward -n fission svc/router 8888:80 &
+curl http://localhost:8888/hello-esm
+curl http://localhost:8888/hello-cjs
 ```
 
 ---

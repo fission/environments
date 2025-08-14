@@ -1,8 +1,18 @@
 module.exports = async (context) => {
-  var splitStringArray = context.request.split(" ");
+  // Get the request body as string
+  const requestText = context.request.body || "";
+  const splitStringArray = requestText.toString().split(" ");
 
   return {
     status: 200,
-    body: splitStringArray.length,
+    body: JSON.stringify({
+      wordCount: splitStringArray.length,
+      words: splitStringArray,
+      moduleType: "CJS",
+      nodeVersion: process.version
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
   };
 };

@@ -133,15 +133,15 @@ You can set this at the environment level or per function:
 **ESM Environment (default):**
 ```bash
 fission env create --name node22-esm \
-  --image davidchase03/node-env-22:v3.0.0 \
-  --builder davidchase03/node-builder-22:v3.0.0
+  --image fission/node-env-22 \
+  --builder fission/node-builder-22
 ```
 
 **CJS Environment:**
 ```bash
 fission env create --name node22-cjs \
-  --image davidchase03/node-env-22:v3.0.0 \
-  --builder davidchase03/node-builder-22:v3.0.0 \
+  --image fission/node-env-22 \
+  --builder fission/node-builder-22 \
   --runtime-env LOAD_ESM=false
 ```
 

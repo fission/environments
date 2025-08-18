@@ -1,7 +1,6 @@
 {
   "name": "fission-nodejs-22-runtime",
   "version": "1.0.0",
-  "type": "module",
   "author": "Soam Vasani",
   "contributors": [
     {

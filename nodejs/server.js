@@ -1,16 +1,12 @@
-import fs from "fs";
-import path from "path";
-import process from "process";
-import { fileURLToPath } from "url";
-import express from "express";
-import pino from "pino";
-import { createServer } from "http";
-import { WebSocketServer } from "ws";
-import minimist from "minimist";
+const fs = require("fs");
+const path = require("path");
+const process = require("process");
+const express = require("express");
+const pino = require("pino");
+const { createServer } = require("http");
+const { WebSocketServer } = require("ws");
+const minimist = require("minimist");
 
-// ESM equivalent of __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const DEFAULT_TIMEOUT = 60000;
 
 

@@ -83,10 +83,6 @@ nodejs-test-images:
 	@kind load docker-image node-env
 	@kind load docker-image node-builder
 
-nodejs22-test-images:
-	@kind load docker-image nodejs22-env
-	@kind load docker-image nodejs22-builder
-
 python-test-images:
 	@kind load docker-image python-env
 	@kind load docker-image python-builder

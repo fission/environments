@@ -91,7 +91,6 @@ const loadFunction = async (modulepath, funcname) => {
     // In ESM mode: .js = ESM, .mjs = ESM, .cjs = CJS
     // In CJS mode: .js = CJS, .cjs = CJS, .mjs = ESM
     const treatAsCjs = isCjsFile || (!LOAD_ESM && isJsFile);
-    const treatAsEsm = isMjsFile || (LOAD_ESM && (isJsFile || isMjsFile));
     
     try {
       // Always use dynamic import() - Node.js handles both ESM and CJS correctly

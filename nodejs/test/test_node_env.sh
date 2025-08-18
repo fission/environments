@@ -25,8 +25,8 @@ else
     log "TEST_NOCLEANUP is set; not cleaning up test artifacts afterwards."
 fi
 
-NODE_RUNTIME_IMAGE=nodejs-env
-NODE_BUILDER_IMAGE=nodejs-builder
+NODE_RUNTIME_IMAGE=node-env
+NODE_BUILDER_IMAGE=node-builder
 
 env_v1api=nodejs-v1-$TEST_ID
 env_v2api=nodejs-v2-$TEST_ID

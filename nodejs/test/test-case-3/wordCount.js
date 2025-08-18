@@ -1,6 +1,9 @@
 module.exports = async (context) => {
   // Get the request body as string
-  const requestText = context.request.body || "";
+  const requestText = (context.request && typeof context.request.body !== "undefined")
+  ? context.request.body
+  : (typeof context.request === "string" ? context.request : "");
+
   const splitStringArray = requestText.toString().split(" ");
 
   return {

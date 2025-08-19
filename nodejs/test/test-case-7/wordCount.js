@@ -1,8 +1,23 @@
 // ESM wordCount test case for Node.js 22
 export default async (context) => {
   // Get the request body as string
-  const requestText = context.request.body || context.request.rawBody || "";
-  const splitStringArray = requestText.toString().split(" ");
+  let requestText = "";
+  
+  if (context.request && context.request.body) {
+    // Handle different body types
+    if (typeof context.request.body === 'string') {
+      requestText = context.request.body;
+    } else if (typeof context.request.body === 'object') {
+      // When body is parsed as form data, get the first key
+      const keys = Object.keys(context.request.body);
+      if (keys.length > 0) {
+        // Reconstruct the original string from form data keys
+        requestText = keys.join(' ');
+      }
+    }
+  }
+  
+  const splitStringArray = requestText.toString().split(" ").filter(word => word.length > 0);
 
   return {
     status: 200,

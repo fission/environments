@@ -20,7 +20,7 @@
     "runtimeVersion": "20.16.0-debian",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": " 1.33"
+    "version": "1.33"
   },
   {
     "builder": "node-builder-22",
@@ -44,7 +44,7 @@
     "runtimeVersion": "22.6.0",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": " 1.33"
+    "version": "1.33"
   },
   {
     "builder": "node-builder",
@@ -68,6 +68,6 @@
     "runtimeVersion": "20.16.0",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": " 1.33"
+    "version": "1.33"
   }
 ]

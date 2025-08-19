@@ -80,7 +80,7 @@ fission fn create --name $fn3 --env $env_v1api --code $test_path/test-case-3/wor
 fission route create --name $fn3 --function $fn3 --url /$fn3 --method POST
 sleep 3     # Waiting for router to catch up
 body='Its a beautiful day'
-timeout 20 bash -c "test_post_route $fn3 $body 4"
+timeout 20 bash -c "test_post_route $fn3 \"$body\" 4"
 
 log "===== 4. test builder (CJS with dependencies) ====="
 log "Creating package ..."

@@ -1,18 +1,18 @@
-// ESM momentExample test case for Node.js 22
-import moment from "moment";
+// CJS momentExample test case for Node.js 22
+const moment = require("moment");
 
-export default async (context) => {
+module.exports = async (context) => {
   return {
     status: 200,
     body: JSON.stringify({
-      message: "Hello from ESM Node.js 22! 🕐",
+      message: "Hello from CJS Node.js 22! 🕐",
       timestamp: moment().format(),
-      moduleType: "ESM",
+      moduleType: "CJS",
       nodeVersion: process.version
     }),
     headers: {
       "Content-Type": "application/json",
-      "X-Module-Type": "ESM"
+      "X-Module-Type": "CJS"
     }
   };
 }; 

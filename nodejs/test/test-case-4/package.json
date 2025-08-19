@@ -1,6 +1,5 @@
 {
   "name": "fission-nodejs-runtime",
-  "type": "module",
   "engines": {
     "node": ">=7.6.0"
   },

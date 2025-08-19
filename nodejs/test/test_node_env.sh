@@ -82,7 +82,7 @@ sleep 3     # Waiting for router to catch up
 body='Its a beautiful day'
 timeout 20 bash -c "test_post_route $fn3 $body 4"
 
-log "===== 4. test builder (CJS) ====="
+log "===== 4. test builder (CJS with dependencies) ====="
 log "Creating package ..."
 pushd $test_path/test-case-4
 zip -r $tmp_dir/src-pkg.zip momentExample.js package.json

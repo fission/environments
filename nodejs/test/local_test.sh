@@ -91,6 +91,17 @@ test_function() {
 echo "🚀 Node.js Local Test Suite with ESM/CJS Support"
 echo "==============================================="
 
+# Install dependencies for test cases that need them
+echo "-- Installing dependencies for test cases with package.json..."
+if [ -f "$DIR/test-case-4/package.json" ]; then
+    echo "-- Installing dependencies for test-case-4..."
+    (cd "$DIR/test-case-4" && npm install --silent)
+fi
+if [ -f "$DIR/test-case-8/package.json" ]; then
+    echo "-- Installing dependencies for test-case-8..."
+    (cd "$DIR/test-case-8" && npm install --silent)
+fi
+
 # Clean up any existing processes on our test ports
 echo "-- Cleaning up any existing processes on test ports..."
 for port in 8881 8882 8883 8884 8885 8886 8887 8888 8889; do
@@ -107,10 +118,10 @@ echo "Testing CJS test cases..."
 test_function "$DIR/test-case-1/helloWorld.js" "CJS helloWorld test case" 8881 "false"
 test_function "$DIR/test-case-2/helloUser.js" "CJS helloUser test case" 8882 "false"
 test_function "$DIR/test-case-3/wordCount.js" "CJS wordCount test case" 8883 "false"
+test_function "$DIR/test-case-4/momentExample.js" "CJS momentExample with dependencies" 8884 "false"
 
 # Test ESM functions (LOAD_ESM=true)  
 echo "Testing ESM test cases..."
-test_function "$DIR/test-case-4/momentExample.js" "ESM momentExample (was mislabeled as CJS)" 8884 "true"
 test_function "$DIR/test-case-5/helloWorld.js" "ESM helloWorld test case" 8885 "true"
 test_function "$DIR/test-case-6/helloUser.js" "ESM helloUser test case" 8886 "true"
 test_function "$DIR/test-case-7/wordCount.js" "ESM wordCount test case" 8887 "true"

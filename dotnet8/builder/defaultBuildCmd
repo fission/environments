@@ -1,0 +1,38 @@
+#!/bin/bash
+set -ex
+
+echo "Building .NET 8 project from ${SRC_PKG} to ${DEPLOY_PKG}"
+
+# Create destination directory
+mkdir -p ${DEPLOY_PKG}
+
+# Copy all source files to destination
+cp -r ${SRC_PKG}/* ${DEPLOY_PKG}/
+
+# Copy Fission.DotNet.Common library
+cp /app/Fission.DotNet.Common.dll ${DEPLOY_PKG}/
+cp /app/Fission.DotNet.Common.deps.json ${DEPLOY_PKG}/ 2>/dev/null || true
+
+# Find project file
+CSPROJ_FILE=$(find ${DEPLOY_PKG} -name "*.csproj" | head -1)
+
+if [ -n "$CSPROJ_FILE" ]; then
+    echo "Found project file: $CSPROJ_FILE"
+    PROJECT_DIR=$(dirname "$CSPROJ_FILE")
+    
+    # Ensure Fission.DotNet.Common.dll is in the project directory
+    cp /app/Fission.DotNet.Common.dll ${PROJECT_DIR}/
+    
+    cd ${PROJECT_DIR}
+    
+    # First restore packages
+    dotnet restore
+    
+    # Then publish with restore (removing --no-restore flag)
+    dotnet publish -c Release -o ${DEPLOY_PKG}
+else
+    echo "No project file found, treating as single file deployment"
+    # For single .cs files, they will be compiled at runtime
+fi
+
+echo "Build complete"

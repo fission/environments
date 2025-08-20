@@ -1,4 +1,5 @@
-module.exports = async (context) => {
+// ESM wordCount test case for Node.js 22
+export default async (context) => {
   // Get the request body as string
   let requestText = "";
   
@@ -15,7 +16,7 @@ module.exports = async (context) => {
       }
     }
   }
-
+  
   const splitStringArray = requestText.toString().split(" ").filter(word => word.length > 0);
 
   return {
@@ -23,11 +24,12 @@ module.exports = async (context) => {
     body: JSON.stringify({
       wordCount: splitStringArray.length,
       words: splitStringArray,
-      moduleType: "CJS",
+      moduleType: "ESM",
       nodeVersion: process.version
     }),
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-Module-Type": "ESM"
     }
   };
-};
+}; 

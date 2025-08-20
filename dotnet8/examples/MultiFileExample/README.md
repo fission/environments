@@ -2,7 +2,7 @@
 
 This example demonstrates how to organize a Fission function across multiple files using proper .NET project structure with services, models, and separation of concerns.
 
-## Project Structure (MVC Pattern)
+## Project Structure
 
 ```
 MultiFileExample/
@@ -20,28 +20,18 @@ MultiFileExample/
     └── DataModels.cs       # Data processing models
 ```
 
-## Architecture Benefits
-
-1. **MVC Pattern** - Clean separation between entry point, controller, and services
-2. **Thin Entry Point** - MyFunction only handles Fission integration
-3. **Controller-based Routing** - All routing logic centralized in ApiController
-4. **Separation of Concerns** - Each service handles specific functionality
-5. **Reusability** - Services can be used by multiple endpoints
-6. **Testability** - Controller and services can be unit tested independently
-7. **Maintainability** - Easy to find and modify specific features
-8. **Type Safety** - Strongly typed models ensure data consistency
 
 ## Deploy to Fission
 
 ```bash
 # Create environment (if not already created)
 fission env create --name dotnet8 \
-  --image davidchase03/dotnet8-env:v17.0 \
-  --builder davidchase03/dotnet8-builder:v16.0 \
+  --image fission/dotnet8-env \
+  --builder fission/dotnet8-builder \
   --poolsize 1
 
 # Create package with all source files
-cd /Users/davidcasa/environments/dotnet8/examples/MultiFileExample
+cd /dotnet8/examples/MultiFileExample
 fission pkg create --name multifile-pkg \
   --env dotnet8 \
   --src . \
@@ -99,18 +89,6 @@ curl http://localhost:8080/fission-function/multifile-fn/health
 5. **Services**: Each service encapsulates related business logic
 6. **Models**: Shared data structures used across services
 
-## Local Development
-
-```bash
-# Copy Fission.DotNet.Common.dll locally for development
-cp /Users/davidcasa/environments/dotnet8/Fission.DotNet.Common/bin/Release/net8.0/Fission.DotNet.Common.dll ./
-
-# Build locally
-dotnet build
-
-# Run tests (if you add them)
-dotnet test
-```
 
 ## Adding New Features
 
@@ -136,20 +114,3 @@ namespace MultiFileExample.Services
 private readonly OrderService _orderService = new OrderService();
 // Add to switch: "orders" => _orderService.GetOrders()
 ```
-
-## Performance Considerations
-
-- Services are instantiated once per function invocation
-- Consider using static methods for stateless operations
-- For production, implement proper dependency injection
-- Add caching for frequently accessed data
-
-## Production Enhancements
-
-For production use, consider:
-- Implementing ILogger for structured logging
-- Adding OpenAPI/Swagger documentation
-- Implementing proper error handling and validation
-- Using dependency injection container
-- Adding health checks and metrics
-- Implementing data access layer with repository pattern

@@ -8,6 +8,8 @@ dotnet:
     - 'dotnet/envconfig.json'     
 dotnet20:
     - 'dotnet20/envconfig.json'     
+dotnet8:
+    - 'dotnet8/envconfig.json'     
 go:   
     - 'go/envconfig.json'     
 jvm:  

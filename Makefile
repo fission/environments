@@ -26,6 +26,7 @@ FISSION_ENVS := nodejs-envs \
 	binary-envs \
 	tensorflow-serving-envs \
 	dotnet20-envs \
+	dotnet8-envs \
 	ruby-envs
 
 all: $(FISSION_ENVS)

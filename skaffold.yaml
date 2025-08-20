@@ -40,6 +40,13 @@ profiles:
       context: dotnet20/
       docker:
         dockerfile: Dockerfile
+- name: dotnet8
+  build:
+    artifacts:
+    - image: dotnet8-env
+      context: dotnet8/
+      docker:
+        dockerfile: Dockerfile
 - name: go
   build:
     artifacts:

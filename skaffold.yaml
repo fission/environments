@@ -47,6 +47,10 @@ profiles:
       context: dotnet8/
       docker:
         dockerfile: Dockerfile
+    - image: dotnet8-builder
+      context: dotnet8/
+      docker:
+        dockerfile: builder/Dockerfile
 - name: go
   build:
     artifacts:

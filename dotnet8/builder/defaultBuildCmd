@@ -35,4 +35,13 @@ else
     # For single .cs files, they will be compiled at runtime
 fi
 
+echo "Build completed successfully"
+
+# Ensure Fission.DotNet.Common.dll is in the output directory
+cp /app/Fission.DotNet.Common.dll ${DEPLOY_PKG}/
+
+# List the build output
+echo "Build output:"
+ls -la ${DEPLOY_PKG}/Fission.DotNet.Common.dll ${DEPLOY_PKG}/*.dll 2>/dev/null || true
+
 echo "Build complete"

@@ -26,6 +26,7 @@ FISSION_ENVS := nodejs-envs \
 	binary-envs \
 	tensorflow-serving-envs \
 	dotnet20-envs \
+	dotnet8-envs \
 	ruby-envs
 
 all: $(FISSION_ENVS)
@@ -90,6 +91,10 @@ python-test-images:
 python-fastapi-test-images:
 	@kind load docker-image python-fastapi-env
 	@kind load docker-image python-fastapi-builder
+
+dotnet8-test-images:
+	@kind load docker-image dotnet8-env
+	@kind load docker-image dotnet8-builder
 
 router-port-forward:
 	@kubectl port-forward svc/router 8888:80 -nfission &

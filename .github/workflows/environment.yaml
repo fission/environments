@@ -267,3 +267,24 @@ jobs:
         with:
           command: run
           profile: tensorflow-serving
+  dotnet8:
+    runs-on: ubuntu-latest
+    needs: check
+    if: contains(needs.check.outputs.packages, 'dotnet8')
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Fission Environment
+        uses: ./.github/actions/setup-cluster
+      - name: Fission and Test images
+        run: |
+          SKAFFOLD_PROFILE=dotnet8 make skaffold-run
+          make dotnet8-test-images
+          make router-port-forward
+      - name: dotnet8-tests
+        run: ./test_utils/run_test.sh ./dotnet8/tests/test_dotnet8_env.sh
+      - name: Collect Fission Dump
+        uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
+        with:
+          workflow-name: dotnet8

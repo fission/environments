@@ -8,6 +8,8 @@ dotnet:
     - 'dotnet/**'     
 dotnet20:
     - 'dotnet20/**'     
+dotnet8:
+    - 'dotnet8/**'     
 go:   
     - 'go/**'     
 jvm:  

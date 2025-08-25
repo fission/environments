@@ -6,6 +6,7 @@ use warnings;
 
 use Getopt::Args;
 use Plack::Handler::Twiggy;
+use JSON;
 
 opt codepath => (
     isa     => 'Str',
@@ -34,6 +35,20 @@ my $options = optargs();
         }
 
         $userfunc = require($options->{codepath});
+        return '';
+    };
+
+    post '/v2/specialize' => sub {
+        # print STDERR request->body;
+        my $specialize=decode_json(request->body);
+        if($userfunc) {
+            send_error('Not a generic container', 400);
+        }
+
+        if (! -f $specialize->{'filepath'}.'/'.$specialize->{'functionName'} ) {
+            send_error('modules does not exist. Forgot to set spec.package.functionName in Function? - file was: '.$specialize->{'filepath'}.'/'.$specialize->{'functionName'}, 400);
+        }           
+        $userfunc = require($specialize->{'filepath'}.'/'.$specialize->{'functionName'});
         return '';
     };
 

@@ -1,5 +1,7 @@
 PLATFORMS ?= linux/amd64
 
+-include ../rules.mk
+
 REPO ?= fission
 TAG ?= latest
 

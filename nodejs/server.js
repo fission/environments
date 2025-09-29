@@ -6,6 +6,7 @@ const pino = require("pino");
 const { createServer } = require("http");
 const { WebSocketServer } = require("ws");
 const minimist = require("minimist");
+const { Readable } = require("node:stream");
 
 const DEFAULT_TIMEOUT = 60000;
 
@@ -358,7 +359,12 @@ app.use((req, res) => {
         res.set(name, headers[name]);
       }
     }
-    res.status(status).send(body);
+    res.status(status);
+    if (body instanceof Readable) {
+      body.pipe(res);
+    } else {
+      res.send(body);
+    }
   };
 
   //

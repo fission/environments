@@ -75,17 +75,6 @@ public class Server {
 				return ResponseEntity.status(500).body("Failed to initialize the classloader");
 			}
 
-			// Load all dependent classes from libraries etc.
-			while (e.hasMoreElements()) {
-				JarEntry je = e.nextElement();
-				if (je.isDirectory() || !je.getName().endsWith(".class")) {
-					continue;
-				}
-				String className = je.getName().substring(0, je.getName().length() - CLASS_LENGTH);
-				className = className.replace('/', '.');
-				cl.loadClass(className);
-			}
-
 			// Instantiate the function class
 			fn = (Function) cl.loadClass(entryPoint).newInstance();
 

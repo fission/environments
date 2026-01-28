@@ -59,14 +59,14 @@ profiles:
       docker:
         dockerfile: Dockerfile-1.1x
         buildArgs:
-          GO_VERSION: "1.22"
+          GO_VERSION: "1.25"
           UBUNTU_VERSION: "22.04"
     - image: go-builder
       context: go/builder/
       docker:
         dockerfile: Dockerfile-1.1x
         buildArgs:
-          GO_VERSION: "1.22"
+          GO_VERSION: "1.25"
 - name: jvm
   build:
     artifacts:

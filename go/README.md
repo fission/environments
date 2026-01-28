@@ -9,14 +9,14 @@ Looking for ready-to-run examples? See the [Go examples directory](../../example
 ## Build this image
 
 ```sh
-docker build -t USER/go-env --build-arg GO_VERSION=1.16 --build-arg UBUNTU_VERSION=20.04 -f Dockerfile-1.1x . && docker push USER/go-env
+docker build -t USER/go-env --build-arg GO_VERSION=1.25 --build-arg UBUNTU_VERSION=22.04 -f Dockerfile-1.1x . && docker push USER/go-env
 ```
 
 Note that if you build the runtime, you must also build the go-builder
 image, to ensure that it's at the same version of go:
 
 ```sh
-cd builder && docker build -t USER/go-builder --build-arg GO_VERSION=1.16 -f Dockerfile-1.1x . && docker push USER/go-builder
+cd builder && docker build -t USER/go-builder --build-arg GO_VERSION=1.25 -f Dockerfile-1.1x . && docker push USER/go-builder
 ```
 
 ## Using the image in fission

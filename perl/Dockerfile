@@ -1,7 +1,10 @@
-FROM perl:latest
+FROM perl:slim as builder
 
-RUN cpanm -n Twiggy Getopt::Args Dancer2
+RUN apt-get update ;  apt-get install -y gcc
+RUN cpanm -n Twiggy Getopt::Args Dancer2 JSON lib::relative
 
+FROM   perl:slim
+COPY    --from=builder /usr/local /usr/local
 COPY    server.pl /server.pl
 WORKDIR /
 

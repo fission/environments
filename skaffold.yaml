@@ -122,13 +122,13 @@ profiles:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          PY_BASE_IMG: "3.11-alpine"
+          PY_BASE_IMG: "3.13-alpine"
     - image: python-builder
       context: python/builder/
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          PY_BASE_IMG: "3.11-alpine"  
+          PY_BASE_IMG: "3.13-alpine"  
 - name: python-fastapi
   build:
     artifacts:
@@ -141,7 +141,7 @@ profiles:
         docker:
           dockerfile: Dockerfile
           buildArgs:
-            PY_BASE_IMG: "3.11-alpine"
+            PY_BASE_IMG: "3.13-alpine"
 - name: ruby
   build:
     artifacts:

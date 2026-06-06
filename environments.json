@@ -464,10 +464,10 @@
     ],
     "name": "Ruby Environment",
     "readme": "https://github.com/fission/environments/tree/master/ruby",
-    "runtimeVersion": "2.6.1",
+    "runtimeVersion": "3.4",
     "shortDescription": "Ruby environment with WEBrick library",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.32.0"
   }
 ]
 

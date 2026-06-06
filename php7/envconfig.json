@@ -22,9 +22,9 @@
     ],
     "name": "PHP Environment",
     "readme": "https://github.com/fission/environments/tree/master/perl",
-    "runtimeVersion": "7",
+    "runtimeVersion": "8.3",
     "shortDescription": "PHP environment with built-in server",
     "status": "Stable",
-    "version": "1.31.2"
+    "version": "1.32.0"
   }
 ]

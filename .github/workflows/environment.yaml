@@ -173,10 +173,7 @@ jobs:
       - name: Setup Fission Cluster
         uses: ./.github/actions/setup-cluster
       - name: php7
-        uses: hiberbee/github-action-skaffold@1.27.0
-        with:
-          command: run
-          profile: php7
+        run: SKAFFOLD_PROFILE=php7 make skaffold-run
   python:
     runs-on: ubuntu-latest
     needs: check

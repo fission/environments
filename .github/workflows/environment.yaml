@@ -3,9 +3,13 @@ on:
   pull_request:
     branches: [master]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   # Only FISSION_VERSION is needed for the Makefile
-  FISSION_VERSION: v1.21.0
+  FISSION_VERSION: v1.25.0
 
 jobs:
   # Job to run change detection
@@ -47,6 +51,7 @@ jobs:
         run: ./test_utils/run_test.sh ./binary/test/test_binary_env.sh
       - name: Collect Fission Dump
         uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
         with:
           workflow-name: binary
   go:
@@ -67,6 +72,7 @@ jobs:
         run: ./test_utils/run_test.sh ./go/tests/test_go_env.sh
       - name: Collect Fission Dump
         uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
         with:
           workflow-name: go
   jvm:
@@ -90,6 +96,22 @@ jobs:
         if: ${{ failure() }}
         with:
           workflow-name: jvm
+  jvm-jersey:
+    runs-on: ubuntu-latest
+    needs: check
+    if: contains( needs.check.outputs.packages, 'jvm-jersey' )
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Fission Environment
+        uses: ./.github/actions/setup-cluster
+      - name: jvm-jersey
+        run: SKAFFOLD_PROFILE=jvm-jersey make skaffold-run
+      - name: Collect Fission Dump
+        uses: ./.github/actions/collect-fission-dump
+        if: ${{ failure() }}
+        with:
+          workflow-name: jvm-jersey
   nodejs:
     runs-on: ubuntu-latest
     needs: check
@@ -136,10 +158,7 @@ jobs:
         uses: ./.github/actions/setup-cluster
       - name: perl
         if: steps.filter.outputs.perl == 'true'
-        uses: hiberbee/github-action-skaffold@1.27.0
-        with:
-          command: run
-          profile: perl
+        run: SKAFFOLD_PROFILE=perl make skaffold-run
   php7:
     runs-on: ubuntu-latest
     needs: check
@@ -161,11 +180,11 @@ jobs:
   python:
     runs-on: ubuntu-latest
     needs: check
-    if: contains( needs.check.outputs, 'python' )
+    if: contains( needs.check.outputs.packages, '"python"' )
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Unit test
@@ -203,7 +222,7 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Unit test

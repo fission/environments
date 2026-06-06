@@ -4,7 +4,7 @@ deploy:
   helm:
     releases:
     - name: fission
-      remoteChart: https://github.com/fission/fission-charts/releases/download/fission-all-v1.21.0/fission-all-v1.21.0.tgz
+      remoteChart: https://github.com/fission/fission-charts/releases/download/fission-all-1.25.0/fission-all-1.25.0.tgz
       namespace: fission
       setValues:
         analytics: "false"
@@ -93,13 +93,13 @@ profiles:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          NODE_BASE_IMG: 22.18.0-alpine3.21
+          NODE_BASE_IMG: 22.22.3-alpine3.23
     - image: node-builder
       context: nodejs/builder/
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          NODE_BASE_IMG: 22.18.0-alpine3.21
+          NODE_BASE_IMG: 22.22.3-alpine3.23
 - name: perl
   build:
     artifacts:
@@ -122,13 +122,13 @@ profiles:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          PY_BASE_IMG: "3.11-alpine"
+          PY_BASE_IMG: "3.13-alpine"
     - image: python-builder
       context: python/builder/
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          PY_BASE_IMG: "3.11-alpine"  
+          PY_BASE_IMG: "3.13-alpine"  
 - name: python-fastapi
   build:
     artifacts:
@@ -141,7 +141,7 @@ profiles:
         docker:
           dockerfile: Dockerfile
           buildArgs:
-            PY_BASE_IMG: "3.11-alpine"
+            PY_BASE_IMG: "3.13-alpine"
 - name: ruby
   build:
     artifacts:

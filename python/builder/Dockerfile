@@ -1,5 +1,5 @@
 ARG BUILDER_IMAGE=fission/builder
-ARG PY_BASE_IMG=3.11-alpine
+ARG PY_BASE_IMG=3.13-alpine
 
 FROM ${BUILDER_IMAGE}
 FROM python:${PY_BASE_IMG}

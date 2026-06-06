@@ -3,6 +3,11 @@
 set -euo pipefail
 source test_utils/utils.sh
 
+# Use the locally built image loaded into kind by `make jvm-test-images`
+# (the utils.sh default points at the stale Docker Hub image), matching the
+# convention of the go/binary/nodejs/python tests.
+export JVM_RUNTIME_IMAGE=jvm-env
+
 TEST_ID=$(generate_test_id)
 echo "TEST_ID = $TEST_ID"
 
@@ -24,7 +29,14 @@ cd jvm/examples/java
 
 log "Creating the jar from application"
 #Using Docker to build Jar so that maven & other Java dependencies are not needed on CI server
-docker run --rm -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.9.9-eclipse-temurin-22-alpine mvn clean package -q
+#fission-java-core must be installed into the container-local Maven repository
+#first because it is not resolvable from any remote repository.
+docker run --rm \
+    -v "$(pwd)":/usr/src/mymaven \
+    -v "$(pwd)/../../install-fission-java-core.sh":/usr/local/bin/install-fission-java-core \
+    -w /usr/src/mymaven \
+    maven:3.9.16-eclipse-temurin-25-alpine \
+    sh -c "install-fission-java-core && mvn clean package -q"
 
 log "Creating environment for Java"
 fission env create --name $env --image $JVM_RUNTIME_IMAGE --version 2 --keeparchive=true

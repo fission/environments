@@ -17,16 +17,22 @@ The workflow uses two main composite actions to reduce duplication:
 1. **setup-cluster**: Sets up the complete infrastructure needed for testing (Helm, Kind, Fission CLI) and performs base Fission setup steps
 2. **collect-fission-dump**: Collects and archives Fission dumps on failure
 
-## Environment Variables
+## Version Pins
 
-All version pins are centralized in the `env` section of the main workflow file:
+Tooling version pins live in the input defaults of `actions/setup-cluster/action.yml`:
 
-- `KIND_NODE_IMAGE`: Kind node image version
-- `KIND_VERSION`: Kind tool version
-- `HELM_VERSION`: Helm version
-- `FISSION_CLI_VERSION`: Fission CLI version
-- `KIND_CONFIG`: Path to Kind configuration
-- `FISSION_VERSION`: Fission version
+- `kind-node-image`: Kind node image version
+- `kind-version`: Kind tool version
+- `helm-version`: Helm version
+- `fission-cli-version`: Fission CLI version
+- `kind-config`: Path to Kind configuration
+
+The Fission version is pinned in several places that must be kept in sync when upgrading:
+
+- `FISSION_VERSION` in the `env` section of `environment.yaml` (used by the Makefile)
+- `FISSION_VERSION` in the root `rules.mk`
+- `fission-cli-version` default in `actions/setup-cluster/action.yml`
+- The Helm `remoteChart` URL in the root `skaffold.yaml`
 
 ## Usage
 

@@ -24,15 +24,15 @@ Build and push the image to the the registry:
 Building runtime image,
 
 ```console
-docker build -t USER/node-env --build-arg NODE_BASE_IMG=22.18.0-alpine3.21 -f Dockerfile .
+docker build -t USER/node-env --build-arg NODE_BASE_IMG=22.22.3-alpine3.23 -f Dockerfile .
 docker push USER/node-env
 ```
 
 Building builder image,
 
 ```console
-cd builder && docker build -t USER/node-builder --build-arg NODE_BASE_IMG=22.18.0-alpine3.21 -f Dockerfile .
-docker push USER/go-builder
+cd builder && docker build -t USER/node-builder --build-arg NODE_BASE_IMG=22.22.3-alpine3.23 -f Dockerfile .
+docker push USER/node-builder
 ```
 
 ## Using the image in fission

@@ -16,8 +16,8 @@ jobs:
       release_needed: ${{ steps.release_env.outputs.release_needed }}
     steps:
       - name: Checkout the current repo
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/workflows/filters/version_filter.yaml
@@ -26,7 +26,7 @@ jobs:
         run: |
           python3 hack/release_check.py ${{ steps.filter.outputs.changes }}
   docker-buildx-push:
-    if: ${{ needs.check.outputs.release_needed == 'True' }}
+    if: ${{ needs.check.outputs.release_needed == 'true' }}
     needs: check
     strategy:
       fail-fast: false
@@ -34,11 +34,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
         with:
           version: latest
           use: 'true'

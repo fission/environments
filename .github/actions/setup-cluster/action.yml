@@ -30,11 +30,12 @@ runs:
         version: ${{ inputs.helm-version }}
 
     - name: Kind Cluster
-      uses: engineerd/setup-kind@71e45b960fc8dd50b4aeabf6eb6ef2ca0920b4c1 # v0.6.2
+      uses: helm/kind-action@ef37e7f390d99f746eb8b610417061a60e82a6cc # v1.14.0
       with:
-        image: ${{ inputs.kind-node-image }}
+        node_image: ${{ inputs.kind-node-image }}
         version: ${{ inputs.kind-version }}
         config: ${{ inputs.kind-config }}
+        cluster_name: kind
 
     - name: Configuring and testing the Installation
       shell: bash

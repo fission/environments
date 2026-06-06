@@ -158,10 +158,7 @@ jobs:
         uses: ./.github/actions/setup-cluster
       - name: perl
         if: steps.filter.outputs.perl == 'true'
-        uses: hiberbee/github-action-skaffold@1.27.0
-        with:
-          command: run
-          profile: perl
+        run: SKAFFOLD_PROFILE=perl make skaffold-run
   php7:
     runs-on: ubuntu-latest
     needs: check

@@ -9,8 +9,12 @@ runs:
   steps:
     - name: Collect Fission Dump
       shell: bash
+      # Best effort: the dump must never mask the original job failure
+      # (e.g. when the fission CLI was never installed because setup failed).
       run: |
-        command -v fission && fission support dump
+        if command -v fission; then
+          fission support dump || true
+        fi
 
     - name: Archive fission dump
       uses: actions/upload-artifact@v4
@@ -18,3 +22,4 @@ runs:
         name: ${{ inputs.workflow-name }}-fission-dump
         path: fission-dump/*.zip
         retention-days: 5
+        if-no-files-found: ignore

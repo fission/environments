@@ -1,4 +1,4 @@
-ARG PY_BASE_IMG=3.11-alpine
+ARG PY_BASE_IMG=3.13-alpine
 
 FROM python:${PY_BASE_IMG}
 

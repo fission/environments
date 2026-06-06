@@ -160,13 +160,13 @@ jobs:
   python:
     runs-on: ubuntu-latest
     needs: check
-    if: contains( needs.check.outputs, 'python' )
+    if: contains( needs.check.outputs.packages, '"python"' )
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       - name: Unit test
         run: |
           pip3 install virtualenv
@@ -202,9 +202,9 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       - name: Unit test
         run: |
           pip3 install virtualenv

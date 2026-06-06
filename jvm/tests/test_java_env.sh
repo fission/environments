@@ -3,6 +3,11 @@
 set -euo pipefail
 source test_utils/utils.sh
 
+# Use the locally built image loaded into kind by `make jvm-test-images`
+# (the utils.sh default points at the stale Docker Hub image), matching the
+# convention of the go/binary/nodejs/python tests.
+export JVM_RUNTIME_IMAGE=jvm-env
+
 TEST_ID=$(generate_test_id)
 echo "TEST_ID = $TEST_ID"
 

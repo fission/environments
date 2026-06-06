@@ -1,13 +1,12 @@
 ARG BUILDER_IMAGE=fission/builder:latest
 FROM ${BUILDER_IMAGE}
 
-FROM php:7.3-alpine
+FROM php:8.3-alpine
 
 ENV PATH="/root/.composer/vendor/bin:${PATH}" \
     COMPOSER_ALLOW_SUPERUSER=1
 
-RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
-    && apk --no-cache add \
+RUN apk --no-cache add \
     git \
     curl \
     curl-dev \
@@ -17,7 +16,6 @@ RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositor
     jpeg-dev \
     libjpeg-turbo-dev \
     postgresql-dev \
-    libmcrypt-dev \
     libpng-dev \
     icu-dev \
     gettext-dev \
@@ -33,39 +31,29 @@ RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositor
     make \
     libc-dev
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
-# Install useful extensions
+# Install useful extensions that are not already built into php:8.3-alpine.
+# (ctype/curl/dom/iconv/fileinfo/pdo/phar/simplexml/json are bundled with
+# the official image; xmlrpc and mcrypt were removed from PHP 8 core and their
+# PECL ports are unmaintained, so they are no longer included.)
 RUN docker-php-ext-install \
     opcache \
     bcmath \
-    ctype \
-    curl \
-    dom \
-    iconv \
-    fileinfo \
+    ftp \
     gd \
     gettext \
     intl \
-    json \
     mysqli \
     pgsql \
     pcntl \
-    pdo \
-    ftp \
     pdo_mysql \
     pdo_pgsql \
-    phar \
-    simplexml \
-    xmlrpc \
     zip
-
-RUN pecl install \
-    mcrypt-1.0.2
-RUN docker-php-ext-enable \
-    mcrypt
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY --from=0 /builder /builder
 COPY defaultBuildCmd /usr/local/bin/build
+
+EXPOSE 8001

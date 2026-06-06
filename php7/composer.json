@@ -5,8 +5,9 @@
         }
     },
     "require": {
-        "monolog/monolog": "^1.22",
-        "react/http": "^0.8.4",
-        "nikic/php-parser": "^4.2"
+        "monolog/monolog": "^3.10",
+        "react/http": "^1.11",
+        "react/socket": "^1.17",
+        "nikic/php-parser": "^5.7"
     }
 }

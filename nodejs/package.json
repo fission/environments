@@ -21,7 +21,7 @@
     "minimist": "^1.2.8",
     "pino": "^9.4.0",
     "pino-pretty": "^11.2.2",
-    "ws": "^8.18.3"
+    "ws": "^8.20.1"
   },
   "scripts": {
     "start": "node server.js"

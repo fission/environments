@@ -2,7 +2,7 @@
 
 This is the Python environment for Fission based on FastAPI framework.
 
-It's a Docker image containing a Python 3.11 runtime, along with a
+It's a Docker image containing a Python 3.13 runtime, along with a
 dynamic loader.  A few common dependencies are included in the
 requirements.txt file.
 
@@ -25,7 +25,7 @@ gcr.io, quay.io, etc.  Let's assume you're using a docker hub account
 called USER.  Build and push the image to the the registry:
 
 ```
-   docker build -t USER/python-fastapi-env --build-arg PY_BASE_IMG=3.11-alpine . && docker push USER/python-fastapi-env
+   docker build -t USER/python-fastapi-env --build-arg PY_BASE_IMG=3.13-alpine . && docker push USER/python-fastapi-env
 ```
 
 ## Using the image in fission

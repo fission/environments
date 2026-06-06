@@ -2,8 +2,10 @@
 set -euxo pipefail
 
 if [ -f ${SRC_PKG}/Gemfile.lock ]
-then 
+then
 	cd $SRC_PKG
-	bundle install --deployment
+	# --deployment is deprecated in bundler 2.x; the config form is equivalent.
+	bundle config set --local deployment true
+	bundle install
 fi
 cp -r ${SRC_PKG} ${DEPLOY_PKG}

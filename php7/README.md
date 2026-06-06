@@ -2,7 +2,7 @@
 
 This is the PHP environment for Fission.
 
-It's a Docker image containing a PHP 7.3 runtime. This image use php:7.3-cli base image with the built-in PHP server
+It's a Docker image containing a PHP 8.3 runtime. This image uses the php:8.3-alpine base image with the built-in PHP server
 
 This environment does not force you to use a specific class or create a main function.
 

@@ -18,10 +18,10 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "20.16.0-debian",
+    "runtimeVersion": "22.22.3-debian",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.33"
+    "version": "1.34"
   },
   {
     "builder": "node-builder-22",
@@ -42,10 +42,10 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "22.6.0",
+    "runtimeVersion": "22.22.3",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.33"
+    "version": "1.34"
   },
   {
     "builder": "node-builder",
@@ -66,10 +66,10 @@
     ],
     "name": "Nodejs Environment",
     "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "20.16.0",
+    "runtimeVersion": "22.22.3",
     "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.33"
+    "version": "1.34"
   }
 ]
 ,
@@ -92,16 +92,16 @@
     ],
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
-    "runtimeVersion": "1.25",
-    "shortDescription": "Fission Go 1.25 environment, which uses dynamic loader based on Go plugins.",
+    "runtimeVersion": "1.26",
+    "shortDescription": "Fission Go 1.26 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.33.0"
+    "version": "1.34.0"
   },
   {
-    "builder": "go-builder-1.25",
+    "builder": "go-builder-1.26",
     "examples": "https://github.com/fission/environments/tree/master/go/examples",
     "icon": "./logo/go-logo-blue.svg",
-    "image": "go-env-1.25",
+    "image": "go-env-1.26",
     "kind": "environment",
     "maintainers": [
       {
@@ -115,10 +115,10 @@
     ],
     "name": "Go Environment",
     "readme": "https://github.com/fission/environments/tree/master/go",
-    "runtimeVersion": "1.25",
-    "shortDescription": "Fission Go 1.25 environment, which uses dynamic loader based on Go plugins.",
+    "runtimeVersion": "1.26",
+    "shortDescription": "Fission Go 1.26 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.33.0"
+    "version": "1.34.0"
   }
 ]
 ,
@@ -142,10 +142,10 @@
     ],
     "name": "Python FastAPI Environment",
     "readme": "https://github.com/fission/environments/tree/master/python",
-    "runtimeVersion": "3.11",
+    "runtimeVersion": "3.13",
     "shortDescription": "Fission Python environment based on FastAPI framework.",
     "status": "stable",
-    "version": "1.34.2"
+    "version": "1.35.0"
   }
 ]
 ,
@@ -169,10 +169,10 @@
     ],
     "name": "Python Environment",
     "readme": "https://github.com/fission/environments/tree/master/python",
-    "runtimeVersion": "3.11",
+    "runtimeVersion": "3.13",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "stable",
-    "version": "1.34.3"
+    "version": "1.35.0"
   }
 ]
 ,
@@ -230,10 +230,10 @@
     ],
     "name": "JVM Environment",
     "readme": "https://github.com/fission/environments/tree/master/jvm",
-    "runtimeVersion": "22",
+    "runtimeVersion": "25",
     "shortDescription": "JVM environment based on Spring Boot server",
     "status": "Stable",
-    "version": "1.31.3"
+    "version": "1.32.0"
   }
 ]
 ,
@@ -261,10 +261,10 @@
     ],
     "name": "PHP Environment",
     "readme": "https://github.com/fission/environments/tree/master/perl",
-    "runtimeVersion": "7",
+    "runtimeVersion": "8.3",
     "shortDescription": "PHP environment with built-in server",
     "status": "Stable",
-    "version": "1.31.2"
+    "version": "1.32.0"
   }
 ]
 ,
@@ -300,10 +300,10 @@
 ,
 [
   {
-    "builder": "jvm-jersey-builder-22",
+    "builder": "jvm-jersey-builder-25",
     "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
     "icon": "./logo/Java-Logo.png",
-    "image": "jvm-jersey-env-22",
+    "image": "jvm-jersey-env-25",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
@@ -322,10 +322,10 @@
     ],
     "name": "JVM Environment",
     "readme": "https://github.com/fission/environments/tree/master/jvm-jersey",
-    "runtimeVersion": "22",
+    "runtimeVersion": "25",
     "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
     "status": "Stable",
-    "version": "1.31.2"
+    "version": "1.32.0"
   }
 ]
 ,
@@ -349,10 +349,10 @@
     ],
     "name": "Fission Binary Environment",
     "readme": "https://github.com/fission/environments/tree/master/binary",
-    "runtimeVersion": "3.20-alpine",
+    "runtimeVersion": "3.22-alpine",
     "shortDescription": "Fission environment to run any binary",
     "status": "Stable",
-    "version": "1.32.3"
+    "version": "1.33.0"
   }
 ]
 ,
@@ -464,10 +464,10 @@
     ],
     "name": "Ruby Environment",
     "readme": "https://github.com/fission/environments/tree/master/ruby",
-    "runtimeVersion": "2.6.1",
+    "runtimeVersion": "3.4",
     "shortDescription": "Ruby environment with WEBrick library",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.32.0"
   }
 ]
 

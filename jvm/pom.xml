@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.2</version>
+		<version>3.5.14</version>
 	</parent>
 
 	<dependencies>
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>io.fission</groupId>
 			<artifactId>fission-java-core</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -39,12 +39,7 @@
 		</plugins>
 	</build>
 
-	<!-- Adding Sonatype repository to pull snapshots -->
-	<repositories>
-		<repository>
-			<id>fission-java-core</id>
-			<name>fission-java-core-snapshot</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
+	<!-- fission-java-core is built from source and installed into the local
+	     Maven repository (see install-fission-java-core.sh); no extra
+	     repositories are needed. -->
 </project>

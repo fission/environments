@@ -25,7 +25,7 @@ gcr.io, quay.io, etc.  Let's assume you're using a docker hub account
 called USER.  Build and push the image to the the registry:
 
 ```
-   docker build -t USER/python-env --build-arg PY_BASE_IMG=3.11-alpine . && docker push USER/python-env
+   docker build -t USER/python-env --build-arg PY_BASE_IMG=3.13-alpine . && docker push USER/python-env
 ```
 
 ## Using the image in fission

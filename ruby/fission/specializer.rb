@@ -30,7 +30,9 @@ module Fission
 
       def self.load_vendor(path)
         gems = Dir[File.join(path, 'vendor/bundle/ruby/*/gems/*/lib')]
-        exts = Dir[File.join(path, 'vendor/bundle/ruby/*/extensions/x86_64-linux/*/*')]
+        # Match any platform dir (x86_64-linux-musl, aarch64-linux-musl, ...)
+        # instead of hardcoding x86_64-linux.
+        exts = Dir[File.join(path, 'vendor/bundle/ruby/*/extensions/*/*/*')]
 
         $LOAD_PATH.unshift(*gems)
         $LOAD_PATH.unshift(*exts)

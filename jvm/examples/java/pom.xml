@@ -13,19 +13,20 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.0.1.RELEASE</version>
+			<version>3.5.14</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.fission</groupId>
 			<artifactId>fission-java-core</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>0.0.2</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -52,7 +53,7 @@
 			<plugin>
             			<groupId>org.apache.maven.plugins</groupId>
             			<artifactId>maven-surefire-plugin</artifactId>
-            			<version>2.22.1</version>
+            			<version>3.5.4</version>
             			<configuration>
                 			<useSystemClassLoader>false</useSystemClassLoader>
             			</configuration>
@@ -60,13 +61,9 @@
 		</plugins>
 	</build>
 
-	<!-- Adding Sonatype repository to pull snapshots -->
-	<repositories>
-		<repository>
-			<id>fission-java-core</id>
-			<name>fission-java-core-snapshot</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
+	<!-- fission-java-core is not available in any remote repository; install
+	     it into the local Maven repository first by running
+	     jvm/install-fission-java-core.sh (the jvm-builder image ships with it
+	     pre-installed). -->
 
 </project>

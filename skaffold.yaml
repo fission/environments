@@ -59,14 +59,14 @@ profiles:
       docker:
         dockerfile: Dockerfile-1.1x
         buildArgs:
-          GO_VERSION: "1.25"
+          GO_VERSION: "1.26"
           UBUNTU_VERSION: "22.04"
     - image: go-builder
       context: go/builder/
       docker:
         dockerfile: Dockerfile-1.1x
         buildArgs:
-          GO_VERSION: "1.25"
+          GO_VERSION: "1.26"
 - name: jvm
   build:
     artifacts:
@@ -164,8 +164,8 @@ profiles:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          GO_BASE_IMAGE: "1.22-alpine"
-          ALPINE_VERSION: "3.20"
+          GO_BASE_IMAGE: "1.26-alpine"
+          ALPINE_VERSION: "3.22"
     - image: binary-builder
       context: binary/builder/
       docker:

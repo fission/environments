@@ -2,9 +2,9 @@
 ARG BUILDER_IMAGE=fission/builder
 FROM ${BUILDER_IMAGE} AS builder
 
-## From the eclipse-temurin:22-jdk-alpine - (https://github.com/adoptium/containers/blob/07677395574f5d3462c3b6fdf5f6c4a0a350b683/22/jdk/alpine/Dockerfile)
+## From the eclipse-temurin:25-jdk-alpine - (https://github.com/adoptium/containers)
 
-FROM eclipse-temurin:22-jdk-alpine
+FROM eclipse-temurin:25-jdk-alpine
 
 ## Section copied from the Maven Dockerfile
 
@@ -17,13 +17,13 @@ LABEL org.opencontainers.image.description="Apache Maven is a software project m
 
 ENV MAVEN_HOME=/usr/share/maven
 
-COPY --from=maven:3.9.9-eclipse-temurin-11 ${MAVEN_HOME} ${MAVEN_HOME}
-COPY --from=maven:3.9.9-eclipse-temurin-11 /usr/local/bin/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
-COPY --from=maven:3.9.9-eclipse-temurin-11 /usr/share/maven/ref/settings-docker.xml /usr/share/maven/ref/settings-docker.xml
+COPY --from=maven:3.9.16-eclipse-temurin-25 ${MAVEN_HOME} ${MAVEN_HOME}
+COPY --from=maven:3.9.16-eclipse-temurin-25 /usr/local/bin/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
+COPY --from=maven:3.9.16-eclipse-temurin-25 /usr/share/maven/ref/settings-docker.xml /usr/share/maven/ref/settings-docker.xml
 
 RUN ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn
 
-ARG MAVEN_VERSION=3.9.9
+ARG MAVEN_VERSION=3.9.16
 ARG USER_HOME_DIR="/root"
 ENV MAVEN_CONFIG="$USER_HOME_DIR/.m2"
 

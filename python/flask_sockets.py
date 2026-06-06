@@ -7,7 +7,7 @@
 import gevent
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import NotFound
-from werkzeug.http import parse_cookie
+from werkzeug.sansio.http import parse_cookie
 from flask import request
 
 from socket_tracker import WebsocketTracker

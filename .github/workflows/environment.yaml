@@ -277,10 +277,7 @@ jobs:
         uses: ./.github/actions/setup-cluster
       - name: tensorflow-serving
         if: steps.filter.outputs.tensorflow-serving == 'true'
-        uses: hiberbee/github-action-skaffold@1.27.0
-        with:
-          command: run
-          profile: tensorflow-serving
+        run: SKAFFOLD_PROFILE=tensorflow-serving make skaffold-run
   dotnet8:
     runs-on: ubuntu-latest
     needs: check

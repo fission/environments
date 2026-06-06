@@ -1,63 +1,151 @@
 [
 [
   {
-    "builder": "jvm-jersey-builder-11",
-    "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
-    "icon": "./logo/Java-Logo.png",
-    "image": "jvm-jersey-env-11",
+    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "image": "node-env-debian",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
       {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
       },
       {
         "link": "https://github.com/vishal-biyani",
         "name": "vishal-biyani"
       }
     ],
-    "name": "JVM Environment",
-    "readme": "https://github.com/fission/environments/tree/master/jvm-jersey",
-    "runtimeVersion": "11",
-    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
+    "name": "Nodejs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/nodejs",
+    "runtimeVersion": "20.16.0-debian",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.33"
+  },
+  {
+    "builder": "node-builder-22",
+    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "image": "node-env-22",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Nodejs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/nodejs",
+    "runtimeVersion": "22.6.0",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.33"
+  },
+  {
+    "builder": "node-builder",
+    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "icon": "./logo/nodejs-new-pantone-black.svg",
+    "image": "node-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Nodejs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/nodejs",
+    "runtimeVersion": "20.16.0",
+    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.33"
   }
 ]
 ,
 [
   {
-    "builder": "ruby-builder",
-    "examples": "https://github.com/fission/environments/tree/master/ruby/examples",
-    "icon": "./logo/Ruby_logo.svg",
-    "image": "ruby-env",
-    "keywords": [],
+    "builder": "go-builder",
+    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "icon": "./logo/go-logo-blue.svg",
+    "image": "go-env",
     "kind": "environment",
     "maintainers": [
       {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
       },
       {
         "link": "https://github.com/vishal-biyani",
         "name": "vishal-biyani"
       }
     ],
-    "name": "Ruby Environment",
-    "readme": "https://github.com/fission/environments/tree/master/ruby",
-    "runtimeVersion": "2.6.1",
-    "shortDescription": "Ruby environment with WEBrick library",
+    "name": "Go Environment",
+    "readme": "https://github.com/fission/environments/tree/master/go",
+    "runtimeVersion": "1.25",
+    "shortDescription": "Fission Go 1.25 environment, which uses dynamic loader based on Go plugins.",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.33.0"
+  },
+  {
+    "builder": "go-builder-1.25",
+    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "icon": "./logo/go-logo-blue.svg",
+    "image": "go-env-1.25",
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Go Environment",
+    "readme": "https://github.com/fission/environments/tree/master/go",
+    "runtimeVersion": "1.25",
+    "shortDescription": "Fission Go 1.25 environment, which uses dynamic loader based on Go plugins.",
+    "status": "Stable",
+    "version": "1.33.0"
+  }
+]
+,
+[
+  {
+    "builder": "python-fastapi-builder",
+    "examples": "https://github.com/fission/environments/tree/master/python/examples",
+    "icon": "./logo/Python-logo-notext.png",
+    "image": "python-fastapi-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Python FastAPI Environment",
+    "readme": "https://github.com/fission/environments/tree/master/python",
+    "runtimeVersion": "3.11",
+    "shortDescription": "Fission Python environment based on FastAPI framework.",
+    "status": "stable",
+    "version": "1.34.2"
   }
 ]
 ,
@@ -84,34 +172,68 @@
     "runtimeVersion": "3.11",
     "shortDescription": "Fission Python environment based on Flask framework.",
     "status": "stable",
-    "version": "1.34.1"
+    "version": "1.34.3"
   }
 ]
 ,
 [
   {
-    "builder": "binary-builder",
-    "examples": "https://github.com/fission/environments/tree/master/binary/examples",
-    "icon": "./logo/full_colored_dark.svg",
-    "image": "binary-env",
+    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
+    "icon": "./logo/perl-programming-language.svg",
+    "image": "perl-env",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
       {
-        "link": "https://github.com/sanketsudake",
-        "name": "sanketsudake"
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
       },
       {
         "link": "https://github.com/vishal-biyani",
         "name": "vishal-biyani"
       }
     ],
-    "name": "Fission Binary Environment",
-    "readme": "https://github.com/fission/environments/tree/master/binary",
-    "runtimeVersion": "3.20-alpine",
-    "shortDescription": "Fission environment to run any binary",
+    "name": "Perl Environment",
+    "readme": "https://github.com/fission/environments/tree/master/perl",
+    "runtimeVersion": "5.42",
+    "shortDescription": "Perl environment based on the Dancer2 framework",
     "status": "Stable",
-    "version": "1.32.2"
+    "version": "1.32.0"
+  }
+]
+,
+[
+  {
+    "builder": "jvm-builder",
+    "examples": "https://github.com/fission/environments/tree/master/jvm/examples",
+    "icon": "./logo/Java-Logo.png",
+    "image": "jvm-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "JVM Environment",
+    "readme": "https://github.com/fission/environments/tree/master/jvm",
+    "runtimeVersion": "22",
+    "shortDescription": "JVM environment based on Spring Boot server",
+    "status": "Stable",
+    "version": "1.31.3"
   }
 ]
 ,
@@ -148,6 +270,124 @@
 ,
 [
   {
+    "examples": "https://github.com/fission/environments/tree/master/dotnet/examples",
+    "icon": "./logo/dotnet-logo.svg",
+    "image": "dotnet-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Dotnet Environment",
+    "readme": "https://github.com/fission/environments/tree/master/dotnet",
+    "runtimeVersion": "1.1.0",
+    "shortDescription": "Fission Dotnet 1.1.0 runtime uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",
+    "status": "Stable",
+    "version": "1.31.1"
+  }
+]
+,
+[
+  {
+    "builder": "jvm-jersey-builder-22",
+    "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
+    "icon": "./logo/Java-Logo.png",
+    "image": "jvm-jersey-env-22",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "JVM Environment",
+    "readme": "https://github.com/fission/environments/tree/master/jvm-jersey",
+    "runtimeVersion": "22",
+    "shortDescription": "JVM environment based on Jersey RESTful Web Services framework",
+    "status": "Stable",
+    "version": "1.31.2"
+  }
+]
+,
+[
+  {
+    "builder": "binary-builder",
+    "examples": "https://github.com/fission/environments/tree/master/binary/examples",
+    "icon": "./logo/full_colored_dark.svg",
+    "image": "binary-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Fission Binary Environment",
+    "readme": "https://github.com/fission/environments/tree/master/binary",
+    "runtimeVersion": "3.20-alpine",
+    "shortDescription": "Fission environment to run any binary",
+    "status": "Stable",
+    "version": "1.32.3"
+  }
+]
+,
+[
+  {
+    "examples": "https://github.com/fission/environments/tree/master/tensorflow-serving/examples",
+    "icon": "./logo/Tensorflow_logo.svg",
+    "image": "tensorflow-serving-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/life1347",
+        "name": "life1347"
+      },
+      {
+        "link": "https://github.com/soamvasani",
+        "name": "soamvasani"
+      },
+      {
+        "link": "https://github.com/vishal-biyani",
+        "name": "vishal-biyani"
+      }
+    ],
+    "name": "Tensorflow Serving Environment",
+    "readme": "https://github.com/fission/environments/tree/master/tensorflow-serving",
+    "runtimeVersion": "2.20.0",
+    "shortDescription": "TensorFlow Serving for machine learning models",
+    "status": "Stable",
+    "version": "1.32.0"
+  }
+]
+,
+[
+  {
     "builder": "dotnet20-builder",
     "examples": "https://github.com/fission/environments/tree/master/dotnet20/examples",
     "icon": "./logo/logo_NETcore.svg",
@@ -179,82 +419,6 @@
 ,
 [
   {
-    "builder": "go-builder",
-    "examples": "https://github.com/fission/environments/tree/master/go/examples",
-    "icon": "./logo/go-logo-blue.svg",
-    "image": "go-env",
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/sanketsudake",
-        "name": "sanketsudake"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "Go Environment",
-    "readme": "https://github.com/fission/environments/tree/master/go",
-    "runtimeVersion": "1.22",
-    "shortDescription": "Fission Go 1.22 environment, which uses dynamic loader based on Go plugins.",
-    "status": "Stable",
-    "version": "1.32.3"
-  },
-  {
-    "builder": "go-builder-1.23",
-    "examples": "https://github.com/fission/environments/tree/master/go/examples",
-    "icon": "./logo/go-logo-blue.svg",
-    "image": "go-env-1.23",
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/sanketsudake",
-        "name": "sanketsudake"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "Go Environment",
-    "readme": "https://github.com/fission/environments/tree/master/go",
-    "runtimeVersion": "1.23",
-    "shortDescription": "Fission Go 1.23 environment, which uses dynamic loader based on Go plugins.",
-    "status": "Stable",
-    "version": "1.32.3"
-  }
-],
-[
-  {
-    "examples": "https://github.com/fission/environments/tree/master/dotnet/examples",
-    "icon": "./logo/dotnet-logo.svg",
-    "image": "dotnet-env",
-    "keywords": [],
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "Dotnet Environment",
-    "readme": "https://github.com/fission/environments/tree/master/dotnet",
-    "runtimeVersion": "1.1.0",
-    "shortDescription": "Fission Dotnet 1.1.0 runtime uses Kestrel with Nancy to host the internal web server and uses Roslyn to compile the uploaded code.",
-    "status": "Stable",
-    "version": "1.31.1"
-  }
-],[
-  {
     "builder": "dotnet8-builder",
     "examples": "https://github.com/fission/environments/tree/master/dotnet8/examples",
     "icon": "./logo/logo_NETcore.svg",
@@ -263,32 +427,25 @@
     "kind": "environment",
     "maintainers": [
       {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
       }
     ],
     "name": "Dotnet 8 Environment",
     "readme": "https://github.com/fission/environments/tree/master/dotnet8",
-    "runtimeVersion": "8.0.18",
-    "shortDescription": "Fission Dotnet 8.0.18 runtime w/ .NET SDK 8.0.412 and ASP.NET Core 8.0.18",
+    "runtimeVersion": "8.0.0",
+    "shortDescription": "Fission Dotnet 8.0.0 runtime uses Kestrel to host the internal web server. Supports both single file compilation (--code) and project-based compilation (--src).",
     "status": "Stable",
-    "version": "1.0.0"
+    "version": "1.4.0"
   }
 ]
 ,
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
-    "icon": "./logo/perl-programming-language.svg",
-    "image": "perl-env",
+    "builder": "ruby-builder",
+    "examples": "https://github.com/fission/environments/tree/master/ruby/examples",
+    "icon": "./logo/Ruby_logo.svg",
+    "image": "ruby-env",
     "keywords": [],
     "kind": "environment",
     "maintainers": [
@@ -305,147 +462,12 @@
         "name": "vishal-biyani"
       }
     ],
-    "name": "Perl Environment",
-    "readme": "https://github.com/fission/environments/tree/master/perl",
-    "runtimeVersion": "5",
-    "shortDescription": "Perl environment based on the Dancer2 framework",
+    "name": "Ruby Environment",
+    "readme": "https://github.com/fission/environments/tree/master/ruby",
+    "runtimeVersion": "2.6.1",
+    "shortDescription": "Ruby environment with WEBrick library",
     "status": "Stable",
     "version": "1.31.1"
-  }
-]
-,
-[
-  {
-    "examples": "https://github.com/fission/environments/tree/master/tensorflow-serving/examples",
-    "icon": "./logo/Tensorflow_logo.svg",
-    "image": "tensorflow-serving-env",
-    "keywords": [],
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "Tensorflow Serving Environment",
-    "readme": "https://github.com/fission/environments/tree/master/tensorflow-serving",
-    "runtimeVersion": "latest",
-    "shortDescription": "TensorFlow Serving for machine learning models",
-    "status": "Stable",
-    "version": "1.31.1"
-  }
-]
-,
-[
-  {
-    "builder": "jvm-builder",
-    "examples": "https://github.com/fission/environments/tree/master/jvm/examples",
-    "icon": "./logo/Java-Logo.png",
-    "image": "jvm-env",
-    "keywords": [],
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/life1347",
-        "name": "life1347"
-      },
-      {
-        "link": "https://github.com/soamvasani",
-        "name": "soamvasani"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "JVM Environment",
-    "readme": "https://github.com/fission/environments/tree/master/jvm",
-    "runtimeVersion": "8",
-    "shortDescription": "JVM environment based on Spring Boot server",
-    "status": "Stable",
-    "version": "1.31.1"
-  }
-]
-,
-[
-  {
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
-    "icon": "./logo/nodejs-new-pantone-black.svg",
-    "image": "node-env-debian",
-    "keywords": [],
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/sanketsudake",
-        "name": "sanketsudake"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "Nodejs Environment",
-    "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "20.16.0-debian",
-    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
-    "status": "Stable",
-    "version": "1.32.4"
-  },
-  {
-    "builder": "node-builder-22",
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
-    "icon": "./logo/nodejs-new-pantone-black.svg",
-    "image": "node-env-22",
-    "keywords": [],
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/sanketsudake",
-        "name": "sanketsudake"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "Nodejs Environment",
-    "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "22.6.0",
-    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
-    "status": "Stable",
-    "version": "1.32.4"
-  },
-  {
-    "builder": "node-builder",
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
-    "icon": "./logo/nodejs-new-pantone-black.svg",
-    "image": "node-env",
-    "keywords": [],
-    "kind": "environment",
-    "maintainers": [
-      {
-        "link": "https://github.com/sanketsudake",
-        "name": "sanketsudake"
-      },
-      {
-        "link": "https://github.com/vishal-biyani",
-        "name": "vishal-biyani"
-      }
-    ],
-    "name": "Nodejs Environment",
-    "readme": "https://github.com/fission/environments/tree/master/nodejs",
-    "runtimeVersion": "20.16.0",
-    "shortDescription": "Fission NodeJS environment based on Express with some basic dependencies added",
-    "status": "Stable",
-    "version": "1.32.4"
   }
 ]
 

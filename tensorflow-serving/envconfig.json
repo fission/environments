@@ -21,9 +21,9 @@
     ],
     "name": "Tensorflow Serving Environment",
     "readme": "https://github.com/fission/environments/tree/master/tensorflow-serving",
-    "runtimeVersion": "latest",
+    "runtimeVersion": "2.20.0",
     "shortDescription": "TensorFlow Serving for machine learning models",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.32.0"
   }
 ]

@@ -21,9 +21,9 @@
     ],
     "name": "Perl Environment",
     "readme": "https://github.com/fission/environments/tree/master/perl",
-    "runtimeVersion": "5",
+    "runtimeVersion": "5.42",
     "shortDescription": "Perl environment based on the Dancer2 framework",
     "status": "Stable",
-    "version": "1.31.1"
+    "version": "1.32.0"
   }
 ]

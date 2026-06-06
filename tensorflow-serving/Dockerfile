@@ -1,19 +1,19 @@
-ARG GO_VERSION=1.13
+ARG GO_VERSION=1.26
 
-FROM tensorflow/serving as serving
+FROM tensorflow/serving:2.20.0 AS serving
 RUN apt update && apt install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 
 FROM golang:${GO_VERSION} AS builder
 
-ENV GOPATH /usr
-ENV APP	   ${GOPATH}/src/github.com/fission/fission/environments/tensorflow-serving
+ENV APP /src/tensorflow-serving
 
 WORKDIR ${APP}
 
 ADD server.go ${APP}
 
-RUN go get
-RUN go build -a -o /server server.go
+RUN go mod init github.com/fission/environments/tensorflow-serving && \
+    go mod tidy && \
+    go build -a -o /server server.go
 
 FROM serving
 WORKDIR /

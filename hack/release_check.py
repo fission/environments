@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import glob
 import json
 import os
 import sys
@@ -13,6 +14,11 @@ def check_if_image_exists(image,tag):
     # GHCR v2 API needs a bearer token even for public images;
     # an anonymous token is sufficient for pull scope.
     token_resp = requests.get(GHCR_TOKEN_URL.format(org=GHCR_ORG, env=image), timeout=30)
+    if token_resp.status_code in (401, 403, 404):
+        # GHCR refuses to issue a pull token for packages that do not exist
+        # yet (e.g. a brand-new image name) -> release needed.
+        print(f"GHCR token denied for '{image}' ({token_resp.status_code}); assuming the package does not exist yet")
+        return False
     token_resp.raise_for_status()
     token = token_resp.json().get("token")
     if not token:
@@ -42,6 +48,13 @@ def main(package_list_str):
     package_list = package_list_str.strip("[]")
     package_list = [p.strip().strip('"') for p in package_list.split(',') if p.strip()]
 
+    if not package_list:
+        # No changed packages (e.g. workflow_dispatch, where the paths filter
+        # has no diff): reconcile every environment so any envconfig version
+        # that never got published is picked up.
+        package_list = sorted(os.path.dirname(p) for p in glob.glob("*/envconfig.json"))
+        print(f"No packages passed; reconciling all environments: {package_list}")
+
     print(package_list, type(package_list))
     versions_to_be_released = []
     for package in package_list:
@@ -67,4 +80,4 @@ def main(package_list_str):
     set_output("release_needed", "true" if release_needed else "false")
 
 if __name__ == "__main__":
-   main(sys.argv[1])
+   main(sys.argv[1] if len(sys.argv) > 1 else "")

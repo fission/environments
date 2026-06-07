@@ -1,8 +1,11 @@
-use axum::{Json, Router, response::IntoResponse};
+use axum::{Json, Router, body::Bytes, response::IntoResponse};
 use serde_json::{Value, json};
 
-async fn echo(body: Option<Json<Value>>) -> impl IntoResponse {
-    Json(json!({ "echo": body.map(|Json(v)| v).unwrap_or(Value::Null) }))
+async fn echo(body: Bytes) -> impl IntoResponse {
+    // Echo JSON bodies as JSON, anything else as a string.
+    let value: Value = serde_json::from_slice(&body)
+        .unwrap_or_else(|_| Value::String(String::from_utf8_lossy(&body).into_owned()));
+    Json(json!({ "echo": value }))
 }
 
 #[tokio::main]

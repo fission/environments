@@ -22,7 +22,9 @@ python:
     - 'python/envconfig.json'
 python-fastapi:
     - 'python-fastapi/envconfig.json'
-ruby: 
+ruby:
     - 'ruby/envconfig.json'
+rust:
+    - 'rust/envconfig.json'
 tensorflow-serving:
     - 'tensorflow-serving/envconfig.json'

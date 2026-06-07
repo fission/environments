@@ -8,9 +8,14 @@ TMPPATH=$(mktemp -d)
 SERVER="http://localhost:8888"
 
 kill_processes() {
-    # Free the supervisor and function ports, whatever holds them.
+    # Free the supervisor and function ports, but only kill processes
+    # that look like ours — not unrelated services on a dev machine.
     for port in 8888 8889; do
-        lsof -ti tcp:$port | xargs kill 2>/dev/null || true
+        for pid in $(lsof -ti tcp:$port 2>/dev/null); do
+            case "$(ps -o comm= -p "$pid" 2>/dev/null)" in
+                *supervisor | *handler | *echo-example) kill "$pid" || true ;;
+            esac
+        done
     done
 }
 

@@ -79,6 +79,6 @@ log "Waiting for router to catch up"
 sleep 5
 
 log "Testing POST body passthrough"
-timeout 60 bash -c "test_post_route $fn_echo '{\"lang\":\"rust\"}' 'rust'"
+timeout 60 bash -c "test_post_route $fn_echo '{\"lang\":\"rust\"}' 'echo.*lang.*rust'"
 
 log "Test PASSED"

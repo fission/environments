@@ -56,12 +56,22 @@ where
     serve_router(Router::new().fallback(handler)).await
 }
 
+/// Resolve the address to bind. Defaults to loopback (the supervisor
+/// proxies over localhost); set `FISSION_RUNTIME_HOST=0.0.0.0` to expose
+/// the function directly, e.g. when running the binary standalone.
+fn host() -> std::net::IpAddr {
+    std::env::var("FISSION_RUNTIME_HOST")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(std::net::IpAddr::from([127, 0, 0, 1]))
+}
+
 /// Serve a user-built [`Router`] (multiple routes, state, middleware).
 pub async fn serve_router(router: Router) {
     // A panicking handler returns 500 and the process keeps serving;
     // the pod is not torn down by one bad request.
     let router = router.layer(CatchPanicLayer::new());
-    let addr = SocketAddr::from(([127, 0, 0, 1], port()));
+    let addr = SocketAddr::new(host(), port());
     let listener = tokio::net::TcpListener::bind(addr)
         .await
         .unwrap_or_else(|e| panic!("fission-rust: failed to bind {addr}: {e}"));

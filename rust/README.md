@@ -36,7 +36,7 @@ fission package create --name hello --src hello.rs --env rust
 ```
 
 Single-file functions may use the crates pre-baked into the builder's template: `fission-rust`, `axum`, `tokio`, `serde`, and `serde_json`.
-A source archive may also contain a `handler.rs` plus extra module files.
+A source archive may also contain a `handler.rs` plus extra module files; each file becomes a crate-root module, so `handler.rs` can reach a sibling `util.rs` as `crate::util`.
 For anything more, use a Cargo project.
 
 ### Cargo project mode
@@ -53,12 +53,14 @@ fission package create --name echo --src /tmp/project.zip --env rust
 If the project defines multiple `[[bin]]` targets, all are deployed and the function's `--entrypoint` selects the binary by name.
 A single binary is always deployed as `handler` and needs no entrypoint.
 
-To use the `fission-rust` SDK in project mode, reference the copy vendored inside the builder image:
+To use the `fission-rust` SDK in project mode, reference it as a git dependency (works both on your machine and inside the builder):
 
 ```toml
 [dependencies]
-fission-rust = { path = "/usr/src/fission/fission-rust" }
+fission-rust = { git = "https://github.com/fission/environments" }
 ```
+
+For air-gapped builds, the builder image also vendors the crate at `/usr/src/fission/fission-rust`, usable as a `path` dependency inside the builder.
 
 ## Layout
 

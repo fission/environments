@@ -88,7 +88,7 @@ async fn requests_before_specialize_return_500() {
 }
 
 #[tokio::test]
-async fn v2_specialize_with_bad_path_returns_500() {
+async fn v2_specialize_with_bad_path_returns_400() {
     let req = Request::post("/v2/specialize")
         .header("content-type", "application/json")
         .body(Body::from(
@@ -96,14 +96,28 @@ async fn v2_specialize_with_bad_path_returns_500() {
         ))
         .unwrap();
     let res = test_app().oneshot(req).await.unwrap();
-    assert_eq!(res.status(), StatusCode::INTERNAL_SERVER_ERROR);
+    assert_eq!(res.status(), StatusCode::BAD_REQUEST);
 }
 
 #[tokio::test]
-async fn v1_specialize_with_missing_code_path_returns_500() {
+async fn v2_specialize_with_empty_filepath_falls_back_to_v1_path() {
+    // The configured v1 code path does not exist, so the fallback surfaces
+    // as a 400 mentioning it (rather than a failure on "").
+    let req = Request::post("/v2/specialize")
+        .header("content-type", "application/json")
+        .body(Body::from(r#"{}"#))
+        .unwrap();
+    let res = test_app().oneshot(req).await.unwrap();
+    assert_eq!(res.status(), StatusCode::BAD_REQUEST);
+    let body = res.into_body().collect().await.unwrap().to_bytes();
+    assert!(String::from_utf8_lossy(&body).contains("/nonexistent/userfunc/user"));
+}
+
+#[tokio::test]
+async fn v1_specialize_with_missing_code_path_returns_400() {
     let res = test_app()
         .oneshot(Request::post("/specialize").body(Body::empty()).unwrap())
         .await
         .unwrap();
-    assert_eq!(res.status(), StatusCode::INTERNAL_SERVER_ERROR);
+    assert_eq!(res.status(), StatusCode::BAD_REQUEST);
 }

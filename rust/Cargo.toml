@@ -1,0 +1,20 @@
+[workspace]
+resolver = "2"
+members = ["supervisor", "fission-rust", "template"]
+
+[workspace.package]
+edition = "2024"
+license = "Apache-2.0"
+repository = "https://github.com/fission/environments"
+
+[workspace.dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "net", "macros", "signal"] }
+
+# Small, fast user binaries: aggressive release profile shared by the
+# supervisor, the template crate, and (when built in-workspace) examples.
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

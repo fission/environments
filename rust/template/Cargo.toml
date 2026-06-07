@@ -1,0 +1,22 @@
+# Template crate for single-file (--code) Rust functions.
+#
+# The builder copies the user's .rs file over src/handler.rs and runs
+# `cargo build --release`. The dependencies below define what single-file
+# functions may use; anything beyond this requires a full Cargo project
+# (source package with its own Cargo.toml).
+[package]
+name = "fission-function"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "handler"
+path = "src/main.rs"
+
+[dependencies]
+fission-rust = { path = "../fission-rust" }
+axum = { workspace = true }
+tokio = { workspace = true }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

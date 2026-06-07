@@ -22,7 +22,9 @@ python:
     - 'python/**'
 python-fastapi:
     - 'python-fastapi/**'
-ruby: 
+ruby:
     - 'ruby/**'
+rust:
+    - 'rust/**'
 tensorflow-serving:
     - 'tensorflow-serving/**'

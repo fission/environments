@@ -1,0 +1,26 @@
+[
+  {
+    "builder": "rust-builder",
+    "examples": "https://github.com/fission/environments/tree/master/rust/examples",
+    "icon": "./logo/rust-logo.svg",
+    "image": "rust-env",
+    "keywords": [
+      "rust",
+      "axum",
+      "tokio"
+    ],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/sanketsudake",
+        "name": "sanketsudake"
+      }
+    ],
+    "name": "Rust Environment",
+    "readme": "https://github.com/fission/environments/tree/master/rust",
+    "runtimeVersion": "1.96",
+    "shortDescription": "Fission Rust environment compiles functions to native server binaries (axum/tokio). Supports both single file compilation (--code/--src) and Cargo project compilation (--src).",
+    "status": "Stable",
+    "version": "1.0.0"
+  }
+]

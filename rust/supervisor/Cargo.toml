@@ -1,0 +1,21 @@
+[package]
+name = "supervisor"
+version = "0.1.0"
+description = "Fission Rust environment supervisor: specialize + reverse proxy"
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "supervisor"
+path = "src/main.rs"
+
+[dependencies]
+axum = { workspace = true }
+tokio = { workspace = true, features = ["process", "time"] }
+hyper-util = { version = "0.1", features = ["client-legacy", "http1", "tokio"] }
+serde = { version = "1", features = ["derive"] }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+tempfile = "3"

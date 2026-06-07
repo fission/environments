@@ -149,6 +149,23 @@ profiles:
       context: ruby/
       docker:
         dockerfile: Dockerfile
+- name: rust
+  build:
+    artifacts:
+    - image: rust-env
+      context: rust/
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          RUST_VERSION: "1.96"
+          DEBIAN_VERSION: bookworm
+    - image: rust-builder
+      context: rust/
+      docker:
+        dockerfile: builder/Dockerfile
+        buildArgs:
+          RUST_VERSION: "1.96"
+          DEBIAN_VERSION: bookworm
 - name: tensorflow-serving
   build:
     artifacts:

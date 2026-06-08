@@ -57,8 +57,12 @@ To use the `fission-rust` SDK in project mode, reference it as a git dependency 
 
 ```toml
 [dependencies]
-fission-rust = { git = "https://github.com/fission/environments" }
+fission-rust = { git = "https://github.com/fission/environments", rev = "<commit-sha>" }
 ```
+
+Pin the dependency to a commit with `rev` for reproducible builds.
+Without `rev` the git dependency tracks `master` and can change under you between builds; pinning a `rev` keeps every build resolving the same source.
+The builder fetches the crate over the network at build time, so it needs egress to GitHub — the same as for any crates.io dependency.
 
 For air-gapped builds, the builder image also vendors the crate at `/usr/src/fission/fission-rust`, usable as a `path` dependency inside the builder.
 

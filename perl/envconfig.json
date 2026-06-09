@@ -1,6 +1,6 @@
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
+    "examples": "https://github.com/fission/examples/tree/main/perl",
     "icon": "./logo/perl-programming-language.svg",
     "image": "perl-env",
     "keywords": [],

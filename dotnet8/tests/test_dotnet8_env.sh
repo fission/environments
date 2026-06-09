@@ -26,7 +26,7 @@ env=dotnet8-$TEST_ID
 fn_poolmgr=hello-dotnet8-pm-$TEST_ID
 fn_nd=hello-dotnet8-nd-$TEST_ID
 
-cd $ROOT/dotnet8/examples
+cd $ROOT/dotnet8/tests/fixtures
 
 DOTNET8_BUILDER_IMAGE=${DOTNET8_BUILDER_IMAGE:-davidchase03/dotnet8-builder:v21.1}
 DOTNET8_RUNTIME_IMAGE=${DOTNET8_RUNTIME_IMAGE:-davidchase03/dotnet8-env:v21.0}

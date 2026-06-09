@@ -1,7 +1,7 @@
 [
   {
     "builder": "jvm-jersey-builder-25",
-    "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
+    "examples": "https://github.com/fission/examples/tree/main/java",
     "icon": "./logo/Java-Logo.png",
     "image": "jvm-jersey-env-25",
     "keywords": [],

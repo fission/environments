@@ -1,7 +1,7 @@
 [
   {
     "builder": "ruby-builder",
-    "examples": "https://github.com/fission/environments/tree/master/ruby/examples",
+    "examples": "https://github.com/fission/examples/tree/main/ruby",
     "icon": "./logo/Ruby_logo.svg",
     "image": "ruby-env",
     "keywords": [],

@@ -1,7 +1,7 @@
 [
   {
     "builder": "python-fastapi-builder",
-    "examples": "https://github.com/fission/environments/tree/master/python/examples",
+    "examples": "https://github.com/fission/examples/tree/main/python-fastapi",
     "icon": "./logo/Python-logo-notext.png",
     "image": "python-fastapi-env",
     "keywords": [],

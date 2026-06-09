@@ -24,7 +24,7 @@ fi
 
 env=binary-$TEST_ID
 
-cd $ROOT/binary/examples
+cd $ROOT/binary/test/fixtures
 
 export BINARY_BUILDER_IMAGE=binary-builder
 export BINARY_RUNTIME_IMAGE=binary-env

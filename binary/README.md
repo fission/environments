@@ -17,7 +17,7 @@ See 'Compiling' for instructions.
 When executing functions using binaries, **ensure that the executable is built for the right architecture**.
 Using the default binary environment this means that the binary should be build for Linux.
 
-Looking for ready-to-run examples? See the [binary examples directory](./examples).
+Looking for ready-to-run examples? See the [binary examples directory](https://github.com/fission/examples/tree/main/miscellaneous/binary).
 
 ## Usage
 

@@ -6,7 +6,7 @@ It's a Docker image containing a Python 3.13 runtime, along with a
 dynamic loader.  A few common dependencies are included in the
 requirements.txt file.
 
-Looking for ready-to-run examples? See the [Python FastAPI examples directory](./examples).
+Looking for ready-to-run examples? See the [Python FastAPI examples directory](https://github.com/fission/examples/tree/main/python-fastapi).
 
 ## Customizing this image
 

@@ -31,7 +31,7 @@ public class MyFunction {
 }
 ```
 
-Please see examples below. Ready-to-run examples are available in the examples directory:
+Please see examples below. Ready-to-run examples are available in the [fission/examples repo](https://github.com/fission/examples/tree/main/dotnet8):
 - **HelloWorld** - Basic function demonstration
 - **HttpTriggerExample** - HTTP request handling with context detection
 - **AsyncFunctionExample** - Demonstrates async/await patterns

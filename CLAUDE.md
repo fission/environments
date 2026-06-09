@@ -7,7 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Language runtime environments for [Fission](https://fission.io) (Kubernetes serverless framework).
 Each top-level directory (`go/`, `python/`, `nodejs/`, `jvm/`, `binary/`, `dotnet8/`, etc.) is one self-contained environment that produces Docker images published to `ghcr.io/fission`.
 
-Every environment follows the same layout: `server.*` (the runtime HTTP server), `Dockerfile` + `Makefile` (runtime image), optional `builder/` (builder image with `build.sh`), `envconfig.json` (metadata; the `version` field drives releases), `examples/`, and `tests/` or `test/`.
+Every environment follows the same layout: `server.*` (the runtime HTTP server), `Dockerfile` + `Makefile` (runtime image), optional `builder/` (builder image with `build.sh`), `envconfig.json` (metadata; the `version` field drives releases), and `tests/` or `test/`.
+
+Runnable examples live in the [fission/examples](https://github.com/fission/examples) repo, not here.
+Each `tests/` (or `test/`) dir keeps a small `fixtures/` directory with the minimal function code its CI needs.
 
 ## Quick commands
 

@@ -32,7 +32,7 @@ public class FissionFunction {
 ```
 
 Please see examples below, or if you are looking for ready-to-run examples, see 
-the [DotNet examples directory](../../examples/dotnet).
+the [DotNet examples directory](https://github.com/fission/examples/tree/main/dotnet).
 
 ## Rebuilding and pushing the image
 

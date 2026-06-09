@@ -8,7 +8,7 @@
 3. On merge to master, `.github/workflows/release.yaml` (path filter `**/envconfig.json**`) runs `hack/release_check.py`, which emits a matrix of every `image:version` not yet on ghcr.io; the workflow's `docker-buildx-push` job then runs `TAG=<version> make <image>-img` (and `<builder>-img` in `builder/`) plus a `latest` push for each matrix entry.
 
 Image content changes without an envconfig bump never release — if a merged change should reach the published image (e.g. a lockfile refresh), follow up with a version-bump PR.
-Conversely, examples/ and docs changes don't need a bump (they're not in the image).
+Conversely, test fixtures and docs changes don't need a bump (they're not in the image).
 
 ## release_check.py semantics
 

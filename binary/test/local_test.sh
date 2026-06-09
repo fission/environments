@@ -30,7 +30,7 @@ echo "--Healthz"
 curl -i -f -X GET "$SERVER"/healthz
 
 echo "-- Specializing"
-curl -i -f -XPOST "$SERVER"/v2/specialize -H 'Content-Type: application/json' -d '{"filepath": "./examples/echo.sh"}'
+curl -i -f -XPOST "$SERVER"/v2/specialize -H 'Content-Type: application/json' -d '{"filepath": "./test/fixtures/echo.sh"}'
 
 echo "-- Running"
 curl -i -f -XPOST "$SERVER" -d 'Echoooooo!'

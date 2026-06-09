@@ -22,7 +22,7 @@ A few common extensions are included :
 - xmlrpc
 - zip
 
-Looking for ready-to-run examples? See the [PHP examples directory](../../examples/php).
+Looking for ready-to-run examples? See the [PHP examples directory](https://github.com/fission/examples/tree/main/php7).
 
 ## Customizing this image
 

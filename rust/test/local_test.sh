@@ -28,7 +28,7 @@ kill_processes
 
 cd "$DIR"
 cargo build --release -p supervisor -p fission-function
-(cd examples/project-example && cargo build --release)
+(cd test/fixtures/project-example && cargo build --release)
 
 wait_for_server() {
     for _ in $(seq 1 50); do
@@ -41,7 +41,7 @@ wait_for_server() {
 
 echo "-- Phase 1: project-mode binary (echo)"
 mkdir -p "$TMPPATH/deploy-echo"
-cp examples/project-example/target/release/echo-example "$TMPPATH/deploy-echo/handler"
+cp test/fixtures/project-example/target/release/echo-example "$TMPPATH/deploy-echo/handler"
 
 ./target/release/supervisor &
 wait_for_server

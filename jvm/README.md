@@ -6,7 +6,7 @@ It's a Docker image containing a OpenJDK22 runtime by [Eclipse Temurin](https://
 dynamic loader.  A few dependencies are included in the
 pom.xml file.
 
-Looking for ready-to-run examples? See the [JVM examples directory](../../examples/jvm).
+Looking for ready-to-run examples? See the [Java examples](https://github.com/fission/examples/tree/main/java).
 
 ## Customizing this image
 

@@ -17,7 +17,7 @@ The `Fission::Request` object is a subclass of `Rack::Request` and
 provides access to parameters and headers. See `fission/request.rb`
 for the public api.
 
-Looking for ready-to-run examples? See the [Ruby examples directory](../../examples/ruby).
+Looking for ready-to-run examples? See the [Ruby examples directory](https://github.com/fission/examples/tree/main/ruby).
 
 ## Customizing this image
 

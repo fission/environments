@@ -32,7 +32,7 @@ echo "--Healthz"
 curl -f -X GET http://localhost:$RUNTIME_PORT/healthz
 
 echo "-- Specializing"
-curl -f -XPOST http://localhost:$RUNTIME_PORT/v2/specialize -H 'Content-Type: application/json' -d '{"filepath": "./examples/hello.py", "functionName": "main"}'
+curl -f -XPOST http://localhost:$RUNTIME_PORT/v2/specialize -H 'Content-Type: application/json' -d '{"filepath": "./tests/fixtures/hello.py", "functionName": "main"}'
 
 echo "-- Running user function"
 echo "-- GET request"

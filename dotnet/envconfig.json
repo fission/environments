@@ -1,6 +1,6 @@
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/dotnet/examples",
+    "examples": "https://github.com/fission/examples/tree/main/dotnet",
     "icon": "./logo/dotnet-logo.svg",
     "image": "dotnet-env",
     "keywords": [],

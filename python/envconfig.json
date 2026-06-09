@@ -1,7 +1,7 @@
 [
   {
     "builder": "python-builder",
-    "examples": "https://github.com/fission/environments/tree/master/python/examples",
+    "examples": "https://github.com/fission/examples/tree/main/python",
     "icon": "./logo/Python-logo-notext.png",
     "image": "python-env",
     "keywords": [],

@@ -8,7 +8,7 @@ pom.xml file.
 
 Unlike the other [JVM environment](../jvm) which is based on the Spring framework, this environment uses Jersey.
 
-Looking for ready-to-run examples? See the [JVM examples directory](../../examples/jvm-jersey).
+Looking for ready-to-run examples? See the [Java examples](https://github.com/fission/examples/tree/main/java).
 
 ## Customizing this image
 

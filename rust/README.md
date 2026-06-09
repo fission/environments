@@ -43,10 +43,11 @@ For anything more, use a Cargo project.
 
 Provide a source archive containing a Cargo binary crate (a `Cargo.toml` at the archive root).
 The only contract: the binary must serve HTTP on `127.0.0.1:$FISSION_RUNTIME_PORT`.
-Any framework works — axum, actix-web, rocket, warp — see [examples/project-example](examples/project-example).
+Any framework works — axum, actix-web, rocket, warp — see [rust/project-example in fission/examples](https://github.com/fission/examples/tree/main/rust/project-example).
 
 ```sh
-cd examples/project-example && zip -r /tmp/project.zip Cargo.toml src
+# from a clone of https://github.com/fission/examples
+cd rust/project-example && zip -r /tmp/project.zip Cargo.toml src
 fission package create --name echo --src /tmp/project.zip --env rust
 ```
 

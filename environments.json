@@ -1,7 +1,7 @@
 [
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "examples": "https://github.com/fission/examples/tree/main/nodejs",
     "icon": "./logo/nodejs-new-pantone-black.svg",
     "image": "node-env-debian",
     "keywords": [],
@@ -25,7 +25,7 @@
   },
   {
     "builder": "node-builder-22",
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "examples": "https://github.com/fission/examples/tree/main/nodejs",
     "icon": "./logo/nodejs-new-pantone-black.svg",
     "image": "node-env-22",
     "keywords": [],
@@ -49,7 +49,7 @@
   },
   {
     "builder": "node-builder",
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "examples": "https://github.com/fission/examples/tree/main/nodejs",
     "icon": "./logo/nodejs-new-pantone-black.svg",
     "image": "node-env",
     "keywords": [],
@@ -76,7 +76,7 @@
 [
   {
     "builder": "go-builder",
-    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "examples": "https://github.com/fission/examples/tree/main/go",
     "icon": "./logo/go-logo-blue.svg",
     "image": "go-env",
     "kind": "environment",
@@ -99,7 +99,7 @@
   },
   {
     "builder": "go-builder-1.26",
-    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "examples": "https://github.com/fission/examples/tree/main/go",
     "icon": "./logo/go-logo-blue.svg",
     "image": "go-env-1.26",
     "kind": "environment",
@@ -125,7 +125,7 @@
 [
   {
     "builder": "python-fastapi-builder",
-    "examples": "https://github.com/fission/environments/tree/master/python/examples",
+    "examples": "https://github.com/fission/examples/tree/main/python-fastapi",
     "icon": "./logo/Python-logo-notext.png",
     "image": "python-fastapi-env",
     "keywords": [],
@@ -152,7 +152,7 @@
 [
   {
     "builder": "python-builder",
-    "examples": "https://github.com/fission/environments/tree/master/python/examples",
+    "examples": "https://github.com/fission/examples/tree/main/python",
     "icon": "./logo/Python-logo-notext.png",
     "image": "python-env",
     "keywords": [],
@@ -178,7 +178,7 @@
 ,
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
+    "examples": "https://github.com/fission/examples/tree/main/perl",
     "icon": "./logo/perl-programming-language.svg",
     "image": "perl-env",
     "keywords": [],
@@ -209,7 +209,7 @@
 [
   {
     "builder": "rust-builder",
-    "examples": "https://github.com/fission/environments/tree/master/rust/examples",
+    "examples": "https://github.com/fission/examples/tree/main/rust",
     "icon": "./logo/rust-logo.svg",
     "image": "rust-env",
     "keywords": [
@@ -236,7 +236,7 @@
 [
   {
     "builder": "jvm-builder",
-    "examples": "https://github.com/fission/environments/tree/master/jvm/examples",
+    "examples": "https://github.com/fission/examples/tree/main/java",
     "icon": "./logo/Java-Logo.png",
     "image": "jvm-env",
     "keywords": [],
@@ -267,7 +267,7 @@
 [
   {
     "builder": "php-builder",
-    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
+    "examples": "https://github.com/fission/examples/tree/main/php7",
     "icon": "./logo/new-php-logo.svg",
     "image": "php-env",
     "keywords": [],
@@ -297,7 +297,7 @@
 ,
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/dotnet/examples",
+    "examples": "https://github.com/fission/examples/tree/main/dotnet",
     "icon": "./logo/dotnet-logo.svg",
     "image": "dotnet-env",
     "keywords": [],
@@ -328,7 +328,7 @@
 [
   {
     "builder": "jvm-jersey-builder-25",
-    "examples": "https://github.com/fission/environments/tree/master/jvm-jersey/examples",
+    "examples": "https://github.com/fission/examples/tree/main/java",
     "icon": "./logo/Java-Logo.png",
     "image": "jvm-jersey-env-25",
     "keywords": [],
@@ -359,7 +359,7 @@
 [
   {
     "builder": "binary-builder",
-    "examples": "https://github.com/fission/environments/tree/master/binary/examples",
+    "examples": "https://github.com/fission/examples/tree/main/miscellaneous/binary",
     "icon": "./logo/full_colored_dark.svg",
     "image": "binary-env",
     "keywords": [],
@@ -385,7 +385,7 @@
 ,
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/tensorflow-serving/examples",
+    "examples": "https://github.com/fission/examples/tree/main/miscellaneous/tensorflow-serving",
     "icon": "./logo/Tensorflow_logo.svg",
     "image": "tensorflow-serving-env",
     "keywords": [],
@@ -416,7 +416,7 @@
 [
   {
     "builder": "dotnet20-builder",
-    "examples": "https://github.com/fission/environments/tree/master/dotnet20/examples",
+    "examples": "https://github.com/fission/examples/tree/main/dotnet",
     "icon": "./logo/logo_NETcore.svg",
     "image": "dotnet20-env",
     "keywords": [],
@@ -447,7 +447,7 @@
 [
   {
     "builder": "dotnet8-builder",
-    "examples": "https://github.com/fission/environments/tree/master/dotnet8/examples",
+    "examples": "https://github.com/fission/examples/tree/main/dotnet8",
     "icon": "./logo/logo_NETcore.svg",
     "image": "dotnet8-env",
     "keywords": [],
@@ -470,7 +470,7 @@
 [
   {
     "builder": "ruby-builder",
-    "examples": "https://github.com/fission/environments/tree/master/ruby/examples",
+    "examples": "https://github.com/fission/examples/tree/main/ruby",
     "icon": "./logo/Ruby_logo.svg",
     "image": "ruby-env",
     "keywords": [],

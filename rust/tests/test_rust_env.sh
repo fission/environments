@@ -27,7 +27,7 @@ fn_poolmgr=hello-rust-poolmgr-$TEST_ID
 fn_nd=hello-rust-nd-$TEST_ID
 fn_echo=echo-rust-$TEST_ID
 
-cd $ROOT/rust/examples
+cd $ROOT/rust/tests/fixtures
 
 export RUST_BUILDER_IMAGE=rust-builder
 export RUST_RUNTIME_IMAGE=rust-env

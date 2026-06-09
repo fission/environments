@@ -1,6 +1,6 @@
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/tensorflow-serving/examples",
+    "examples": "https://github.com/fission/examples/tree/main/miscellaneous/tensorflow-serving",
     "icon": "./logo/Tensorflow_logo.svg",
     "image": "tensorflow-serving-env",
     "keywords": [],

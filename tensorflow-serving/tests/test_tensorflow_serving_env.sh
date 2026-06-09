@@ -26,7 +26,7 @@ env=ts-$TEST_ID
 fn_poolmgr=hello-ts-poolmgr-$TEST_ID
 fn_nd=hello-ts-nd-$TEST_ID
 
-cd $ROOT/examples/tensorflow-serving
+cd "$(dirname $0)/fixtures"
 
 log "Creating environment for Tensorflow Serving"
 fission env create --name $env --image $TS_RUNTIME_IMAGE --version 2 --period 5

@@ -1,7 +1,7 @@
 [
   {
     "builder": "rust-builder",
-    "examples": "https://github.com/fission/environments/tree/master/rust/examples",
+    "examples": "https://github.com/fission/examples/tree/main/rust",
     "icon": "./logo/rust-logo.svg",
     "image": "rust-env",
     "keywords": [

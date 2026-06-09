@@ -1,7 +1,7 @@
 [
   {
     "builder": "dotnet20-builder",
-    "examples": "https://github.com/fission/environments/tree/master/dotnet20/examples",
+    "examples": "https://github.com/fission/examples/tree/main/dotnet",
     "icon": "./logo/logo_NETcore.svg",
     "image": "dotnet20-env",
     "keywords": [],

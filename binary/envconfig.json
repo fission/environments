@@ -1,7 +1,7 @@
 [
   {
     "builder": "binary-builder",
-    "examples": "https://github.com/fission/environments/tree/master/binary/examples",
+    "examples": "https://github.com/fission/examples/tree/main/miscellaneous/binary",
     "icon": "./logo/full_colored_dark.svg",
     "image": "binary-env",
     "keywords": [],

@@ -1,6 +1,6 @@
 [
   {
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "examples": "https://github.com/fission/examples/tree/main/nodejs",
     "icon": "./logo/nodejs-new-pantone-black.svg",
     "image": "node-env-debian",
     "keywords": [],
@@ -24,7 +24,7 @@
   },
   {
     "builder": "node-builder-22",
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "examples": "https://github.com/fission/examples/tree/main/nodejs",
     "icon": "./logo/nodejs-new-pantone-black.svg",
     "image": "node-env-22",
     "keywords": [],
@@ -48,7 +48,7 @@
   },
   {
     "builder": "node-builder",
-    "examples": "https://github.com/fission/environments/tree/master/nodejs/examples",
+    "examples": "https://github.com/fission/examples/tree/main/nodejs",
     "icon": "./logo/nodejs-new-pantone-black.svg",
     "image": "node-env",
     "keywords": [],

@@ -1,7 +1,7 @@
 [
   {
     "builder": "jvm-builder",
-    "examples": "https://github.com/fission/environments/tree/master/jvm/examples",
+    "examples": "https://github.com/fission/examples/tree/main/java",
     "icon": "./logo/Java-Logo.png",
     "image": "jvm-env",
     "keywords": [],

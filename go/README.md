@@ -4,7 +4,7 @@ This is the Go environment for Fission.
 
 It's a Docker image containing a Go runtime, along with a dynamic loader.
 
-Looking for ready-to-run examples? See the [Go examples directory](../../examples/go).
+Looking for ready-to-run examples? See the [Go examples directory](https://github.com/fission/examples/tree/main/go).
 
 ## Build this image
 

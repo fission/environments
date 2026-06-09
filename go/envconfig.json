@@ -1,7 +1,7 @@
 [
   {
     "builder": "go-builder",
-    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "examples": "https://github.com/fission/examples/tree/main/go",
     "icon": "./logo/go-logo-blue.svg",
     "image": "go-env",
     "kind": "environment",
@@ -24,7 +24,7 @@
   },
   {
     "builder": "go-builder-1.26",
-    "examples": "https://github.com/fission/environments/tree/master/go/examples",
+    "examples": "https://github.com/fission/examples/tree/main/go",
     "icon": "./logo/go-logo-blue.svg",
     "image": "go-env-1.26",
     "kind": "environment",

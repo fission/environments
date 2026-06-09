@@ -25,7 +25,7 @@ else
     log "TEST_NOCLEANUP is set; not cleaning up test artifacts afterwards."
 fi
 
-cd jvm/examples/java
+cd jvm/tests/fixtures/java
 
 log "Creating the jar from application"
 #Using Docker to build Jar so that maven & other Java dependencies are not needed on CI server
@@ -33,7 +33,7 @@ log "Creating the jar from application"
 #first because it is not resolvable from any remote repository.
 docker run --rm \
     -v "$(pwd)":/usr/src/mymaven \
-    -v "$(pwd)/../../install-fission-java-core.sh":/usr/local/bin/install-fission-java-core \
+    -v "$(pwd)/../../../install-fission-java-core.sh":/usr/local/bin/install-fission-java-core \
     -w /usr/src/mymaven \
     maven:3.9.16-eclipse-temurin-25-alpine \
     sh -c "install-fission-java-core && mvn clean package -q"

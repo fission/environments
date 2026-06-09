@@ -1,7 +1,7 @@
 [
   {
     "builder": "php-builder",
-    "examples": "https://github.com/fission/environments/tree/master/perl/examples",
+    "examples": "https://github.com/fission/examples/tree/main/php7",
     "icon": "./logo/new-php-logo.svg",
     "image": "php-env",
     "keywords": [],

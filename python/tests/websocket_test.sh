@@ -39,7 +39,7 @@ echo "--Healthz"
 curl -f -X GET http://localhost:$RUNTIME_PORT/healthz
 
 echo "-- Specializing"
-curl -f -XPOST http://localhost:$RUNTIME_PORT/v2/specialize -H 'Content-Type: application/json' -d '{"filepath": "./examples/websocket/main.py", "functionName": "main"}'
+curl -f -XPOST http://localhost:$RUNTIME_PORT/v2/specialize -H 'Content-Type: application/json' -d '{"filepath": "./tests/fixtures/websocket/main.py", "functionName": "main"}'
 
 echo "-- Websocket ready to connect ws://localhost:$RUNTIME_PORT/."
 read -p "Press enter to continue"

@@ -1,0 +1,61 @@
+[
+  {
+    "examples": "https://github.com/fission/environments/tree/master/bunjs/examples",
+    "icon": "./logo/bunjs-new-pantone-black.svg",
+    "image": "bun-env-debian",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/danhtran94",
+        "name": "danhtran94"
+      }
+    ],
+    "name": "Bunjs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/bunjs",
+    "runtimeVersion": "20.16.0-debian",
+    "shortDescription": "Fission Bunjs environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.32.4"
+  },
+  {
+    "builder": "bun-builder-1140",
+    "examples": "https://github.com/fission/environments/tree/master/bunjs/examples",
+    "icon": "./logo/bunjs-new-pantone-black.svg",
+    "image": "bun-env-1140",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/danhtran94",
+        "name": "danhtran94"
+      }
+    ],
+    "name": "Bunjs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/bunjs",
+    "runtimeVersion": "22.6.0",
+    "shortDescription": "Fission Bunjs environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.32.4"
+  },
+  {
+    "builder": "bun-builder",
+    "examples": "https://github.com/fission/environments/tree/master/bunjs/examples",
+    "icon": "./logo/bunjs-new-pantone-black.svg",
+    "image": "bun-env",
+    "keywords": [],
+    "kind": "environment",
+    "maintainers": [
+      {
+        "link": "https://github.com/danhtran94",
+        "name": "danhtran94"
+      }
+    ],
+    "name": "Bunjs Environment",
+    "readme": "https://github.com/fission/environments/tree/master/bunjs",
+    "runtimeVersion": "20.16.0",
+    "shortDescription": "Fission Bunjs environment based on Express with some basic dependencies added",
+    "status": "Stable",
+    "version": "1.32.4"
+  }
+]

@@ -9,7 +9,7 @@ gevent==26.5.0
 gevent-ws==2.1.0
 greenlet==3.5.1
 hiredis==3.4.0
-httplib2==0.31.2
+httplib2==0.32.0
 idna==3.18
 importlib-metadata==9.0.0
 itsdangerous==2.2.0

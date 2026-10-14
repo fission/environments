@@ -22,7 +22,7 @@ requests==2.34.2
 sentry-sdk==2.61.1
 six==1.17.0
 urllib3==2.7.0
-Werkzeug==3.1.8
+Werkzeug==3.1.9
 zipp==4.1.0
 zope.event==6.2
 zope.interface==8.5

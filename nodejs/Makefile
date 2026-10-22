@@ -3,11 +3,11 @@
 .PHONY: all
 all: node-builder node-env-img node-env-debian-img node-env-22-img
 
-node-env-img-buildargs := --build-arg NODE_BASE_IMG=22.22.3-alpine3.23
+node-env-img-buildargs := --build-arg NODE_BASE_IMG=22.23.4-alpine3.23
 
-node-env-debian-img-buildargs := --build-arg NODE_BASE_IMG=22.22.3
+node-env-debian-img-buildargs := --build-arg NODE_BASE_IMG=22.23.4
 
-node-env-22-img-buildargs := --build-arg NODE_BASE_IMG=22.22.3-alpine3.23
+node-env-22-img-buildargs := --build-arg NODE_BASE_IMG=22.23.4-alpine3.23
 
 node-env-img: Dockerfile
 
